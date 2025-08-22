@@ -5,6 +5,7 @@ const LandingPage = () => {
   return (
       <div className='min-h-screen'>
         <Header />
+        {/* <Hero /> */}
       </div>
   )
 }
