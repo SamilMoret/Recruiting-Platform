@@ -17,6 +17,7 @@ import JobPostingForm from "./pages/Employer/JobPostingForm";
 import ManageJobs from "./pages/Employer/ManageJobs";
 import ApplicationViewer from "./pages/Employer/ApplicationViewer";
 import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
+import ProtectedRoute from "./routes/ProtectedRoute"; // Adjust the path as needed
 
 
 
@@ -29,7 +30,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<SignUp />} />
-          <Route path="/contact" element={<Login  />} />
+          <Route path="/login" element={<Login  />} />
 
           <Route path="/find-jobs" element={<JobSeekerDashboard />} />
           <Route path="/job/:id" element={<JobDetails />} />
