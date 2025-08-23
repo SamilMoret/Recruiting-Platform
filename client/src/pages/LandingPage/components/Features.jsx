@@ -4,11 +4,11 @@ import { employerFeatures, jobSeekerFeatures } from '../../../utils/data'
 const Features = () => {
   return (
     <section className="py-20 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
+      < div className="container mx-auto px-4 relative z-10">
         <div className=" text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Everything You Need to
-              <span className='block bg-gradient-to-b from-orange-600 to-purple-600 bg-clip-text text-transparent'>
+              <span className='block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
                 Succeed
               </span>
           </h2>
@@ -18,9 +18,7 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="text-xl text-gray-600 max-w-3xl mx-auto "></div>
-        {/* Job Seekers and Employer Sections */}
-        <div>
+        <div className="grid md:grid-cols-2 gap-16">
           {/* Job Seekers Section */}
           <div>
             <div className="text-center mb-12">
@@ -44,6 +42,7 @@ const Features = () => {
               ))}
             </div>
           </div>
+
           {/* Employer Section */}
           <div>
             <div className="text-center mb-12">
