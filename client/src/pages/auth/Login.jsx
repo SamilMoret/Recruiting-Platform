@@ -51,7 +51,7 @@ const Login = () => {
           <p className="text-gray-600">Please enter your credentials to continue </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="spacd-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -60,11 +60,13 @@ const Login = () => {
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-               type="text"
+               type="email"
                name='email'
                value={formData.email}
                onChange={handleInputChanges}
-               className={`w-full pl-10 pr-4 py-3 rounded-lg border ${formState.errors.email ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-color`}
+               className={`w-full pl-10 py-3 rounded-lg border ${formState.errors.email 
+                ? 'border-red-500' : 'border-gray-300'}
+                focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
                placeholder='Enter your email'
                />
             </div>
@@ -87,7 +89,7 @@ const Login = () => {
                onChange={handleInputChanges}
                className={`w-full pl-10 pr-4 py-3 rounded-lg border
                ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
-                focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-color`}
+                focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
                placeholder='Enter your password'
                />
                <button
@@ -109,6 +111,42 @@ const Login = () => {
               </p>
             )}
             
+            </div>
+            <div>
+            {/* Submit Error */}
+            {formState.errors.submit && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-red-700 text-sm flex items-center">
+                  <AlertCircle className="w-4 h-4 mr-2" />
+                  {formState.errors.submit}
+                </p>
+              </div>
+            )}
+            {/* Submit Button */}
+            <button
+              type='submit'
+              disabled={formState.loading}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+            >
+              {formState.loading ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin" />
+                  <span> Signing In...</span>
+                </>
+              ) : (
+                <span>Sign In</span>
+              )}
+            </button>
+
+            {/* Sign Up link */}
+            <div className="text-center">
+              <p className="text-gray-600">
+                Don't have an account?{' '}
+                <a href="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
+                   Create one here 
+                </a>
+              </p>
+            </div>
           </div>
         </form>
 
