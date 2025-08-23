@@ -9,9 +9,9 @@ const Hero = () => {
     const navigate = useNavigate();
 
     const stats = [
-        { icon: Users, label: "Active Users", value :'2.4M+'},
-        { icon: Building2, label: "Companies", value :'10K+'},
-        { icon: TrendingUp, label: "Jobs Posted", value :'50K+'},
+        { icon: Users, label: "Usuarios Ativos", value :'2.4M+'},
+        { icon: Building2, label: "Empresas", value :'10K+'},
+        { icon: TrendingUp, label: "Vagas Publicadas", value :'50K+'},
 
     ];
 
