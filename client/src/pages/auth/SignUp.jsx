@@ -14,6 +14,8 @@ import {
   Loader,
   ShoppingBag,
 } from 'lucide-react';
+import { validateEmail, validateAvatar, validatePassword } from '../../utils/helper';
+
 
 const SignUp = () => {
 
@@ -51,13 +53,97 @@ const SignUp = () => {
     }
   };
 
-    const handleRoleChange = (role) => {};
+    const handleRoleChange = (role) => {
 
-    const handleAvatarChange = (e) => {};
+        setFormData(prev => ({ ...prev, role }));
+        if(formState.errors.role){
+          setFormState(prev => ({
+            ...prev,
+                errors: {
+              ...prev.errors,
+              role: ''
+            }
+          }));
+        }
 
-  const validateForm = () => {};
+    };
 
-    const handleSubmit = async (e) => {};
+    const handleAvatarChange = (e) => {
+
+      const file = e.target.files[0];
+      if (file) {
+        const error = validateAvatar(file);
+        if (error) {
+          setFormState(prev => ({
+            ...prev,
+            errors: {
+              ...prev.errors,
+              avatar: error
+            }
+          }));
+          return;
+        }
+        setFormData(prev => ({ ...prev, avatar: file }));
+
+       // Generate preview
+       const reader = new FileReader();
+       reader.onloadend = () => {
+         setFormState(prev => ({
+           ...prev,
+           avatarPreview: reader.result,
+           errors: {
+             ...prev.errors,
+             avatar: ''
+           }
+         }));
+       };
+       reader.readAsDataURL(file);
+      }
+    };
+
+  const validateForm = () => {
+
+      const error = {
+        fullName: !formData.fullName ? "Enter full name" : "",
+        email: validateEmail(formData.email),
+        password: validatePassword(formData.password),
+        role: !formData.role ? "Select a role" : "",
+        avatar: "",
+      };
+      //remove empty errors
+      Object.keys(error).forEach(key => {
+        if (!error[key]) delete error[key];
+      });
+
+      setFormState(prev => ({
+        ...prev,
+        errors: error,
+      }));
+      return Object.keys(error).length === 0;
+  };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!validateForm()) return;
+
+      setFormState(prev => ({ ...prev, loading: true }));
+
+      try {
+
+      }catch(error){
+
+        console.error("Error ", error);
+
+        setFormState(prev => ({
+          ...prev,
+          loading: false,
+          errors: {
+            submit:
+            error.response?.data?.message ||
+            "Failed to create account"
+          }
+        }));
+      }}
 
     if(formState.success){
         return (
@@ -216,7 +302,7 @@ const SignUp = () => {
                     <Upload className='h-4 w-4 mr-2'/>
                     <span>Upload Photo</span> 
                     </label>
-                    <p className=''>JPG, PGN up to 5MB</p>
+                    <p className="text-xs text-gray-500 mt-1">JPG, PGN up to 5MB</p>
               </div>
             </div>
             {formState.errors.avatar && (
@@ -229,22 +315,22 @@ const SignUp = () => {
 
           {/* Role Selection */}
           <div>
-            <label className=''>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
               I am a *
             </label>
-            <div className=''>
+            <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
                 onClick={() => handleRoleChange('jobseeker')}
-                className={`${
+                className={`p-4 rounded-lg border-2 transition-all ${
                   formData.role === 'jobseeker' 
                   ? 'border-blue-500  bg-blue-50 text-blue-700' 
                   : 'border-gray-200 hover:border-gray-300'
                 }`}
                 >
-                  <UserCheck className='h-5 w-5'/>
-                  <div className=''>Job Seeker</div>
-                  <div className=''>
+                  <UserCheck className="w-8 h-8 mx-auto mb-2"/>
+                  <div className="font-medium">Job Seeker</div>
+                  <div className="text-xs text-gray-500">
                     Looking for opportunities
                   </div>
                 </button>  
@@ -257,17 +343,17 @@ const SignUp = () => {
                   : 'border-gray-200 hover:border-gray-300'
                 }`}
                 >
-                  <Building2 className=''/>
-                  <div className=''>
+                  <Building2 className="w-8 h-8 mx-auto mb-2"/>
+                  <div className="font-medium">
                     Employer
                   </div>
-                  <div className=''>
+                  <div className="text-xs text-gray-500">
                     Hiring
                   </div>
                 </button>
             </div>
             {formState.errors.role && (
-              <p className="text-sm text-red-500 mt-1 flex items-center">
+              <p className="text-sm text-red-500 mt-2 flex items-center">
                 <AlertCircle  className="w-4 h-4 mr-1"/>
                 {formState.errors.role}
                 </p>
@@ -275,10 +361,12 @@ const SignUp = () => {
           </div>
           {/* Submit Error */}
           {formState.errors.submit && (
-            <p className="text-sm text-red-500 mt-1 flex items-center">
-              <AlertCircle  className="w-4 h-4 mr-1"/>
-              {formState.errors.submit}
-            </p>
+            <div className="bg-red-50 border border-red-200 text-red-500 p-4">
+              <p className="text-sm text-red-500 mt-1 flex items-center">
+                <AlertCircle  className="w-4 h-4 mr-2"/>
+                {formState.errors.submit}
+              </p>
+            </div>
           )}
 
           {/* Submit Button */}
@@ -298,11 +386,12 @@ const SignUp = () => {
           </button>
           
           {/* Login Link */}
-          <div className=''>
-            <p className=''>
+          <div className="text-center">
+            <p className="text-gray-600">
               Already have an account? {""}
               <a 
                href="/login"
+               className="text-blue-600 hover:underline font-medium"
                >
                 Sign in here
                </a>
