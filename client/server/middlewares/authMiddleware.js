@@ -7,15 +7,9 @@ const protect = async (req, res, next) => {
     let token = req.headers.authorization;
 
     if (token && token.startsWith("Bearer")) {
-      // Get token from header
-      token = token.split(" ")[1];
-
-      // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Get user from the token
-      req.user = await User.findById(decoded.id).select("-password");
-
+      token = token.split(" ")[1]; // Get token from header
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
+      req.user = await User.findById(decoded.id).select("-password"); // Get user from the token
       next();
     } else {
       res.status(401).json({ message: "Not authorized, no token" });

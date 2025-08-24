@@ -1,0 +1,15 @@
+{
+    "name": "test",
+    "email": "test@example.com",
+    "password": "Test123$",
+    "avatar": "",
+    "role": "employer"
+}
+
+
+{
+    "email": "test@example.com",
+    "password": "Test123$",
+}
+
+
