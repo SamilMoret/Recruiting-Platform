@@ -4,7 +4,7 @@
     "password": "Test123$",
     "avatar": "",
     "role": "employer"
-}
+},
 
 
 {
@@ -12,4 +12,11 @@
     "password": "Test123$",
 }
 
+{
+    "name": "jhon",
+    "avatar": "http://localhost:8000/uploads/1756075667738-132994628_p0.png",
+    "companyName": "",
+    "companyDescription": "",
+    "companyLogo": ""
+}
 

@@ -5,6 +5,7 @@ const path = require("path");
 const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
@@ -20,14 +21,12 @@ app.use(
   })
 );
 
-// conect Database
-connectDB();
-
 //midleware
 app.use(express.json());
 
 //routes
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 
 //serve uploader folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {}));
