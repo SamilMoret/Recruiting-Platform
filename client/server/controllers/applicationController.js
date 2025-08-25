@@ -32,7 +32,7 @@ exports.applyToJob = async (req, res) => {
   }
 };
 
-// @desc Get all applicants for a job(employer)
+// @desc Get my applications
 exports.getMyApplications = async (req, res) => {
   try {
     const apps = await Application.find({ applicant: req.user._id }).populate(
@@ -44,22 +44,52 @@ exports.getMyApplications = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-// @desc get logged-in user's applications
+// @desc  get all applicants for a job(employer)
 exports.getApplicantsForJob = async (req, res) => {
   try {
-    const apps = await Application.find({ applicant: req.user._id })
-      .populate("job", "title company location type")
-      .sort({ createdAt: -1 });
-    res.json(apps);
+    const job = await Job.findById(req.params.jobId);
+
+    if (!job || job.company.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    const applications = await Application.find({ job: req.params.jobId })
+      .populate("job", "title location category type")
+      .populate("applicant", "name email avatar resume");
+    res.json(applications);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
+// @desc get logged-in user's applications
+// Duplicate removed. Use getMyApplications for logged-in user's applications.
+
 // @desc   get applicantion by id (jobseeker of Employer)
 exports.getApplicationById = async (req, res) => {
   try {
+    const app = await Application.findById(req.params.id)
+      .populate("job", "title")
+      .populate("applicant", "name email avatar resume");
+    if (!app) {
+      return res
+        .status(404)
+        .json({ message: "Application not found", id: req.params.id });
+    }
+    const isOwner =
+      (app.applicant &&
+        app.applicant._id &&
+        app.applicant._id.toString() === req.user._id.toString()) ||
+      (app.job &&
+        app.job.company &&
+        app.job.company.toString() === req.user._id.toString());
+
+    if (!isOwner) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to view this application" });
+    }
+    res.json(app);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
