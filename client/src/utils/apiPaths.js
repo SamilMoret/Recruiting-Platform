@@ -30,4 +30,5 @@ export const API_PATHS = {
     GET_ALL_APPLICATIONS: (id) => `/api/applications/job/${id}`, //get all applications for a job
     UPDATE_STATUS: (id) => `/api/applications/${id}/status`, //update application status
   },
+  UPLOAD_IMAGE: `/api/auth/upload-image`,
 };
