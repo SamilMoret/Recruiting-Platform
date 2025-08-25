@@ -42,20 +42,18 @@ exports.getJobs = async (req, res) => {
     delete query.$and;
   }
 
-  const jobs = await Job.find(query).populate("company", "name");
-  res.status(200).json(jobs);
   try {
-    const jobs = await Job.find({}).populate(
+    const jobs = await Job.find(query).populate(
       "company",
       "name companyName companyLogo"
     );
 
-    let SavedJobIds = [];
+    let savedJobIds = [];
     let appliedJobStatusMap = {};
 
     if (userId) {
       const savedJobs = await SavedJob.find({ user: userId }).select("job");
-      SavedJobIds = savedJobs.map((s) => String(s.job));
+      savedJobIds = savedJobs.map((s) => String(s.job));
 
       const applications = await Application.find({ applicant: userId }).select(
         "job status"
@@ -157,8 +155,7 @@ exports.updateJob = async (req, res) => {
     }
 
     Object.assign(job, req.body);
-    const updatedJob = await job.save();
-
+    const updated = await job.save();
     res.json(updated);
   } catch (error) {
     res.status(500).json({ message: error.message });
