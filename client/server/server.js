@@ -32,7 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applications);
-// app.use("/api/saved-jobs", savedJobsRoutes);
+app.use("/api/saved-jobs", savedJobsRoutes);
 
 //serve uploader folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {}));
