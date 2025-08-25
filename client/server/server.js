@@ -9,6 +9,7 @@ const userRoutes = require("./routes/userRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const applications = require("./routes/applicationRoutes");
 const savedJobsRoutes = require("./routes/savedJobsRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applications);
 app.use("/api/saved-jobs", savedJobsRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 //serve uploader folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {}));
