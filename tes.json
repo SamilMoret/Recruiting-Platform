@@ -20,3 +20,13 @@
     "companyLogo": ""
 }
 
+{
+    "title": "Frontend Developer",
+    "description": "We are looking for a skilled Frontend Developer to join our team.",
+    "requirements": "2 Years of experience"
+    "location": "Remote",
+    "category": "Software Development",
+    "type": "Full-time",
+    "salaryMin": 60000,
+    "salaryMax": 120000,
+}
