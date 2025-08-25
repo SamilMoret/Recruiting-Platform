@@ -186,6 +186,20 @@ exports.deleteJob = async (req, res) => {
 // @desc  Toggle close status for a job (employer only)
 exports.toggleCloseJob = async (req, res) => {
   try {
+    const job = await Job.findById(req.params.id);
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    if (job.company.toString() !== req.user._id.toString()) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to close this job" });
+    }
+
+    job.isClosed = !job.isClosed;
+    await job.save();
+    res.json({ message: `Job is now ${job.isClosed ? "closed" : "open"}` });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
