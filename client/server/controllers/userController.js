@@ -4,20 +4,22 @@ const User = require("../models/User");
 
 // @desc Update user profile(name, avatar, company, details)
 exports.updateProfile = async (req, res) => {
+  const {
+    name,
+    email,
+    avatar,
+    resume,
+    companyName,
+    companyDescription,
+    companyLogo,
+  } = req.body;
+
   try {
-    const {
-      name,
-      email,
-      avatar,
-      resume,
-      companyName,
-      companyDescription,
-      companyLogo,
-    } = req.body;
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     user.name = name || user.name;
     user.avatar = avatar || user.avatar;
     user.resume = resume || user.resume;
@@ -28,24 +30,20 @@ exports.updateProfile = async (req, res) => {
       user.companyDescription = companyDescription || user.companyDescription;
       user.companyLogo = companyLogo || user.companyLogo;
     }
-
     await user.save();
 
-    res.status(200).json({
-      message: "Profile updated successfully",
-      user: {
-        _id: user._id,
-        name: user.name,
-        avatar: user.avatar,
-        role: user.role,
-        companyName: user.companyName,
-        companyDescription: user.companyDescription,
-        companyLogo: user.companyLogo,
-        resume: user.resume || "",
-      },
+    res.json({
+      _id: user._id,
+      name: user.name,
+      avatar: user.avatar,
+      role: user.role,
+      companyName: user.companyName,
+      companyDescription: user.companyDescription,
+      companyLogo: user.companyLogo,
+      resume: user.resume || "",
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "problem is here" });
   }
 };
 

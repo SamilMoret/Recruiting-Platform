@@ -9,10 +9,10 @@ const { protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 //protected routes
-router.route("/profile").put(updateProfile);
-router.route("/resume").delete(deleteResume);
+router.put("/profile", protect, updateProfile);
+router.post("/resume", protect, deleteResume);
 
 //public route
-router.route("/:id").get(getPublicProfile);
+router.get("/:id", getPublicProfile);
 
 module.exports = router;
