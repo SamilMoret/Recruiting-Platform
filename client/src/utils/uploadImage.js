@@ -7,11 +7,11 @@ export const uploadImage = async (imageFile) => {
 
   try {
     const response = await axiosInstance.post(
-      API_PATHS.IMAGE.UPLOAD_IMAGE,
+      API_PATHS.UPLOAD_IMAGE,
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data", //Set header for fle upload
+          "Content-Type": "multipart/form-data", //Set header for file upload
         },
       }
     );
