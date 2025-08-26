@@ -10,6 +10,8 @@ import {
 import { Link, useNavigate   } from 'react-router-dom'
 import {useAuth} from '../../context/AuthContext';
 import { NAVIGATION_MENU, } from '../../utils/data';
+import { Children } from 'react'
+import ProfileDropdown from './ProfileDropDown';
 
 const NavigationItem = ({
     item,
@@ -34,8 +36,9 @@ const NavigationItem = ({
         </button>
 }
 
-const DashBoardLayout = ({activeMenu}) => {
+const DashBoardLayout = ({activeMenu, children}) => {
     const { user, logout } = useAuth();
+    // console.log("User object:", user); // <-- Add this line
     const navigate = useNavigate();
 
     const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -139,6 +142,54 @@ const DashBoardLayout = ({activeMenu}) => {
             {!sidebarCollapsed && <span className=''>Logout</span>}
         </button>
     </div>
+    </div>
+    {/* Mobile overlay */}
+    <div className={`flex-1 flex flex-col transition transition-all duration-300 ${
+        isMobile ? "ml-0": sidebarCollapsed ? "ml-16" : "ml-64"
+    }`}
+    >
+    {/* Top Navbar */}
+    <header className='bg-white/80 backdrop:blur-sm border-b border-gray-200 h-16 flex items-center justify-between px-6 sticky top-0 z-30'>
+        <div className='flex items-center space-x-4'>
+            {isMobile && (
+                <button
+                    onClick={toggleSideBar}
+                    className='p-2 rounded-xl hover:bg-gray-100 transition-colors duration-200'
+                >
+                    {sideBarOpen ? (
+                        <X className='h-5 w=5 text-gray-600'/> 
+                    ): (
+                    <Menu className='h-5 w-5 text-gray-600'/>
+                    )}
+                    </button>
+                    )}
+                    <div>
+                        <h1 className='text-base font-semibold text-shadow-gray-900'>
+                            Welcome Back
+                        </h1>
+                        <p className='text-sm text-gray-500 hidden sm:block'>
+                            Here's what's happening with your jobs today
+                        </p>
+                    </div>
+        </div>
+        <div className='flex items-center space-x-3'>
+                {/* Profile dropdown */}
+                <ProfileDropdown
+                    isOpen={profileDropdownOpen}
+                    onToggle={(e) => {
+                        e.stopPropagation()
+                        setProfileDropdownOpen(!profileDropdownOpen);
+                    }}
+                    avatar={user?.avatar || ""}
+                    companyName={user?.companyName || ""}
+                    email={user?.email || ""}
+                    onLogout={logout}
+                />
+        </div>
+    </header>
+
+    {/* main content area */}
+    <main className='flex-1 overflow-y-auto p-6'>{children}</main>
     </div>
     </div>
 }
