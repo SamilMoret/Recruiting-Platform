@@ -18,12 +18,13 @@ import ManageJobs from "./pages/Employer/ManageJobs";
 import ApplicationViewer from "./pages/Employer/ApplicationViewer";
 import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
 import ProtectedRoute from "./routes/ProtectedRoute"; // Adjust the path as needed
+import { AuthProvider } from "./context/AuthContext";
 
 
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
 
       <Router>
         <Routes>
@@ -59,7 +60,7 @@ function App() {
         }}
       </Toaster>
 
-    </div>
+    </AuthProvider>
   )
 }
 
