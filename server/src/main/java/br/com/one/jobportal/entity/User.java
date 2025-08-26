@@ -13,6 +13,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 public class User {
+
+    public enum Role {
+        CANDIDATE, RECRUITER, ADMIN
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,8 +35,13 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role = "USER";
+    private Role role = Role.CANDIDATE;
+
+    private String company; // Apenas para recrutadores
+    private String phone;
+    private String resume; // Path para currículo (apenas candidatos)
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -40,4 +50,6 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    private boolean active = true;
 }

@@ -1,17 +1,29 @@
 package br.com.one.jobportal.entity;
 
+
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "jobs")
 public class Job {
+
+    public enum EmploymentType {
+        FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP
+    }
+
+    public enum ExperienceLevel {
+        ENTRY, JUNIOR, MID, SENIOR, LEAD
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,15 +44,21 @@ public class Job {
     @Column(nullable = false)
     private String location;
 
-    @NotBlank
+    @Enumerated(EnumType.STRING)
     @Column(name = "employment_type", nullable = false)
-    private String employmentType;
+    private EmploymentType employmentType;
 
-    @Column(name = "salary_range")
-    private String salaryRange;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "experience_level", nullable = false)
+    private ExperienceLevel experienceLevel;
 
-    @Column(name = "created_by")
-    private Long createdBy;
+    private BigDecimal salaryMin;
+    private BigDecimal salaryMax;
+    private String salaryCurrency = "BRL";
+
+    @ManyToOne
+    @JoinColumn(name = "recruiter_id", nullable = false)
+    private User recruiter;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -49,4 +67,7 @@ public class Job {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    private boolean active = true;
+    private LocalDateTime closedAt;
 }
