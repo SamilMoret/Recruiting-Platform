@@ -5,7 +5,7 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import DashBoardLayout from '../../components/layout/DashBoardLayout';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { Briefcase, CheckCircle2, TrendingUp, Users } from 'lucide-react';
+import { Briefcase, CheckCircle2, TrendingUp, Users, Plus, Building2 } from 'lucide-react';
 import JobDashBoardCard from '../../components/Cards/JobDashBoardCard';
 import ApplicantDashboardCard from '../../components/Cards/ApplicantDashboardCard';
 
@@ -177,6 +177,48 @@ const EmployerDashboard = () => {
                 </div>
               </Card>
           </div>
+
+          {/* Quick Actions */}
+          <Card
+            title="Quick Actions"
+            subtitle="Common tasks to get you started"
+          >
+            <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+              {[
+                {
+                  title: "Post a New Job",
+                  icon: Plus,
+                  color: "bg-blue-50 text-blue-700",
+                 path: "/post-job"
+                },
+                {
+                  title: "Review Applications",
+                  icon: Users,
+                  color: "bg-green-50 text-green-700",
+                  path: "/manage-jobs"
+                },
+                {
+                  title: "Company Settings",
+                  icon: Building2,
+                  color: "bg-purple-50 text-purple-700",
+                  path: "/company-profile"
+                },
+              ].map((action, index) => (
+                    <button
+                        key={index}
+                        className="flex items-center space-x-3 p-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all duration-200 text-left"
+                        onClick={() => navigate(action.path)}
+                      >
+                        <div className={`p-2 rounded-lg ${action.color}`}>
+                          <action.icon className="h-5" />
+                        </div>
+                        <span className="font-medium text-gray-900">
+                          {action.title}
+                        </span>
+                      </button>
+                  ))}
+            </div>
+          </Card>
         </div>
       )}
     </DashBoardLayout>
