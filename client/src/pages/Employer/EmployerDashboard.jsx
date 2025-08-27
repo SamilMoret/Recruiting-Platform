@@ -1,16 +1,30 @@
 import React, { Children, useEffect, useState } from 'react'
-// import moment from " moment"//
+import moment from "moment";
 import{useNavigate} from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import DashBoardLayout from '../../components/layout/DashBoardLayout';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { Briefcase, TrendingUp } from 'lucide-react';
+import { Briefcase, CheckCircle2, TrendingUp, Users } from 'lucide-react';
+import JobDashBoardCard from '../../components/Cards/JobDashBoardCard';
+import ApplicantDashboardCard from '../../components/Cards/ApplicantDashboardCard';
 
-const Card = ({className, children}) =>{
-  return <div
-    className={`bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}
-  >
+const Card = ({className, children, title, subtitle, headerAction}) =>{
+  return <div 
+      className={`bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}>
+      {(title || headerAction) && (
+        <div className="flex items-center justify-between p-6 pb-4">
+          <div>
+            {title && (
+              <h3 className='text-lg font-semibold text-gray-900'>{title}</h3>
+            )}
+            {subtitle && (
+              <p className='text-sm text-gray-500 mt-1'>{subtitle}</p>
+            )}
+          </div>
+          {headerAction}
+      </div>
+      )}
     <div className={ "p-6"}>{children}</div>
   </div>
 };
@@ -67,6 +81,7 @@ const EmployerDashboard = () => {
       const response = await axiosInstance.get(API_PATHS.DASHBOARD.OVERVIEW);
       if (response.status === 200) {
         setDashboardData(response.data);
+        // console.log("total applicants :", response.data?.counts?.totalApplications);
       }
     } catch (error) {
       console.error("Error fetching dashboard overview:", error);
@@ -81,8 +96,8 @@ const EmployerDashboard = () => {
 
   return (
     <DashBoardLayout activeMenu="employer">
-      {isLoading ? <LoadingSpinner /> :
-        <div className='max-w-7xl mx-auto space-y-8'>
+      {isLoading ? <LoadingSpinner /> : (
+        <div className='max-w-7xl mx-auto space-y-8 mb-96'>
           {/* Dashboard Stats */}
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
             <StatCard
@@ -90,12 +105,80 @@ const EmployerDashboard = () => {
               value={dashboardData?.counts?.totalActiveJobs || 0}
               icon={Briefcase}
               trend={true}
-              trendValue={`${dashboardData?.counts?.trends?.activeJobs|| 0}`}
+              trendValue={`${dashboardData?.counts?.trends?.activeJobs|| 0}%`}
               color="blue"
             />
+
+            <StatCard
+              title="Total Applicants"
+              value={dashboardData?.counts?.totalApplications || 0}
+              icon={Users}
+              trend={true}
+              trendValue={`${dashboardData?.counts?.trends?.applications || 0}%`}
+              color="green"
+            />
+
+            <StatCard
+              title="Hired"
+              value={dashboardData?.counts?.totalHired || 0}
+              icon={CheckCircle2}
+              trend={true}
+              trendValue={`${dashboardData?.counts?.trends?.totalHired || 0}%`}
+              color="purple"
+            />
+
+          </div>
+
+          {/* Recent Activities */}
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+              <Card
+                title="Recent Job Posts" 
+                subtitle="Your lates job posting"
+                headerAction={
+                  <button
+                    className='text-sm text-blue-600 hover:text-blue-700 font-medium' 
+                    onClick={() => navigate('/manage-jobs')}
+                  >
+                    View all
+                  </button>
+                }
+              >
+                <div className='space-y-3'>
+                    {dashboardData?.data?.recentJobs
+                    ?.slice(0.3) 
+                    ?.map((job, index) =>(
+                      <JobDashBoardCard key={index} job ={job} />
+                    ))}
+                  </div> 
+                </Card> 
+              <Card
+                title="Recent Applications"
+                subtitle="Latest candidate applications"
+                headerAction={
+                  <button
+                    className='text-sm text-blue-600 hover:text-blue-700 font-medium'
+                    onClick={() => navigate('/manage-jobs')}
+                  >
+                    View all
+                  </button>
+                }
+              >
+                <div className='space-y-3'>
+                  {dashboardData?.data?.recentApplications
+                  ?.slice(0,3)
+                  ?.map((data, index) => (
+                    <ApplicantDashboardCard 
+                      key={index}
+                      applicant ={data?.applicant || ""}
+                      position={data?.job?.title || ""} 
+                      time={moment(data?.updatedAt).fromNow() || ""}
+                      />
+                  ))}
+                </div>
+              </Card>
           </div>
         </div>
-      }
+      )}
     </DashBoardLayout>
   );
 }
