@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { CATEGORIES, JOB_TYPES } from '../../utils/data';
 import toast from 'react-hot-toast';
 import InputField from '../../components/Input/InputField';
+import SelectField from '../../components/Input/SelectField';
 
 function JobPostingForm() {
 
@@ -37,7 +38,20 @@ function JobPostingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
 
-  const handleInputChange = (field, value) => {};
+  const handleInputChange = (field, value) => {
+    setFormData ((prev) => ({
+      ...prev,
+      [field]:value,
+    }));
+
+    // clear erro when user starts typing
+    if(errors[field]){
+      setErrors((prev)=> ({
+        ...prev,
+        [field]: "",
+      }))
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,8 +105,50 @@ function JobPostingForm() {
                       error={errors.jobTitle}
                       required
                       icon={Briefcase}
-                    >
-                    </InputField>
+                    />
+                      {/* Location & Remote */}
+                      <div className='space-y-4'>
+                        <div className='flex flex-col sm:items-end sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0'>
+                          <div className='flex-1'>
+                            <InputField
+                              label="location"
+                              id="location"
+                              placeholder="e.g., New York, NY"
+                              value={formData.location}
+                              onChange={(e)=>{
+                                handleInputChange("location",e.target.value)
+                              }}
+                              error={errors.location}
+                              icon={MapPin}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      {/*  category & job type */}
+                      <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+                        <SelectField
+                          label="Category"
+                          id="category"
+                          value={formData.category}
+                          onChange={(e) => handleInputChange('category', e.target.value)}
+                          options={CATEGORIES}
+                          placeholder="Select a category"
+                          error={errors.category}
+                          requiredA
+                          icon={Users} 
+                        />
+                        <SelectField
+                          label="Job Type"
+                          id="jobType"
+                          value={formData.jobType}
+                          onChange={(e) => handleInputChange('jobType', e.target.value)}
+                          options={JOB_TYPES}
+                          placeholder="Select job type"
+                          error={errors.jobType}
+                          required
+                          icon={Briefcase}
+                         />
+                      </div>
                   </div>
                 </div>
               </div>
