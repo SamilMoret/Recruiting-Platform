@@ -24,10 +24,10 @@ const Footer = () => {
                     {/* Copyright */}
                     <div className="space-y-2">
                         <p className={`text-sm text-gray-600 `}>
-                            &copy; {new Date().getFullYear()} Time To Program.
+                            &copy; {new Date().getFullYear()} WellsJhones - Samil Moret.
                         </p>
                         <p className={`text-sx text-gray-500 `}>
-                            Made with ❤️.... Happy Coding!
+                            Made with ❤️.... Hackathon One!
                         </p>
                     </div>
                 </div>
