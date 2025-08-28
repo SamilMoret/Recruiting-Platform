@@ -120,10 +120,10 @@ const EmployerDashboard = () => {
 
             <StatCard
               title="Hired"
-              value={dashboardData?.counts?.totalHired || 0}
+              value={dashboardData?.counts?.totalHires || 0}
               icon={CheckCircle2}
               trend={true}
-              trendValue={`${dashboardData?.counts?.trends?.totalHired || 0}%`}
+              trendValue={`${dashboardData?.counts?.trends?.hired || 0}%`}
               color="purple"
             />
 
