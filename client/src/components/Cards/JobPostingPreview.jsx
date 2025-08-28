@@ -120,12 +120,39 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                                         </div>
                                     </div>
                                 </div>
+                    </div>
+
+                    {/* Job Description */}
+                    <div className='space-y-4'>
+                        <h3 className='text-2xl font-bold text-gray-900 flex items-center space-x-3'>
+                          <div className='w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-600'></div>
+                          <span className='text-base md:text-lg'>About this role</span>
+                        </h3>
+                        <div className='bg-gray-50 border border-gray-100 rounded-xl p-6'>
+                            <div className='text-sm text-gray-700 leading-relaxed whitespace-pre-wrap'>
+                                {formData.description}
                             </div>
                         </div>
+                    </div>
+                </div>
+                {/* Requirements */}
+                <div className='space-y-4'>
+                    <h3 className='text-2xl font-bold text-gray-900 flex items-center space-x-3'>
+                        <div className='w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-600 rounded-full'></div>
+                        <span className='text-base md:text-lg'>What We're Looking For</span>
+                    </h3>
+                    <div className='bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-6'>
+                        <div className='text-sm text-gray-700 leading-relaxed whitespace-pre-wrap'>
+                            <div className='text-sm text-gray-700 leading-relaxed whitespace-pre-wrap'>
+                                {formData.requirements}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 }
 
 export default JobPostingPreview
