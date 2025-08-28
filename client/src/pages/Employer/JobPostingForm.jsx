@@ -16,6 +16,7 @@ import { CATEGORIES, JOB_TYPES } from '../../utils/data';
 import toast from 'react-hot-toast';
 import InputField from '../../components/Input/InputField';
 import SelectField from '../../components/Input/SelectField';
+import TextAreaField from '../../components/Input/TextAreaField';
 
 function JobPostingForm() {
 
@@ -149,6 +150,27 @@ function JobPostingForm() {
                           icon={Briefcase}
                          />
                       </div>
+                      {/* Description */}
+                      <TextAreaField
+                        label="Job Description"
+                        id="description"
+                        placeholder="Describe the role and responsibilities..."
+                        value={formData.description}
+                        onChange={(e) => handleInputChange('description', e.target.value)}
+                        error={errors.description}
+                        helperText="include key responsibilities, day-to-day tasks, and team structure."
+                        required
+                      />
+                      {/* Requirements */}
+                      <TextAreaField
+                        label="Requirements"
+                        id="requirements"
+                        placeholder="List the required skills and qualifications..."
+                        value={formData.requirements}
+                        onChange={(e) => handleInputChange('requirements', e.target.value)}
+                        error={errors.requirements}
+                        helperText="Include necessary skills, experience, and educational background."
+                        required />
                   </div>
                 </div>
               </div>
