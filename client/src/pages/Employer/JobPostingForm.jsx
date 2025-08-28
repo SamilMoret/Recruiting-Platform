@@ -77,7 +77,7 @@ function JobPostingForm() {
     };
     try {
       const response =jobId
-      ? await axiosInstance.put(`${API_PATHS.JOBS.UPDATE_JOB}/${jobId}`, jobPayload)
+      ? await axiosInstance.put(API_PATHS.JOBS.UPDATE_JOB(jobId), jobPayload)
       : await axiosInstance.post(API_PATHS.JOBS.POST_JOB, jobPayload);
 
       if (response.status === 200 || response.status === 201) {
@@ -94,7 +94,7 @@ function JobPostingForm() {
           salaryMin: '',
           salaryMax: ''
         });
-        navigate("/employer-jobs");
+        navigate("/employer-dashboard");
         return;
       }
       console.error("Unexpected response:", response);

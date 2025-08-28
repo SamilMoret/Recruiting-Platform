@@ -144,7 +144,7 @@ const DashBoardLayout = ({activeMenu, children}) => {
     </div>
     </div>
     {/* Mobile overlay */}
-    <div className={`flex-1 flex flex-col transition transition-all duration-300 ${
+    <div className={`flex-1 flex flex-col  transition-all duration-300 ${
         isMobile ? "ml-0": sidebarCollapsed ? "ml-16" : "ml-64"
     }`}
     >
