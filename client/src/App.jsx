@@ -51,14 +51,14 @@ function App() {
         </Routes>
       </Router>
 
-      <Toaster>
-        toasterOptions={{
+      <Toaster
+        toastOptions={{
           className: "",
           style: {
             fontSize: "13px",
           },
         }}
-      </Toaster>
+      />
 
     </AuthProvider>
   )

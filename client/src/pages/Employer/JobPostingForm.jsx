@@ -81,9 +81,10 @@ function JobPostingForm() {
       : await axiosInstance.post(API_PATHS.JOBS.POST_JOB, jobPayload);
 
       if (response.status === 200 || response.status === 201) {
-        toast.success(
-          jobId ? "Job updated successfully" : "Job posted successfully"
-        );
+        console.log(jobId ? "Job updated successfully" : "Job posted successfully")
+          toast.success(
+            jobId ? "Job updated successfully" : "Job posted successfully"
+          );
         setFormData({
           jobTitle: '',
           location: '',
