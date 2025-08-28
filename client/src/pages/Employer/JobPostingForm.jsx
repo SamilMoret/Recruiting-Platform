@@ -17,6 +17,7 @@ import toast from 'react-hot-toast';
 import InputField from '../../components/Input/InputField';
 import SelectField from '../../components/Input/SelectField';
 import TextAreaField from '../../components/Input/TextAreaField';
+import JobPostingPreview from '../../components/Cards/JobPostingPreview';
 
 function JobPostingForm() {
 
@@ -56,20 +57,111 @@ function JobPostingForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    const validationErrors = validateForm(formData);
+    if(Object.keys(validationErrors).length > 0){
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const jobPayload = {
+      title: formData.jobTitle,
+      location: formData.location,
+      category: formData.category,
+      type: formData.jobType,
+      description: formData.description,
+      requirements: formData.requirements,
+      salaryMin: formData.salaryMin,
+      salaryMax: formData.salaryMax
+    };
+    try {
+      const response =jobId
+      ? await axiosInstance.put(`${API_PATHS.JOBS.UPDATE_JOB}/${jobId}`, jobPayload)
+      : await axiosInstance.post(API_PATHS.JOBS.POST_JOB, jobPayload);
+
+      if (response.status === 200 || response.status === 201) {
+        toast.success(
+          jobId ? "Job updated successfully" : "Job posted successfully"
+        );
+        setFormData({
+          jobTitle: '',
+          location: '',
+          category: '',
+          jobType: '',
+          description: '',
+          requirements: '',
+          salaryMin: '',
+          salaryMax: ''
+        });
+        navigate("/employer-jobs");
+        return;
+      }
+      console.error("Unexpected response:", response);
+      toast.error("Failed to post the job. Please try again.");
+    } catch (error) {
+      if(error.response?.data?.message){
+        console.error("API Error:", error.response.data.message);
+        toast.error(error.response.data.message);
+      }else{
+        console.error("unexpected error:", error);
+        toast.error("Failed to post/update job. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // form validation helper
   const validateForm = (formData) =>{
     const errors = {};
 
+    if(!formData.jobTitle.trim()){
+      errors.jobTitle = "Job title is required";
+    }
+
+    if(!formData.location.trim()){
+      errors.location = "Location is required";
+    }
+
+    if(!formData.category){
+      errors.category = "Category is required";
+    }
+
+    if(!formData.jobType){
+      errors.jobType = "Job type is required";
+    }
+
+    if(!formData.description.trim()){
+      errors.description = "Job description is required";
+    }
+
+    if(!formData.requirements.trim()){
+      errors.requirements = "Job requirements are required";
+    }
+
+    if(!formData.salaryMin || !formData.salaryMax){
+      errors.salaryRange = "Both minimum and maximum salary are required";
+    }else if(parseInt(formData.salaryMin) >= parseInt(formData.salaryMax)){
+      errors.salaryRange = "Maximum salary must be greater than minimum salary";
+    }
+
     return errors;
   };
 
-    const isFormValid = () =>{
-      const validationErrors = validateForm(formData);
-      return Object.keys(validationErrors).length === 0;
-    };
-    
+  const isFormValid = () =>{
+    const validationErrors = validateForm(formData);
+    return Object.keys(validationErrors).length === 0;
+  };
+
+  if(isPreview){
+  return (
+    <DashBoardLayout activeMenu="post-job">
+      <JobPostingPreview formData={formData} setIsPreview={setIsPreview} />
+    </DashBoardLayout>
+  )
+}
+
   return (
          <DashBoardLayout activeMenu="post-job">
             <div className='min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 py-8 px-4 sm:px-6 lg:px-8'>
@@ -112,7 +204,7 @@ function JobPostingForm() {
                         <div className='flex flex-col sm:items-end sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0'>
                           <div className='flex-1'>
                             <InputField
-                              label="location"
+                              label="Location"
                               id="location"
                               placeholder="e.g., New York, NY"
                               value={formData.location}
@@ -135,7 +227,7 @@ function JobPostingForm() {
                           options={CATEGORIES}
                           placeholder="Select a category"
                           error={errors.category}
-                          requiredA
+                          required
                           icon={Users} 
                         />
                         <SelectField
@@ -170,7 +262,68 @@ function JobPostingForm() {
                         onChange={(e) => handleInputChange('requirements', e.target.value)}
                         error={errors.requirements}
                         helperText="Include necessary skills, experience, and educational background."
-                        required />
+                        required
+                     />
+                     {/* Salary range */}
+                     <div className='space-y-2'>
+                      <label className='block text-sm font-medium text-gray-700'>
+                        Salary Range <span className='text-red-500'>*</span>
+                      </label>
+                      <div className='grid grid-cols-3 gap-3'>
+                        <div className='relative'>
+                          <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10'>
+                            <DollarSign className='h-5 w-5 text-gray-400' />
+                          </div>
+                          <input
+                           type="number" 
+                           placeholder='Min'
+                           value={formData.salaryMin}
+                           onChange={(e) => handleInputChange('salaryMin', e.target.value)
+                          }
+                           className="w-full pl-10 pr-3 py-2.5 border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 focus:border-blue-500 transition-colors duration-200" 
+                          /> 
+                        </div>
+                        <div className='relative'>
+                          <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10'>
+                            <DollarSign className='h-5 w-5 text-gray-400' />
+                          </div>
+                          <input
+                             type="number"
+                             placeholder='Max'
+                             value={formData.salaryMax}
+                             onChange={(e) => handleInputChange('salaryMax', e.target.value)
+                             }
+                             className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 focus:border-blue-500 transition-colors duration-200"
+                          />
+                        </div>
+                      </div>
+                      {errors.salaryRange && (
+                        <div className='flex items-center text-sm text-red-600 space-x-1'>
+                          <AlertCircle className='h-4 w-4' />
+                          <span>{errors.salary}</span>
+                        </div>
+                      )}
+                     </div>
+                      {/* Submit Button */}
+                      <div className='pt-2'>
+                        <button
+                          className='w-full flex items-center justify-center px-4 py-3 border border-transparent text-base rounded-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed outline-none transition-colors duration-200'
+                          onClick={handleSubmit}
+                          disabled={isSubmitting || !isFormValid()}
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <div className='animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2'></div>
+                              Publishing Job...
+                            </>
+                          ) : (
+                            <>
+                              <Send className='h-5 w-5 mr-2'/>
+                              Publish Job
+                            </>
+                          )}
+                        </button>
+                      </div>
                   </div>
                 </div>
               </div>
