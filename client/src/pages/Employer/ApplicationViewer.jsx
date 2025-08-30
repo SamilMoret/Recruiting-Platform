@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import {getInitials} from '../../utils/helper'
 import StatusBadge from '../../components/layout/StatusBadge'
+import ApplicationProfilePreview from '../../components/Cards/ApplicationProfilePreview'
 
 import DashBoardLayout from '../../components/layout/DashBoardLayout'
 
@@ -227,6 +228,18 @@ const ApplicationViewer = () => {
             </div>
           )}
         </div>
+        {/* Profile Modal */}
+        {selectedApplicant && (
+          <ApplicationProfilePreview
+            selectedApplicant={selectedApplicant}
+            setSelectedApplicant={setSelectedApplicant}
+            handleDownloadResume={handleDownloadResume}
+            handleClose={() => {
+              setSelectedApplicant(null);
+              fechApplications();
+            }}
+          />
+        )}
       </div>
     </DashBoardLayout>
   )
