@@ -179,7 +179,7 @@ const ManageJobs = () => {
       }, []);
 
   return (
-    <DashBoardLayout>
+    <DashBoardLayout activeMenu='manage-jobs'>
             <div className='min-h-screen p-4 sm:p-6 lg:p-8'>
               <div className='max-w-7xl mx-auto'>
                 {/* header */}
@@ -404,16 +404,9 @@ const ManageJobs = () => {
                       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                         <div>
                           <p className="text-sm text-gray-700">
-                            Showing {" "}
-                            <span className="font-medium">{startIndex + 1}</span>{" "}
-                            <span className="">
-                              {Math.min(startIndex + itemsPerPage, filteredAndSortedJobs.length)}
-                            </span>{" "}
-                            of{" "}
-                            <span className=" font-medium">
-                              {filteredAndSortedJobs.length}
-                            </span>{" "}
-                            results
+                            Showing <span className="font-medium">{startIndex + 1}</span> to {" "}
+                            <span className="font-medium">{Math.min(startIndex + itemsPerPage, filteredAndSortedJobs.length)}</span> of {" "}
+                            <span className="font-medium">{filteredAndSortedJobs.length}</span> results
                           </p>
                         </div>
                         <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
