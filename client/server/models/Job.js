@@ -17,6 +17,10 @@ const jobSchema = new mongoose.Schema(
     location: {
       type: String,
     },
+    category: {
+      type: String,
+      required: false,
+    },
     type: {
       type: String,
       default: "Full-Time",
