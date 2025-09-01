@@ -8,9 +8,9 @@ const Hero = () => {
     const navigate = useNavigate();
 
     const stats = [
-        { icon: Users, label: "Usuarios Ativos", value :'2.4M+'},
-        { icon: Building2, label: "Empresas", value :'10K+'},
-        { icon: TrendingUp, label: "Vagas Publicadas", value :'50K+'},
+        { icon: Users, label: "Active Users", value :'2.4M+'},
+        { icon: Building2, label: "Companies", value :'10K+'},
+        { icon: TrendingUp, label: "Jobs Posted", value :'50K+'},
 
     ];
 
@@ -25,9 +25,9 @@ const Hero = () => {
                         transition={{ duration: 0.8 }}
                         className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight pt-10"
                     >
-                        Encontre o Emprego dos Seus Sonhos
+                        Your Career, Our Mission.
                         <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mt-2">
-                            Contrato Perfeito
+                            Perfect Match
                         </span>
                     </motion.h1>
 
@@ -38,8 +38,8 @@ const Hero = () => {
                         transition={{ duration: 0.8 }}
                         className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
                     >
-                        Conectando candidatos a oportunidades de carreira.
-                        Seu proximo passo de Carreira ou o talento certo para sua empresa está aqui.
+                        Connecting candidates to career opportunities.
+                        Your next career step or the right talent for your company is here.
                     </motion.p>
 
                     {/* CTA Buttons */}
@@ -56,7 +56,7 @@ const Hero = () => {
                             onClick={() => navigate("/find-jobs")}
                         >
                             <Search className="w-5 h-5" />
-                            <span>Encontrar Vagas</span>
+                            <span>Find Jobs</span>
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform " />
                         </motion.button>
 
@@ -72,7 +72,7 @@ const Hero = () => {
                                 )
                             }
                         >
-                            Postar a Vaga
+                            Post a Job
                         </motion.button>
                     </motion.div>
 

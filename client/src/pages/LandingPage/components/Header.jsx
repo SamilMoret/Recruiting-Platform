@@ -30,7 +30,7 @@ const Header = () => {
               onClick={() => navigate('/find-jobs')}
               className="text-gray-600 hover:text-gray-900 transition-colors font-medium bg-transparent border-none cursor-pointer"
             >
-                Encontrar Vagas
+               Find Jobs 
             </a>
             <a  
               onClick={() => navigate(
@@ -40,14 +40,14 @@ const Header = () => {
               )}
               className="text-gray-600 hover:text-gray-900 transition-colors font-medium bg-transparent border-none cursor-pointer"
             >
-              Para Empresas
+              For Employers
             </a>
             </nav>
             <a
               onClick={() => navigate('/find-candidates')}
               className="text-gray-600 hover:text-gray-900 transition-colors font-medium bg-transparent border-none cursor-pointer"
             >
-              Encontrar Candidatos
+              Discover Talent
             </a>
             {/* Auth Buttons */}
             <div>
