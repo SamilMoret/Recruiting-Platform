@@ -17,12 +17,11 @@ import StatusBadge from  "../../components/layout/StatusBadge";
 
 const JobDetails = () => {
   const {user} = useAuth();
-  // console.log('user:', user);
   const {jobId} = useParams();
-  console.log('jobId:', jobId);
 
   const [jobDetails, setJobDetails] = useState(null);
  
+
 
   // Removed invalid getJobDetailsById assignment
   const getJobDetailsById = async () => {
@@ -84,32 +83,32 @@ const JobDetails = () => {
 
                 
 
-                <div className="">
-                  <h1>
+                <div className="flex-1">
+                  <h1 className="text-lg lg:text-xl font-semibold mb-2 leading-tight text-gray-900 "  >
                     {jobDetails?.title}
                   </h1>
-                  <div className="">
-                    <div className="">
-                      <MapPin className="" />
-                      <span className="">{jobDetails?.location}</span>
+                  <div className="flex items-center space-x-4 text-gray-600">
+                    <div className="flex items-center space-x-1">
+                      <MapPin className="h-4 w-4" />
+                      <span className="text-sm font-medium">{jobDetails?.location}</span>
                     </div>
                 </div>
               </div>
               {jobDetails.description ? (
                 <StatusBadge status={jobDetails.applicationStatus} />
               ) : (
-                <button className="" onClick={applyToJob}>
+                <button className="bg-gradient-to-r from-blue-50 to-blue-50 text-sm text-blue-700 hover:text-white px-6 py-2.5 rounded-xl hover:from-blue-500 hover:to-blue-600 transition-all duration-200 font-semibold transform hover:translate-y-0.5" onClick={applyToJob}>
                   Apply Now
                 </button>
               )}
             </div>
 
             {/* tags */}
-            <div className="">
-              <span className="">{jobDetails.category}</span>
-              <span className="">{jobDetails.type}</span>
-              <div className="">
-                <Clock className="" />
+            <div className="flex flex-wrap gap-3">
+              <span className="px-4 py-2 bg-blue-50 text-sm text-blue-700 font-semibold rounded-full border border-blue-200">{jobDetails.category}</span>
+              <span className="px-4 py-2 bg-blue-50 text-sm text-purple-700 font-semibold rounded-full border border-purple-200">{jobDetails.type}</span>
+              <div className="flex items-center space-x-1 px-4 py-2 bg-gray-50 text-sm text-gray-700 font-semibold rounded-full border border-gray-200">
+                <Clock className="h-4 w-4" />
                 <span>{jobDetails.createdAt 
                 ? moment(jobDetails.createdAt).format("MM DD YYYY") 
                 : "N/A"}
@@ -119,8 +118,36 @@ const JobDetails = () => {
            </div>
           </div>
             {/* Job Details Section */}
-             <div>
+             <div className="px-0 pb-8 space-y-8">
+                  {/* salary section */}
+                  <div className="">
+                    <div className=""></div>
+                    <div className="">
+                      <div className="" >
+                        <div className="">
+                          <DollarSign />
+                        </div>
+                        <div>
+                          <h3 className="">
+                            Compensation
+                          </h3>
+                          <div className="">
+                            {jobDetails.salaryMin } - {jobDetails.salaryMax}
+                            <span className="">
+                              per year
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="">
+                        {/* <User  className/> */}
+                        <span>Competitive</span>
+                      </div>
+                    </div>
+                  </div>
            </div>
+
+           {/* Job Description*/}
       </div>
     )}
       </div>
