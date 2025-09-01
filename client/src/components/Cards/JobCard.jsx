@@ -7,7 +7,7 @@ const JobCard = ({
   job,
   onToggleSave,
   onApply,
-  onclick,
+  onClick,
   saved, 
   hideApply
 }) => {
@@ -23,7 +23,7 @@ const JobCard = ({
 
   return <div
    className='bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:shadow-gray-200 transition-all duration-300 group relative overflow-hidden cursor-pointer'
-   onClick={onclick} 
+   onClick={onClick} 
    >
       <div className='flex items-start justify-between mb-4'>
         <div className='flex items-start gap-4'>

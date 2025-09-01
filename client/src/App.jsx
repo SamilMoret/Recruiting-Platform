@@ -34,7 +34,7 @@ function App() {
           <Route path="/login" element={<Login  />} />
 
           <Route path="/find-jobs" element={<JobSeekerDashboard />} />
-          <Route path="/job/:id" element={<JobDetails />} />
+          <Route path="/job/:jobId" element={<JobDetails />} />
           <Route path="/saved-jobs" element={<SavedJobs />} />
           <Route path="/profile" element={<UserProfile />} />
 
@@ -45,6 +45,7 @@ function App() {
             <Route path="/manage-jobs" element={<ManageJobs />} />
             <Route path="/applicants" element={<ApplicationViewer />} />
             <Route path="/company-profile" element={<EmployerProfilePage />} />
+            
           </Route>
 
           {/* Catch all route */}
