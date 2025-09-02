@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../context/AuthContext';
 
 const Header = () => {
+    React.useEffect(() => {
+      document.title = "Recruiting Platform";
+    }, []);
     const {user, isAuthenticated} = useAuth();
     const navigate = useNavigate();
 
