@@ -28,18 +28,17 @@ const UserProfile = () => {
   }
   
   const handleImageUpload = async (file, type) => {
-    setUploading(prev => ({...prev, [type]: true}));
-
+    setUploading(prev => ({ ...prev, [type]: true }));
     try {
-        const imgUploadRes = await uploadImage(file);
-        const avatarUrl = imgUploadRes.imageUrl || "";
-        
-        //update form data with new image URL
-        handleInputChange(type, avatarUrl);
+      const imgUploadRes = await uploadImage(file);
+      const avatarUrl = imgUploadRes.imageUrl || "";
+      // Update both formData and profileData with server URL
+      setFormData(prev => ({ ...prev, [type]: avatarUrl }));
+      setProfileData(prev => ({ ...prev, [type]: avatarUrl }));
     } catch (error) {
       console.error('image upload failed', error);
     } finally {
-      setUploading(prev => ({...prev, [type]: false}));
+      setUploading(prev => ({ ...prev, [type]: false }));
     }
   }
 
@@ -148,7 +147,70 @@ const UserProfile = () => {
                   </div>
                 </div>
 
+                {/* Name input */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name
+                  </label>
+                  <input 
+                    type="text" 
+                    value={formData.name}
+                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all'
+                    placeholder='Enter your full name'
+                  />
+                </div>
 
+                {/* Email (read-onl) */}
+                <div >
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address
+                  </label>
+                  <input 
+                    type="email"
+                    value={formData.email}
+                    disabled
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg'
+                  />
+                </div>
+
+                {/* resume */}
+                {user?.resume ? (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Resume
+                    </label>
+
+                    <div className='flex items-center gap-2'>
+                      <p className='text-sm text-gray-600'>
+                        Link: {" "}
+                        <a 
+                          href={user?.resume}
+                          target='_blank'
+                          className='text-blue-600 underline cursor-pointer'
+                        >
+                          {user?.resume}
+                        </a>
+                      </p>
+                      <button 
+                        className='cursor-pointer'
+                        onClick={DeleteResume}
+                        >
+                          <Trash2 className='w-5 h-5 text-red-500' />
+                        </button>
+                    </div>
+                  </div>
+                ):(
+                  <label className='block'>
+                    <span className=''>Choose File</span>
+                    <input type="file"
+                       accept=".pdf,.doc,.docx"
+                       onChange={(e) => handleImageChange(e, 'resume')}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors"
+                     />
+                  </label>
+                )}
+                      
               </div>
 
               {/* Action Buttons */}

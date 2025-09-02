@@ -102,15 +102,18 @@ const ApplicationProfilePreview = ({
                             </div>
                         </div>
 
-                        <button
-                            onClick={()=>{
-                                handleDownloadResume(selectedApplicant.applicant.resume);
-                            }}
-                            className="w-full inline-flex justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-                        >
-                            <Download className="" />
-                            Download Resume
-                        </button>
+                            {selectedApplicant.applicant?.resume ? (
+                              <button
+                                  onClick={()=>{
+                                    
+                                      handleDownloadResume(selectedApplicant.applicant?.resume);
+                                  }}
+                                  className="w-full inline-flex justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                              >
+                                  <Download className="" />
+                                  Download Resume
+                              </button>
+                            ) : null}
 
                         {/* Status Dropdown */}
                         <div className="mt-4">
