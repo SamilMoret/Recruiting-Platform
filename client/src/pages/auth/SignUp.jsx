@@ -141,7 +141,7 @@ const SignUp = () => {
         //Upload image if present
         if(formData.avatar){
           const imgUploadRes = await uploadImage(formData.avatar);
-          avatarUrl = imgUploadRes.url || "";
+          avatarUrl = imgUploadRes.imageUrl || "";
         }
 
         const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
