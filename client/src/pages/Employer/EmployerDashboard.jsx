@@ -70,6 +70,9 @@ const StatCard = ({
 };
 
 const EmployerDashboard = () => {
+  useEffect(() => {
+    document.title = "Employer Dashboard - Recruiting Platform";
+  }, []);
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);

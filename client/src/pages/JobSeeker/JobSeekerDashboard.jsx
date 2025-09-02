@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react"
+import React, { useState, useEffect, use } from "react"
 import {Search, Filter, Grid, List, X} from "lucide-react"
 import LoadingSpinner from "../../components/LoadingSpinner"
 import axiosInstance from "../../utils/axiosInstance"
@@ -13,6 +13,9 @@ import JobCard from "../../components/Cards/JobCard"
 
 
 const JobSeekerDashboard = () => {
+  useEffect(() => {
+    document.title = "Find Jobs - Recruiting Platform";
+  }, []);
 
   const { user } = useAuth();
   const navigate = useNavigate();
