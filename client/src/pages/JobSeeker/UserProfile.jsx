@@ -170,7 +170,7 @@ const UserProfile = () => {
                     type="email"
                     value={formData.email}
                     disabled
-                    className='w-full px-4 py-3 border border-gray-300 rounded-lg'
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500'
                   />
                 </div>
 
@@ -182,16 +182,12 @@ const UserProfile = () => {
                     </label>
 
                     <div className='flex items-center gap-2'>
-                      <p className='text-sm text-gray-600'>
-                        Link: {" "}
-                        <a 
-                          href={user?.resume}
-                          target='_blank'
-                          className='text-blue-600 underline cursor-pointer'
-                        >
-                          {user?.resume}
-                        </a>
-                      </p>
+                      <button
+                        className='bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2'
+                        onClick={() => window.open(user.resume, '_blank')}
+                      >
+                        Download
+                      </button>
                       <button 
                         className='cursor-pointer'
                         onClick={DeleteResume}
