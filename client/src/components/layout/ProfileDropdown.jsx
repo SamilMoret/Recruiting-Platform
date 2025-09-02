@@ -20,23 +20,23 @@ const ProfileDropDown = ({
             onClick={onToggle}
             className="flex items-center space-x-3 p-2 rounded-xl hover:bg-gray-50 transition-colors duration-200"
         >
-        {avatar ? (
-            <img 
-                src={avatar} 
-                alt="Avatar" 
-                className="h-9 w-9 object-cover rounded-xl"
-            />
-        ) : (
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">
-                    {companyName.charAt(0).toUpperCase()}
-                    </span>
-            </div>
-        )}     
+        {/* On mobile, show first name instead of avatar */}
+        <span className="sm:hidden text-lg font-semibold text-gray-900">
+            {companyName?.split(' ')[0]}
+        </span>
+        {/* On desktop, show avatar if present */}
+        <span className="hidden sm:inline">
+            {avatar ? (
+                <img 
+                    src={avatar} 
+                    alt="Avatar" 
+                    className="h-9 w-9 object-cover rounded-xl"
+                />
+            ) : null}
+        </span>
         <div className="hidden sm:block text-left">
             <p className="text-sm font-medium text-gray-900">{companyName}</p>
-            <p className="text-sm text-gray-600">Employer</p>
-            </div> 
+        </div> 
     <ChevronDown className="h-4 w-4 text-gray-400" />
         </button>
 

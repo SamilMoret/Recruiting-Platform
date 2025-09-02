@@ -201,9 +201,9 @@ function JobPostingForm() {
                 <div className='bg-white shadow-xl rounded-2xl p-6'>
                   <div className='flex items-center justify-between mb-8'>
                     <div>
-                        <h2 className='text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent'>
+                        {/* <h2 className='text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent'>
                           Post a New Job
-                        </h2>
+                        </h2> */}
                         <p className='text-sm text-gray-600 mt-1'>
                           Fill in the details below to post a new job opening.
                         </p>

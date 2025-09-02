@@ -57,7 +57,7 @@ const Navbar = () => {
                             setProfileDropDownOpen(!profileDropDownOpen);
                         }}
                         avatar={user?.avatar || ""}
-                        companyName={user?.companyName || ""}
+                        companyName={user?.role === "employer" ? user?.companyName : user?.name}
                         email={user?.email || ""}
                         userRole={user?.role || ""}
                         onLogout={logout}

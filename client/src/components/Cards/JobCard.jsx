@@ -74,9 +74,9 @@ const JobCard = ({
           </span>
           <span
             className={`px-3 py-1 rounded-full font-medium ${
-              job?.type === "Full-time"
+              job?.type === "Full-Time"
                 ? "bg-green-100 text-green-800"
-                : job.type === "Part-time"
+                : job.type === "Part-Time"
                 ? "bg-yellow-100 text-yellow-800"
                 : job.type === "Contract"
                 ? "bg-blue-100 text-purple-800"
