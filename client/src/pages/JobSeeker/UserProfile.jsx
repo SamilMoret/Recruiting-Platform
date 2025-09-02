@@ -79,13 +79,14 @@ const UserProfile = () => {
     setSaving(true);
     try {
       const response = await axiosInstance.post(
-        API_PATHS.AUTH.DELETE_RESUME,
+        '/api/user/resume', // correct path for user resume deletion
         {
           resumeUrl: user.resume || ""
         }
       );
       toast.success('Resume deleted successfully');
       setProfileData(prev => ({ ...prev, resume: '' }));
+      updateUser({ ...user, resume: '' });
     } catch (error) {
       console.error('Error deleting resume');
     } finally {
