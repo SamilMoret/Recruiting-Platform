@@ -51,7 +51,7 @@ const UserProfile = () => {
   }, []);
 
  const handleInputChange = (field, value) => {
-    setProfileData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => ({ ...prev, [field]: value }));
   }
   
   const handleImageUpload = async (file, type) => {
