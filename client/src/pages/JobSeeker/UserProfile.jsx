@@ -23,6 +23,33 @@ const UserProfile = () => {
   const [uploading, setUploading] = useState({avatar: false, logo: false});
   const [saving, setSaving] = useState(false);
 
+  // Fetch user profile from server on mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
+        if (res.status === 200 && res.data) {
+          setProfileData({
+            name: res.data.name || '',
+            email: res.data.email || '',
+            avatar: res.data.avatar || '',
+            resume: res.data.resume || ''
+          });
+          setFormData({
+            name: res.data.name || '',
+            email: res.data.email || '',
+            avatar: res.data.avatar || '',
+            resume: res.data.resume || ''
+          });
+          updateUser(res.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch profile', err);
+      }
+    };
+    fetchProfile();
+  }, []);
+
  const handleInputChange = (field, value) => {
     setProfileData(prev => ({ ...prev, [field]: value }));
   }
@@ -99,12 +126,11 @@ const UserProfile = () => {
       name: user?.name || '',
       email: user?.email || '',
       avatar: user?.avatar || '',
+      resume: user?.resume || ''
     }
-
     setProfileData({...userData});
     setFormData({...userData});
     return () => {};
-
   }, [user]);
 
   return (
