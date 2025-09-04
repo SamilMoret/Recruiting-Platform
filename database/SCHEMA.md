@@ -3,90 +3,90 @@
 ## Tables
 
 ### 1. User
-Stores user account information.
+Armazena informações da conta do usuário.
 
-| Column Name | Data Type | Constraints | Description |
-|-------------|-----------|-------------|-------------|
-| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the user |
-| name | VARCHAR(100) | NOT NULL | User's full name |
-| email | VARCHAR(100) | UNIQUE, NOT NULL | User's email address |
-| password | VARCHAR(255) | NOT NULL | Hashed password |
-| role | ENUM('CANDIDATE', 'RECRUITER', 'ADMIN') | NOT NULL | User role in the system |
-| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Account creation timestamp |
-| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | Last update timestamp |
+| Nome da Coluna | Tipo de Dados | Restrições | Descrição |
+|----------------|---------------|------------|------------|
+| id | BIGINT | CHAVE PRIMÁRIA, AUTO_INCREMENT | Identificador único do usuário |
+| name | VARCHAR(100) | NOT NULL | Nome completo do usuário |
+| email | VARCHAR(100) | ÚNICO, NOT NULL | Endereço de e-mail do usuário |
+| password | VARCHAR(255) | NOT NULL | Senha criptografada |
+| role | ENUM('CANDIDATE', 'RECRUITER', 'ADMIN') | NOT NULL | Papel do usuário no sistema |
+| created_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP | Data de criação da conta |
+| updated_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP ATUALIZAÇÃO CURRENT_TIMESTAMP | Data da última atualização |
 
 ### 2. Job
-Stores job postings.
+Armazena as vagas de emprego.
 
-| Column Name | Data Type | Constraints | Description |
-|-------------|-----------|-------------|-------------|
-| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the job |
-| title | VARCHAR(100) | NOT NULL | Job title |
-| description | TEXT | NOT NULL | Detailed job description |
-| requirements | TEXT | NOT NULL | Required qualifications |
-| location | VARCHAR(100) | | Job location |
-| salary | DECIMAL(10,2) | | Salary information |
-| status | ENUM('OPEN', 'CLOSED', 'DRAFT') | DEFAULT 'DRAFT' | Current status of the job posting |
-| created_by | BIGINT | FOREIGN KEY (User.id) | User who created the job |
-| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Creation timestamp |
-| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | Last update timestamp |
+| Nome da Coluna | Tipo de Dados | Restrições | Descrição |
+|----------------|---------------|------------|------------|
+| id | BIGINT | CHAVE PRIMÁRIA, AUTO_INCREMENT | Identificador único da vaga |
+| title | VARCHAR(100) | NOT NULL | Título da vaga |
+| description | TEXT | NOT NULL | Descrição detalhada da vaga |
+| requirements | TEXT | NOT NULL | Qualificações necessárias |
+| location | VARCHAR(100) |  | Localização da vaga |
+| salary | DECIMAL(10,2) |  | Informações salariais |
+| status | ENUM('OPEN', 'CLOSED', 'DRAFT') | PADRÃO 'DRAFT' | Status atual da vaga |
+| created_by | BIGINT | CHAVE ESTRANGEIRA (User.id) | Usuário que criou a vaga |
+| created_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP | Data de criação |
+| updated_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP ATUALIZAÇÃO CURRENT_TIMESTAMP | Data da última atualização |
 
 ### 3. Application
-Tracks job applications.
+Acompanha as candidaturas às vagas.
 
-| Column Name | Data Type | Constraints | Description |
-|-------------|-----------|-------------|-------------|
-| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the application |
-| user_id | BIGINT | FOREIGN KEY (User.id) | Applicant |
-| job_id | BIGINT | FOREIGN KEY (Job.id) | Applied job |
-| status | ENUM('PENDING', 'REVIEW', 'ACCEPTED', 'REJECTED') | DEFAULT 'PENDING' | Application status |
-| cover_letter | TEXT | | Applicant's cover letter |
-| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | Application timestamp |
-| updated_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP | Last update timestamp |
+| Nome da Coluna | Tipo de Dados | Restrições | Descrição |
+|----------------|---------------|------------|------------|
+| id | BIGINT | CHAVE PRIMÁRIA, AUTO_INCREMENT | Identificador único da candidatura |
+| user_id | BIGINT | CHAVE ESTRANGEIRA (User.id) | Candidato |
+| job_id | BIGINT | CHAVE ESTRANGEIRA (Job.id) | Vaga candidatada |
+| status | ENUM('PENDING', 'REVIEW', 'ACCEPTED', 'REJECTED') | PADRÃO 'PENDING' | Status da candidatura |
+| cover_letter | TEXT |  | Carta de apresentação do candidato |
+| created_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP | Data da candidatura |
+| updated_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP ATUALIZAÇÃO CURRENT_TIMESTAMP | Data da última atualização |
 
 ### 4. SavedJob
-Tracks jobs saved by users.
+Acompanha as vagas salvas pelos usuários.
 
-| Column Name | Data Type | Constraints | Description |
-|-------------|-----------|-------------|-------------|
-| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier |
-| user_id | BIGINT | FOREIGN KEY (User.id) | User who saved the job |
-| job_id | BIGINT | FOREIGN KEY (Job.id) | Saved job |
-| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | When the job was saved |
+| Nome da Coluna | Tipo de Dados | Restrições | Descrição |
+|----------------|---------------|------------|------------|
+| id | BIGINT | CHAVE PRIMÁRIA, AUTO_INCREMENT | Identificador único |
+| user_id | BIGINT | CHAVE ESTRANGEIRA (User.id) | Usuário que salvou a vaga |
+| job_id | BIGINT | CHAVE ESTRANGEIRA (Job.id) | Vaga salva |
+| created_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP | Data em que a vaga foi salva |
 
 ### 5. Analytics
-Stores analytics data.
+Armazena dados analíticos.
 
-| Column Name | Data Type | Constraints | Description |
-|-------------|-----------|-------------|-------------|
-| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier |
-| user_id | BIGINT | FOREIGN KEY (User.id) | Related user |
-| metric_name | VARCHAR(50) | NOT NULL | Name of the metric |
-| metric_value | TEXT | NOT NULL | Value of the metric |
-| created_at | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP | When the metric was recorded |
+| Nome da Coluna | Tipo de Dados | Restrições | Descrição |
+|----------------|---------------|------------|------------|
+| id | BIGINT | CHAVE PRIMÁRIA, AUTO_INCREMENT | Identificador único |
+| user_id | BIGINT | CHAVE ESTRANGEIRA (User.id) | Usuário relacionado |
+| metric_name | VARCHAR(50) | NOT NULL | Nome da métrica |
+| metric_value | TEXT | NOT NULL | Valor da métrica |
+| created_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP | Data de registro da métrica |
 
-## Relationships
+## Relacionamentos
 
-1. **User** has many **Job** (One-to-Many)
-   - A user can post multiple jobs
-   - A job is posted by one user
+1. **User** tem muitos **Job** (Um-para-Muitos)
+   - Um usuário pode publicar várias vagas
+   - Uma vaga é publicada por um usuário
 
-2. **User** has many **Application** (One-to-Many)
-   - A user can submit multiple applications
-   - An application is submitted by one user
+2. **User** tem muitos **Application** (Um-para-Muitos)
+   - Um usuário pode enviar várias candidaturas
+   - Uma candidatura é enviada por um usuário
 
-3. **Job** has many **Application** (One-to-Many)
-   - A job can receive multiple applications
-   - An application is for one job
+3. **Job** tem muitos **Application** (Um-para-Muitos)
+   - Uma vaga pode receber várias candidaturas
+   - Uma candidatura é para uma vaga
 
-4. **User** has many **SavedJob** (One-to-Many)
-   - A user can save multiple jobs
-   - A saved job belongs to one user
+4. **User** tem muitos **SavedJob** (Um-para-Muitos)
+   - Um usuário pode salvar várias vagas
+   - Uma vaga salva pertence a um usuário
 
-5. **Job** has many **SavedJob** (One-to-Many)
-   - A job can be saved by multiple users
-   - A saved job references one job
+5. **Job** tem muitos **SavedJob** (Um-para-Muitos)
+   - Uma vaga pode ser salva por vários usuários
+   - Uma vaga salva referencia uma vaga
 
-6. **User** has one **Analytics** (One-to-One)
-   - A user has one analytics record
-   - An analytics record belongs to one user
+6. **User** tem um **Analytics** (Um-para-Um)
+   - Um usuário tem um registro de análise
+   - Um registro de análise pertence a um usuário
