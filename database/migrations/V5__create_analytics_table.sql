@@ -1,13 +1,10 @@
-CREATE TABLE analytics (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT NOT NULL,
-    metric_name VARCHAR(50) NOT NULL,
-    metric_value TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+CREATE TABLE Analytics (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  totalJobsPosted INT DEFAULT 0,
+  totalApplicationsReceived INT DEFAULT 0,
+  totalHired INT DEFAULT 0,
+  userId INT,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (userId) REFERENCES User(id)
 );
-
--- Add indexes for better query performance
-CREATE INDEX idx_analytics_user_id ON analytics(user_id);
-CREATE INDEX idx_analytics_metric_name ON analytics(metric_name);
-CREATE INDEX idx_analytics_created_at ON analytics(created_at);

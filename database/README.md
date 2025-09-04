@@ -2,68 +2,69 @@
 
 This directory contains all database-related files for the Recruiting Platform.
 
-## Structure
+## Estrutura
 
 ```
 database/
-├── SCHEMA.md           # Database schema documentation
-├── init-db.sh          # Script to initialize the database
-├── commit-db-changes.sh # Helper script for git commits
-└── migrations/         # Database migration files
-    ├── V1__create_users_table.sql
-    ├── V2__create_jobs_table.sql
-    ├── V3__create_applications_table.sql
+├── SCHEMA.md           # Documentação do esquema do banco de dados
+├── init-db.sh          # Script para inicializar o banco de dados
+├── commit-db-changes.sh # Script auxiliar para commits no git
+├── test_migration.sql  # Script para testar a estrutura do banco
+└── migrations/         # Arquivos de migração do banco de dados
+    ├── V1__create_user_table.sql
+    ├── V2__create_job_table.sql
+    ├── V3__create_application_table.sql
     ├── V4__create_saved_jobs_table.sql
     └── V5__create_analytics_table.sql
 ```
 
-## Setup Instructions
+## Instruções de Configuração
 
-### Prerequisites
-- MySQL Server
-- MySQL client tools
+### Pré-requisitos
+- Servidor MySQL instalado
+- Ferramentas de cliente MySQL (como MySQL Workbench ou linha de comando)
 
-### Initial Setup
+### Configuração Inicial
 
-1. Edit the `init-db.sh` script and update the database credentials:
+1. Edite o arquivo `init-db.sh` e atualize as credenciais do banco de dados se necessário:
    ```bash
    DB_USER="root"
-   DB_PASS="yourpassword"  # Change this to your MySQL root password
+   DB_PASSWORD="sua_senha"  # Altere para a senha do seu MySQL
    ```
 
-2. On Windows, you can use Git Bash or WSL to run the initialization script:
+2. No Windows, você pode usar Git Bash ou WSL para executar o script de inicialização:
    ```bash
-   # Make the script executable (in Git Bash or WSL)
+   # Tornar o script executável (no Git Bash ou WSL)
    chmod +x init-db.sh
    
-   # Run the initialization script
+   # Executar o script de inicialização
    ./init-db.sh
    ```
 
-   Or manually execute the SQL files in order using a MySQL client like MySQL Workbench.
+   Ou execute manualmente os arquivos SQL em ordem usando um cliente MySQL como o MySQL Workbench.
 
-## Managing Database Changes
+## Gerenciando Mudanças no Banco de Dados
 
-1. **For new changes**:
-   - Create a new migration file with the next version number (e.g., `V6__description_of_change.sql`)
-   - Test the migration locally
-   - Use the provided script to commit your changes:
+1. **Para novas alterações**:
+   - Crie um novo arquivo de migração com o próximo número de versão (ex: `V6__descricao_da_mudanca.sql`)
+   - Teste a migração localmente
+   - Use o script fornecido para fazer o commit das alterações:
      ```bash
      ./commit-db-changes.sh "Add new feature X to the database"
      ```
 
-2. **For existing databases**:
-   - The migration scripts are designed to be idempotent
-   - You can safely run the initialization script multiple times
+2. **Para bancos de dados existentes**:
+   - Os scripts de migração são idempotentes
+   - Você pode executar o script de inicialização várias vezes com segurança
 
-## Best Practices
+## Boas Práticas
 
-- Always document schema changes in `SCHEMA.md`
-- Keep migrations small and focused on a single change
-- Test migrations in a development environment first
-- Never modify a migration that has already been committed to version control
-- Always back up your database before running migrations in production
+- Sempre documente as alterações no esquema no arquivo `SCHEMA.md`
+- Mantenha as migrações pequenas e focadas em uma única alteração
+- Teste as migrações primeiro em um ambiente de desenvolvimento
+- Nunca modifique uma migração que já foi enviada para o controle de versão
+- Sempre faça backup do banco de dados antes de executar migrações em produção
 
-## Schema Documentation
+## Documentação do Esquema
 
-For detailed schema documentation, see [SCHEMA.md](./SCHEMA.md).
+Para documentação detalhada do esquema, consulte [SCHEMA.md](./SCHEMA.md).
