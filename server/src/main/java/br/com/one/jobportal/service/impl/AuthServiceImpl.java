@@ -4,14 +4,15 @@ import br.com.one.jobportal.dto.LoginRequest;
 import br.com.one.jobportal.dto.RegisterRequest;
 import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.repository.UserRepository;
+import br.com.one.jobportal.security.JwtService;
 import br.com.one.jobportal.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,20 +20,29 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     public ResponseEntity<?> login(LoginRequest loginRequest) {
-        Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
+        try {
+            var userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
 
-        if (userOptional.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(), userOptional.get().getPassword())) {
+            if (!passwordEncoder.matches(loginRequest.getPassword(), userDetails.getPassword())) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Credenciais inválidas"));
+            }
+
+            String token = jwtService.generateToken(userDetails);
+
+            return ResponseEntity.ok(Map.of(
+                    "token", token,
+                    "type", "Bearer",
+                    "email", userDetails.getUsername()
+            ));
+
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Credenciais inválidas"));
         }
-
-        User user = userOptional.get();
-        return ResponseEntity.ok(Map.of(
-                "message", "Login realizado com sucesso",
-                "user", user
-        ));
     }
 
     @Override
@@ -47,12 +57,8 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhone(registerRequest.getPhone());
 
-        try {
-            User.Role userRole = User.Role.valueOf(role.toUpperCase());
-            user.setRole(userRole);
-        } catch (IllegalArgumentException e) {
-            user.setRole(User.Role.CANDIDATE);
-        }
+        // Use the fromString method for case-insensitive role conversion
+        user.setRole(User.Role.fromString(role));
 
         userRepository.save(user);
         return ResponseEntity.ok(Map.of("message", "Usuário criado com sucesso"));
@@ -69,8 +75,8 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhone(registerRequest.getPhone());
-        user.setRole(User.Role.RECRUITER);
-        user.setCompany(company);
+        user.setRole(User.Role.EMPLOYER);
+        user.setCompanyName(company);
 
         userRepository.save(user);
         return ResponseEntity.ok(Map.of("message", "Recrutador criado com sucesso"));

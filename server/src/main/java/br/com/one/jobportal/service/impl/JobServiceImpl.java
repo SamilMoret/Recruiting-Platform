@@ -3,6 +3,7 @@ package br.com.one.jobportal.service.impl;
 import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.repository.JobRepository;
+import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.service.JobService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,15 +17,30 @@ import java.util.Optional;
 public class JobServiceImpl implements JobService {
 
     private final JobRepository jobRepository;
+    private final UserRepository userRepository;
 
-    public JobServiceImpl(JobRepository jobRepository) {
+    public JobServiceImpl(JobRepository jobRepository, UserRepository userRepository) {
         this.jobRepository = jobRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public Job createJob(Job job, User recruiter) {
+    public Job createJob(Job job, String recruiterEmail) {
+        User recruiter = userRepository.findByEmail(recruiterEmail)
+                .orElseThrow(() -> new RuntimeException("Recrutador não encontrado: " + recruiterEmail));
+
+        System.out.println("✅ Recrutador encontrado: " + recruiter.getName());
+
         job.setRecruiter(recruiter);
         return jobRepository.save(job);
+    }
+
+    @Override
+    public List<Job> getJobsByRecruiterEmail(String recruiterEmail) {
+        User recruiter = userRepository.findByEmail(recruiterEmail)
+                .orElseThrow(() -> new RuntimeException("Recrutador não encontrado: " + recruiterEmail));
+
+        return jobRepository.findByRecruiter(recruiter);
     }
 
     @Override
@@ -32,7 +48,6 @@ public class JobServiceImpl implements JobService {
         Optional<Job> jobOptional = jobRepository.findById(id);
         if (jobOptional.isPresent()) {
             Job job = jobOptional.get();
-            // Verifica se o recrutador é o dono da vaga
             if (!job.getRecruiter().getId().equals(recruiter.getId())) {
                 throw new RuntimeException("Acesso negado: você não é o proprietário desta vaga");
             }
@@ -83,6 +98,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Long getJobCountByRecruiter(User recruiter) {
+        // ✅ CORREÇÃO: Adicione 'L' para indicar Long
         return jobRepository.countByRecruiter(recruiter);
     }
 

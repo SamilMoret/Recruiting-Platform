@@ -1,7 +1,5 @@
 package br.com.one.jobportal.entity;
 
-
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -10,10 +8,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "jobs")
+@Table(name = "job")
 public class Job {
 
     public enum EmploymentType {
@@ -22,6 +21,10 @@ public class Job {
 
     public enum ExperienceLevel {
         ENTRY, JUNIOR, MID, SENIOR, LEAD
+    }
+
+    public enum JobType {
+        FULL_TIME, PART_TIME, CONTRACT, REMOTE, INTERNSHIP
     }
 
     @Id
@@ -35,6 +38,10 @@ public class Job {
     @NotBlank
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
+
+    @NotBlank
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String requirements;
 
     @NotBlank
     @Column(nullable = false)
@@ -51,6 +58,9 @@ public class Job {
     @Enumerated(EnumType.STRING)
     @Column(name = "experience_level", nullable = false)
     private ExperienceLevel experienceLevel;
+
+    @Enumerated(EnumType.STRING)
+    private JobType type = JobType.FULL_TIME;
 
     private BigDecimal salaryMin;
     private BigDecimal salaryMax;

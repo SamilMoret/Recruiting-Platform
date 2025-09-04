@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
-    List<Application> findByCandidate(User candidate);
+    List<Application> findByApplicant(User applicant);
     List<Application> findByJob(Job job);
     List<Application> findByJobRecruiter(User recruiter);
-    Optional<Application> findByCandidateAndJob(User candidate, Job job);
+    Optional<Application> findByApplicantAndJob(User applicant, Job job);
     Long countByJob(Job job);
-    Long countByCandidate(User candidate);
+    Long countByApplicant(User applicant);
 }

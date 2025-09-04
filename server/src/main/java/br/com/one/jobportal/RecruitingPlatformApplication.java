@@ -12,6 +12,5 @@ public class RecruitingPlatformApplication {
         SpringApplication.run(RecruitingPlatformApplication.class, args);
         System.out.println("🚀 Plataforma de Recrutamento iniciada com sucesso!");
         System.out.println("📍 Servidor rodando em: http://localhost:5000");
-        System.out.println("📊 API Docs: http://localhost:5000/swagger-ui.html");
     }
 }
