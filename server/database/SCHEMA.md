@@ -11,7 +11,7 @@ Armazena informações da conta do usuário.
 | name | VARCHAR(100) | NOT NULL | Nome completo do usuário |
 | email | VARCHAR(100) | ÚNICO, NOT NULL | Endereço de e-mail do usuário |
 | password | VARCHAR(255) | NOT NULL | Senha criptografada |
-| role | ENUM('CANDIDATE', 'RECRUITER', 'ADMIN') | NOT NULL | Papel do usuário no sistema |
+| role | ENUM('JOB_SEEKER', 'EMPLOYER', 'ADMIN') | NOT NULL | Papel do usuário no sistema (Candidato, Empregador ou Administrador) |
 | created_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP | Data de criação da conta |
 | updated_at | TIMESTAMP | PADRÃO CURRENT_TIMESTAMP ATUALIZAÇÃO CURRENT_TIMESTAMP | Data da última atualização |
 

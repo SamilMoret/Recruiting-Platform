@@ -3,7 +3,7 @@ CREATE TABLE User (
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  role ENUM('jobseeker', 'employer') NOT NULL,
+  role ENUM('JOB_SEEKER', 'EMPLOYER', 'ADMIN') NOT NULL DEFAULT 'JOB_SEEKER',
   avatar VARCHAR(255),
   resume VARCHAR(255),
   companyName VARCHAR(255),
