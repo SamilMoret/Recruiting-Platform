@@ -12,10 +12,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+
+import jakarta.persistence.CascadeType;
 
 @Data
 @Entity
@@ -25,9 +28,9 @@ public class User implements UserDetails {
     // ENUMS CORRESPONDENTES AO BANCO DE DADOS
     public enum Role {
         JOB_SEEKER, EMPLOYER, ADMIN;
-        
+
         private static final Map<String, Role> NAME_MAP = new HashMap<>();
-        
+
         static {
             // Mapeia variações de nomes para os valores do enum
             for (Role role : values()) {
@@ -42,13 +45,10 @@ public class User implements UserDetails {
             }
             // Adiciona aliases comuns
             NAME_MAP.put("jobseeker", JOB_SEEKER);
-            NAME_MAP.put("candidate", JOB_SEEKER);
-            NAME_MAP.put("recruiter", EMPLOYER);
             NAME_MAP.put("employer", EMPLOYER);
             NAME_MAP.put("admin", ADMIN);
-            NAME_MAP.put("administrator", ADMIN);
         }
-        
+
         public static Role fromString(String role) {
             if (role == null) {
                 return JOB_SEEKER; // Valor padrão
@@ -57,7 +57,7 @@ public class User implements UserDetails {
             String key = role.trim().toLowerCase();
             return NAME_MAP.getOrDefault(key, JOB_SEEKER);
         }
-        
+
         public String getAuthority() {
             return "ROLE_" + this.name();
         }
@@ -91,14 +91,14 @@ public class User implements UserDetails {
     private String companyLogo;
     private String phone;
 
-    @OneToMany(mappedBy = "applicant")
-    private List<Application> applications;
+    @OneToMany(mappedBy = "applicant", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Application> applications = new ArrayList<>();
 
-    @OneToMany(mappedBy = "company")
-    private List<Job> postedJobs;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Job> postedJobs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "jobSeeker")
-    private List<SavedJob> savedJobs;
+    @OneToMany(mappedBy = "jobSeeker", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SavedJob> savedJobs = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
     private Analytics analytics;

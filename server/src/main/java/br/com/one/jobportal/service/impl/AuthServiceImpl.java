@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<?> registerRecruiter(RegisterRequest registerRequest, String company) {
+    public ResponseEntity<?> registerEmployer(RegisterRequest registerRequest, String company) {
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity.badRequest().body(Map.of("message", "Email já cadastrado"));
         }
@@ -76,9 +76,12 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhone(registerRequest.getPhone());
         user.setRole(User.Role.EMPLOYER);
-        user.setCompanyName(company);
+        
+        if (company != null && !company.trim().isEmpty()) {
+            user.setCompanyName(company);
+        }
 
         userRepository.save(user);
-        return ResponseEntity.ok(Map.of("message", "Recrutador criado com sucesso"));
+        return ResponseEntity.ok(Map.of("message", "Empregador criado com sucesso"));
     }
 }
