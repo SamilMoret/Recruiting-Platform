@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -58,14 +58,14 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/register/candidate")
-    public ResponseEntity<?> registerCandidate(@Valid @RequestBody RegisterRequest registerRequest) {
-        return authService.register(registerRequest, "CANDIDATE");
+    @PostMapping("/register/jobseeker")
+    public ResponseEntity<?> registerJobSeeker(@Valid @RequestBody RegisterRequest registerRequest) {
+        return authService.register(registerRequest, "JOB_SEEKER");
     }
 
-    @PostMapping("/register/recruiter")
-    public ResponseEntity<?> registerRecruiter(@Valid @RequestBody RegisterRequest registerRequest,
-                                               @RequestParam String company) {
-        return authService.registerRecruiter(registerRequest, company);
+    @PostMapping("/register/employer")
+    public ResponseEntity<?> registerEmployer(@Valid @RequestBody RegisterRequest registerRequest,
+                                            @RequestParam(required = false) String company) {
+        return authService.registerEmployer(registerRequest, company);
     }
 }

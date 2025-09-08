@@ -2,7 +2,6 @@ package br.com.one.jobportal.security;
 
 import br.com.one.jobportal.config.JwtConfig;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

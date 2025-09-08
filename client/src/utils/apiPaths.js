@@ -1,7 +1,7 @@
 export const BASE_URL = "http://localhost:8000";
 export const API_PATHS = {
   AUTH: {
-    REGISTER: `/api/auth/register`, //signup
+    REGISTER: (role) => `/api/auth/register/${role}`, //signup (jobseeker or employer)
     LOGIN: `/api/auth/login`, //login
     GET_PROFILE: `/api/auth/profile`, //get user profile
     UPDATE_PROFILE: `/api/auth/profile`, //update user profile
