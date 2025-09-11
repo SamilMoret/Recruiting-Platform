@@ -32,3 +32,12 @@ export const validateAvatar = (file) => {
 
   return "";
 };
+
+export const getInitials = (name) => {
+  return name
+    .split(" ")
+    .map((word) => word.chart(0))
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+};

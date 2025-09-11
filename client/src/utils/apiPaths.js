@@ -1,10 +1,10 @@
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "http://129.148.29.122:8000";
 export const API_PATHS = {
   AUTH: {
     REGISTER: (role) => `/api/auth/register/${role}`, //signup (jobseeker or employer)
     LOGIN: `/api/auth/login`, //login
     GET_PROFILE: `/api/auth/profile`, //get user profile
-    UPDATE_PROFILE: `/api/auth/profile`, //update user profile
+    UPDATE_PROFILE: `/api/user/profile`, //update user profile
     DELETE_RESUME: `/api/auth/resume`, //delete user resume
   },
   DASHBOARD: {

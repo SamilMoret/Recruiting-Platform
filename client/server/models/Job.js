@@ -17,6 +17,10 @@ const jobSchema = new mongoose.Schema(
     location: {
       type: String,
     },
+    category: {
+      type: String,
+      required: false,
+    },
     type: {
       type: String,
       default: "Full-Time",
@@ -43,4 +47,4 @@ const jobSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Job", jobSchema);
+module.exports = mongoose.models.Job || mongoose.model("Job", jobSchema);

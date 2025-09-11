@@ -3,6 +3,7 @@ import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
+  timeout: 80000, //80 seconds timeout
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
