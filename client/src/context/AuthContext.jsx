@@ -71,6 +71,8 @@ export const AuthProvider = ({children}) => {
         checkAuthStatus
     };
 
+    console.log("AuthContext user:", user);
+    console.log("Avatar URL:", user?.avatar);
 
     return (
         <AuthContext.Provider value={value}>

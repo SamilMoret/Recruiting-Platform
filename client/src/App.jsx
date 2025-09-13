@@ -37,10 +37,11 @@ function App() {
           <Route path="/job/:jobId" element={<JobDetails />} />
           <Route path="/saved-jobs" element={<SavedJobs />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/employer-dashboard" element={<EmployerDashboard />} />
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="employer" />}>
-            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+            
             <Route path="/post-job" element={<JobPostingForm />} />
             <Route path="/manage-jobs" element={<ManageJobs />} />
             <Route path="/applicants" element={<ApplicationViewer />} />
