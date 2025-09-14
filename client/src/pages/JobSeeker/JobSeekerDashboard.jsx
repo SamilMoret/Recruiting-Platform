@@ -212,29 +212,6 @@ const JobSeekerDashboard = () => {
     return <LoadingSpinner />;
   }
 
-  if (!loading && jobs.length === 0) {
-    return (
-      <div className="text-center py-16 bg-white/60 backdrop-blur-xl rounded-2xl border border-white/20">
-        <div className="text-gray-400 mb-6">
-          <Search className="w-16 h-1/6 mx-auto" />
-        </div>
-        <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3">
-          No jobs found
-        </h3>
-        <p className="text-gray-600 mb-6">
-          Try adjusting your search criteria or filters
-        </p>
-        <button
-          onClick={clearAllFilters}
-          className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
-        >
-          Clear all filters
-        </button>
-      </div>
-    );
-  }
-
-
   return (
     <div className="bg-gradient-to-br from-blue-50 via-white to bg-purple-50">
       <Navbar />
@@ -315,24 +292,21 @@ const JobSeekerDashboard = () => {
 
                   {/* Job Grid */}
                   {jobs.length === 0 ? (
-                    <div className="text-center py-16 bg-white/60 backdrop-blur-xl rounded-2xl border border-white/20">
-                      <div className="text-gray-400 mb-6">
-                        <Search className="w-16 h-1/6 mx-auto" />
-                      </div>
-                      <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3">
+                    <div className="text-center py-8">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2">
                         No jobs found
                       </h3>
-                      <p className="text-gray-600 mb-6">
-                        Try adjustin you search criteria or filters 
+                      <p className="text-gray-600 mb-4">
+                        Try adjusting your search criteria or filters.
                       </p>
                       <button
                         onClick={clearAllFilters}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+                        className="bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
                       >
                         Clear all filters
                       </button>
                     </div>
-                  ):(
+                  ) : (
                     <>
                       <div
                         className={

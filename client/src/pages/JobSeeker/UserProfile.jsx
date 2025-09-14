@@ -121,6 +121,34 @@ const UserProfile = () => {
     }
   };
 
+  const handleResumeUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploading(prev => ({ ...prev, resume: true }));
+      try {
+        // Use FormData for file upload
+        const formData = new FormData();
+        formData.append('resume', file);
+
+        const response = await axiosInstance.put(
+          API_PATHS.AUTH.UPDATE_PROFILE, // or your resume upload endpoint
+          formData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        );
+
+        if (response.status === 200) {
+          toast.success('Resume uploaded successfully');
+          setProfileData(prev => ({ ...prev, resume: response.data.resume }));
+          updateUser({ ...user, resume: response.data.resume });
+        }
+      } catch (error) {
+        console.error('Resume upload failed', error);
+      } finally {
+        setUploading(prev => ({ ...prev, resume: false }));
+      }
+    }
+  };
+
   useEffect(() => {
     const userData = {
       name: user?.name || '',
@@ -228,7 +256,7 @@ const UserProfile = () => {
                     <span className=''>Choose File</span>
                     <input type="file"
                        accept=".pdf,.doc,.docx"
-                       onChange={(e) => handleImageChange(e, 'resume')}
+                       onChange={(e) => handleResumeUpload(e)}
                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors"
                      />
                   </label>
