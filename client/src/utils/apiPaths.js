@@ -1,5 +1,7 @@
-export const BASE_URL = "http://localhost:8000";
+// export const BASE_URL = "http://localhost:8000";
 // export const BASE_URL = "http://129.148.29.122:8000";
+export const BASE_URL = ""; // Use same-origin for API requests
+// export const BASE_URL = "https://wellsjhones.com.br:8000";
 export const API_PATHS = {
   AUTH: {
     REGISTER: `/api/auth/register`, //signup (jobseeker or employer)
