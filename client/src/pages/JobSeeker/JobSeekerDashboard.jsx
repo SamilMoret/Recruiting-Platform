@@ -193,7 +193,6 @@ const JobSeekerDashboard = () => {
   } 
 
   const applyToJob = async (jobId) => {
-    console.log("Applying to job:", jobId);
     try {
       if (jobId) {
         await axiosInstance.post(API_PATHS.APPLICATIONS.APPLY_TO_JOB(jobId));

@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useState, useEffect, use} from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -71,12 +72,34 @@ export const AuthProvider = ({children}) => {
         checkAuthStatus
     };
 
-    console.log("AuthContext user:", user);
-    console.log("Avatar URL:", user?.avatar);
-
     return (
         <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );
+};
+
+const ProtectedRoute = ({ requiredRole }) => {
+  const { user, loading } = useAuth();
+  const location = useLocation();
+
+  // Debug logging
+  console.log('ProtectedRoute user:', user, 'loading:', loading, 'requiredRole:', requiredRole);
+
+  // Wait for auth state to finish loading
+  if (loading) {
+    return <div>Loading...</div>; // Or a spinner
+  }
+
+  // If not logged in, redirect to login
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // If role is required and user does not have it, redirect to home
+  if (requiredRole && user.role !== requiredRole) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
 };

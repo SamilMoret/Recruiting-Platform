@@ -1,7 +1,6 @@
-export const BASE_URL = "http://localhost:8000";
-// export const BASE_URL = "http://164.152.61.249:8000";
-// export const BASE_URL = ""; // Use same-origin for API requests
-// export const BASE_URL = "https://wellsjhones.com.br:8000";
+// export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+// export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "http://164.152.61.249:8000";
 export const API_PATHS = {
   AUTH: {
     REGISTER: `/api/auth/register`, //signup (jobseeker or employer)
