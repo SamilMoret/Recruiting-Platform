@@ -27,6 +27,13 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    // Don't try to refresh token on login or register endpoints
+    if (
+      originalRequest.url.includes("/api/auth/login") ||
+      originalRequest.url.includes("/api/auth/register")
+    ) {
+      return Promise.reject(error);
+    }
     if (
       error.response &&
       error.response.status === 401 &&
@@ -56,6 +63,7 @@ axiosInstance.interceptors.response.use(
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("user");
+        alert("Session expired, please log in again.");
         window.location.href = "/";
         return Promise.reject(refreshError);
       }

@@ -13,6 +13,7 @@ import { validateEmail } from '../../utils/helper';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { useAuth } from '../../context/AuthContext';
+import { Link } from "react-router-dom";
 
 const Login = () => {
 
@@ -85,6 +86,9 @@ const Login = () => {
         rememberMe: formData.rememberMe
       });
 
+      // Log the successful response
+      console.log("Login success response:", response);
+
       setFormState(prev => ({
         ...prev,
         loading: false,
@@ -96,27 +100,23 @@ const Login = () => {
 
       if(token){
         login(response.data, token);
-      
-      // Redirect to dashboard after a short delay to show success message
-      setTimeout(() => {
-        window.location.href = role === "employer"? "/employer-dashboard":"/find-jobs";
+        setTimeout(() => {
+          window.location.href = role === "employer"? "/employer-dashboard":"/find-jobs";
+        }, 2000);
+      }
+    } catch(error){
+      // Log the error response
 
-      }, 2000);
-    }
-
-    // redirect based on user role
-
-    setTimeout(() => {
-      const redirectPath = user.role === "employer" ? "/employer-dashboard" : "/find-jobs";
-      window.location.href = redirectPath;
-    }, 1500);
-  }
-
-    catch(error){
+      let message = "An error occurred. Please try again.";
+      if (error.response?.status === 401 || error.response?.status === 400) {
+        message = "Incorrect email or password.";
+      } else if (error.response?.data?.message) {
+        message = error.response.data.message;
+      }
       setFormState(prev => ({
         ...prev,
         loading: false,
-        errors: { submit: error.response?.data?.message || "An error occurred. Please try again." }
+        errors: { submit: message }
       }));
     }
   };
@@ -216,12 +216,9 @@ const Login = () => {
             )}
             {/* Forgot password link */}
             <div className="text-right mt-2">
-              <a
-                href="/forgot-password"
-                className="text-blue-600 hover:underline text-sm"
-              >
+              <Link to="/forgot-password" className="text-blue-600 hover:underline text-sm">
                 Forgot password?
-              </a>
+              </Link>
             </div>
           </div>
           <div>
