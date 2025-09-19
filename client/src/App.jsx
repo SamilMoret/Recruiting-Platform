@@ -19,6 +19,7 @@ import ApplicationViewer from "./pages/Employer/ApplicationViewer";
 import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
 import ProtectedRoute from "./routes/ProtectedRoute"; // Adjust the path as needed
 import { AuthProvider } from "./context/AuthContext";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 
 
 
@@ -32,16 +33,18 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login  />} />
-
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/find-jobs" element={<JobSeekerDashboard />} />
           <Route path="/job/:jobId" element={<JobDetails />} />
           <Route path="/saved-jobs" element={<SavedJobs />} />
           <Route path="/profile" element={<UserProfile />} />
+          {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
+          <Route path="/employer-dashboard" element={<EmployerDashboard />} />
          
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="employer" />}>
-            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+            
             <Route path="/post-job" element={<JobPostingForm />} />
             <Route path="/manage-jobs" element={<ManageJobs />} />
             <Route path="/applicants" element={<ApplicationViewer />} />

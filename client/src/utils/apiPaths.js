@@ -1,6 +1,8 @@
 // export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 // export const BASE_URL = "http://localhost:8000";
-export const BASE_URL = "http://164.152.61.249:8000";
+// export const BASE_URL = "http://164.152.61.249:8000";
+export const BASE_URL = "https://wellsjhones.com.br/";
+// export const BASE_URL = "";
 export const API_PATHS = {
   AUTH: {
     REGISTER: `/api/auth/register`, //signup (jobseeker or employer)
@@ -8,6 +10,9 @@ export const API_PATHS = {
     GET_PROFILE: `/api/auth/profile`, //get user profile
     UPDATE_PROFILE: `/api/user/profile`, //update user profile
     DELETE_RESUME: `/api/auth/resume`, //delete user resume
+
+    FORGOT_PASSWORD: `/api/auth/forgot-password`, // request password reset
+    RESET_PASSWORD: `/api/auth/reset-password`, // reset password with token
   },
   DASHBOARD: {
     OVERVIEW: `/api/analytics/overview`, //get dashboard statistics

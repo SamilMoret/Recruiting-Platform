@@ -187,26 +187,26 @@ const Login = () => {
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-               type={formState.showPassword ? "text":"password"}
-               name="password"
-               value={formData.password}
-               onChange={handleInputChanges}
-               className={`w-full pl-10 pr-4 py-3 rounded-lg border
-               ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
+                type={formState.showPassword ? "text":"password"}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChanges}
+                className={`w-full pl-10 pr-4 py-3 rounded-lg border
+                ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-               placeholder='Enter your password'
-               />
-               <button
-                  type="button"
-                  onClick={() => setFormState(prev =>({...prev, showPassword: !prev.showPassword}))}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-               >
+                placeholder='Enter your password'
+              />
+              <button
+                type="button"
+                onClick={() => setFormState(prev =>({...prev, showPassword: !prev.showPassword}))}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
                 {formState.showPassword ? (
                   <EyeOff className="w-5 h-5" />
                 ) : (
                   <Eye className="w-5 h-5" />
                 )}
-               </button>
+              </button>
             </div>
             {formState.errors.password && (
               <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -214,9 +214,17 @@ const Login = () => {
                 {formState.errors.password}
               </p>
             )}
-            
+            {/* Forgot password link */}
+            <div className="text-right mt-2">
+              <a
+                href="/forgot-password"
+                className="text-blue-600 hover:underline text-sm"
+              >
+                Forgot password?
+              </a>
             </div>
-            <div>
+          </div>
+          <div>
             {/* Submit Error */}
             {formState.errors.submit && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3">
