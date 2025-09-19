@@ -175,17 +175,16 @@ const SignUp = () => {
 
 
       }catch(error){
-
-        console.error("Error ", error);
-
+        let message = "Failed to create an account";
+        if (error.response?.data?.message) {
+          message = error.response.data.message;
+        } else if (typeof error.response?.data === "string") {
+          message = error.response.data;
+        }
         setFormState(prev => ({
           ...prev,
           loading: false,
-          errors: {
-            submit:
-            error.response?.data?.message ||
-            "Failed to create account"
-          }
+          errors: { submit: message }
         }));
       }}
 
