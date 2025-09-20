@@ -49,7 +49,7 @@ function App() {
             <Route path="/manage-jobs" element={<ManageJobs />} />
             <Route path="/applicants" element={<ApplicationViewer />} />
             <Route path="/company-profile" element={<EmployerProfilePage />} />
-            
+            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
           </Route>
 
           {/* Catch all route */}
