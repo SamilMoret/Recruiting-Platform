@@ -2,6 +2,16 @@
 
 A modern, full-stack recruiting platform for job seekers, employers, and administrators. Built with React (Vite), Java Spring Boot backend, JWT authentication, and a responsive, user-friendly UI.
 
+# Demo
+
+Watch a walkthrough of the platform:
+
+<div align="center">
+  <a href="https://youtu.be/1QEMu4EPbTg" target="_blank">
+    <img src="https://img.youtube.com/vi/1QEMu4EPbTg/0.jpg" alt="Recruiting Platform Demo" width="480"/>
+  </a>
+</div>
+
 ## Features
 
 - **Job Seeker Portal**
