@@ -1,7 +1,5 @@
-// export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-// export const BASE_URL = "http://localhost:8000";
-// export const BASE_URL = "http://164.152.61.249:8000";
-export const BASE_URL = "https://wellsjhones.com.br/";
+export const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "https://wellsjhones.com.br/";
 // export const BASE_URL = "";
 export const API_PATHS = {
   AUTH: {
