@@ -20,6 +20,8 @@ import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
 import ProtectedRoute from "./routes/ProtectedRoute"; // Adjust the path as needed
 import { AuthProvider } from "./context/AuthContext";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import AdmDashboard from "./pages/admin/AdmDashboard";
+import AdminUser from "./pages/admin/AdminUser";
 
 
 
@@ -38,19 +40,29 @@ function App() {
           <Route path="/job/:jobId" element={<JobDetails />} />
           <Route path="/saved-jobs" element={<SavedJobs />} />
           <Route path="/profile" element={<UserProfile />} />
+
+          <Route path="/admin-dashboard" element={<AdmDashboard />} />
+          <Route path="/admin-user" element={<AdminUser />} />
           {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
-          <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+          
          
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="employer" />}>
-            
+            <Route path="/employer-dashboard" element={<EmployerDashboard />} /> 
             <Route path="/post-job" element={<JobPostingForm />} />
             <Route path="/manage-jobs" element={<ManageJobs />} />
             <Route path="/applicants" element={<ApplicationViewer />} />
             <Route path="/company-profile" element={<EmployerProfilePage />} />
             <Route path="/employer-dashboard" element={<EmployerDashboard />} />
           </Route>
+
+          <Route element={<ProtectedRoute requiredRole="jobseeker" />}>
+             <Route path="/find-jobs" element={<JobSeekerDashboard />} />
+             <Route path="/saved-jobs" element={<SavedJobs />} />
+             <Route path="/profile" element={<UserProfile />} />
+          </Route>
+
 
           {/* Catch all route */}
         </Routes>
