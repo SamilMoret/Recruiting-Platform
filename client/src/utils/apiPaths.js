@@ -36,4 +36,9 @@ export const API_PATHS = {
     UPDATE_STATUS: (id) => `/api/applications/${id}/status`, //update application status
   },
   UPLOAD_IMAGE: `/api/auth/upload-image`,
+  ADMIN: {
+    GET_ALL_USERS: "/api/admin/users",
+    // ...other admin endpoints...
+    GET_ALL_EMPLOYERS: "/api/admin/employers",
+  },
 };

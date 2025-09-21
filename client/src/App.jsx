@@ -23,6 +23,8 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import AdmDashboard from "./pages/admin/AdmDashboard";
 import AdminUser from "./pages/admin/AdminUser";
 import CompanyDashboard from "./pages/admin/CompanyDashboard";
+import AdminEmployer from "./pages/admin/AdminEmployer";
+
 
 
 
@@ -44,7 +46,7 @@ function App() {
 
           <Route path="/admin-dashboard" element={<AdmDashboard />} />
           <Route path="/admin-user" element={<AdminUser />} />
-          <Route path="/admin-company" element={<CompanyDashboard />} />
+          <Route path="/admin-company" element={<AdminEmployer />} />
           {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
           
          
