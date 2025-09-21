@@ -22,6 +22,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import AdmDashboard from "./pages/admin/AdmDashboard";
 import AdminUser from "./pages/admin/AdminUser";
+import CompanyDashboard from "./pages/admin/CompanyDashboard";
 
 
 
@@ -43,6 +44,7 @@ function App() {
 
           <Route path="/admin-dashboard" element={<AdmDashboard />} />
           <Route path="/admin-user" element={<AdminUser />} />
+          <Route path="/admin-company" element={<CompanyDashboard />} />
           {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
           
          

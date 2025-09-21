@@ -1,4 +1,4 @@
-export const BASE_URL = "https://wellsjhones.com.br/";
+export const BASE_URL = "http://localhost:8000";
 // import.meta.env.VITE_API_BASE_URL || "https://wellsjhones.com.br/";
 // export const BASE_URL = "";
 export const API_PATHS = {
