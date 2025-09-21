@@ -73,3 +73,8 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+
+// Example usage (uncomment and define userId to use):
+// const userId = "someUserId";
+// axiosInstance.patch(API_PATHS.ADMIN.DISABLE_USER(userId));
+// axiosInstance.patch(API_PATHS.ADMIN.ENABLE_USER(userId));

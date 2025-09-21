@@ -16,6 +16,18 @@ const AdminUser = () => {
       .catch(() => setLoading(false));
   }, []);
 
+  const handleToggleStatus = (userId, currentlyDisabled) => {
+    const endpoint = currentlyDisabled ? 'enable' : 'disable';
+    axiosInstance.patch(`${API_PATHS.ADMIN.GET_ALL_USERS}/${userId}/${endpoint}`)
+      .then(() => {
+        setUsers(users =>
+          users.map(user =>
+            user.id === userId ? { ...user, disabled: !currentlyDisabled } : user
+          )
+        );
+      });
+  };
+
   return (
     <AdminLayout activeMenu="admin-user">
       <div className="p-6">
@@ -29,7 +41,8 @@ const AdminUser = () => {
                 <th className="border px-4 py-2">ID</th>
                 <th className="border px-4 py-2">Name</th>
                 <th className="border px-4 py-2">Email</th>
-                {/* Add more columns as needed */}
+                <th className="border px-4 py-2">Status</th>
+                <th className="border px-4 py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -38,6 +51,21 @@ const AdminUser = () => {
                   <td className="border px-4 py-2">{user.id}</td>
                   <td className="border px-4 py-2">{user.name}</td>
                   <td className="border px-4 py-2">{user.email}</td>
+                  <td className="border px-4 py-2">
+                    {user.disabled ? "Disabled" : "Active"}
+                  </td>
+                  <td className="border px-4 py-2">
+                    <button
+                      className={
+                        user.disabled
+                          ? "bg-green-500 text-white px-3 py-1 rounded"
+                          : "bg-red-500 text-white px-3 py-1 rounded"
+                      }
+                      onClick={() => handleToggleStatus(user.id, user.disabled)}
+                    >
+                      {user.disabled ? "Enable" : "Disable"}
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

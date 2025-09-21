@@ -38,6 +38,8 @@ export const API_PATHS = {
   UPLOAD_IMAGE: `/api/auth/upload-image`,
   ADMIN: {
     GET_ALL_USERS: "/api/admin/users",
+    DISABLE_USER: (id) => `/api/admin/users/${id}/disable`,
+    ENABLE_USER: (id) => `/api/admin/users/${id}/enable`,
     // ...other admin endpoints...
     GET_ALL_EMPLOYERS: "/api/admin/employers",
     GET_STATS: "/api/admin/stats",
