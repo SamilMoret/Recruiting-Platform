@@ -40,5 +40,6 @@ export const API_PATHS = {
     GET_ALL_USERS: "/api/admin/users",
     // ...other admin endpoints...
     GET_ALL_EMPLOYERS: "/api/admin/employers",
+    GET_STATS: "/api/admin/stats",
   },
 };
