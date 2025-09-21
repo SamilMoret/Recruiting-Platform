@@ -18,7 +18,7 @@ const AdminUser = () => {
 
   const handleToggleStatus = (userId, currentlyDisabled) => {
     const endpoint = currentlyDisabled ? 'enable' : 'disable';
-    axiosInstance.patch(`${API_PATHS.ADMIN.GET_ALL_USERS}/${userId}/${endpoint}`)
+    axiosInstance.put(`${API_PATHS.ADMIN.GET_ALL_USERS}/${userId}/${endpoint}`)
       .then(() => {
         setUsers(users =>
           users.map(user =>
