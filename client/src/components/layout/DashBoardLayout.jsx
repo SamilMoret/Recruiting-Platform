@@ -5,10 +5,11 @@ import {
     Key,
     LogOut,
     Menu,
-    X
+    X,
+    Users
 } from 'lucide-react'
 import { Link, useNavigate   } from 'react-router-dom'
-import {useAuth} from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { NAVIGATION_MENU, } from '../../utils/data';
 import { Children } from 'react'
 import ProfileDropdown from './ProfileDropDown';
@@ -121,15 +122,29 @@ const DashBoardLayout = ({activeMenu, children}) => {
     {/* Nabigation */}
 
     <nav className='p-4 space-y-2'>
-        {NAVIGATION_MENU.map((item) => (
+      {user?.role === 'admin'
+        ? [
+            { id: "admin-dashboard", name: "Dashboard", icon: Briefcase },
+            { id: "admin-company", name: "Companies", icon: Building2 },
+            { id: "admin-user", name: "Users", icon: Users },
+          ].map((item) => (
             <NavigationItem
-            key={item.id}
-            item={item}
-            isActive={activeNavItem === item.id}
-            onClick={handleNavigation}
-            isCollapsed={sidebarCollapsed}
+              key={item.id}
+              item={item}
+              isActive={activeNavItem === item.id}
+              onClick={handleNavigation}
+              isCollapsed={sidebarCollapsed}
             />
-        ))}
+          ))
+        : NAVIGATION_MENU.map((item) => (
+            <NavigationItem
+              key={item.id}
+              item={item}
+              isActive={activeNavItem === item.id}
+              onClick={handleNavigation}
+              isCollapsed={sidebarCollapsed}
+            />
+          ))}
     </nav>
 
     {/* Logout */}
