@@ -38,10 +38,12 @@ export const API_PATHS = {
   UPLOAD_IMAGE: `/api/auth/upload-image`,
   ADMIN: {
     GET_ALL_USERS: "/api/admin/users",
+    GET_ALL_EMPLOYERS: "/api/admin/employers",
+    GET_ALL_COMPANIES: "/api/admin/companies", // if you have companies separate from employers
     DISABLE_USER: (id) => `/api/admin/users/${id}/disable`,
     ENABLE_USER: (id) => `/api/admin/users/${id}/enable`,
-    // ...other admin endpoints...
-    GET_ALL_EMPLOYERS: "/api/admin/employers",
-    GET_STATS: "/api/admin/stats",
+    DISABLE_EMPLOYER: (id) => `/api/admin/employers/${id}/disable`,
+    ENABLE_EMPLOYER: (id) => `/api/admin/employers/${id}/enable`,
+    GET_STATS: "/api/admin/stats", // for dashboard cards
   },
 };

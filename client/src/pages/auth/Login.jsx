@@ -118,6 +118,8 @@ const Login = () => {
         message = "Incorrect email or password.";
       } else if (error.response?.data?.message) {
         message = error.response.data.message;
+      } else if (error.response?.status === 403) {
+        message = "Your account is disabled. Please contact support.";
       }
       setFormState(prev => ({
         ...prev,
