@@ -36,51 +36,92 @@ const AdminEmployer = () => {
 
   return (
     <AdminLayout activeMenu="admin-employer">
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">
-          Admin Employer Management
-        </h1>
-        {loading ? (
-          <p>Loading employers...</p>
-        ) : (
-          <table className="min-w-full border">
-            <thead>
-              <tr>
-                <th className="border px-4 py-2">ID</th>
-                <th className="border px-4 py-2">Name</th>
-                <th className="border px-4 py-2">Company Name</th>
-                <th className="border px-4 py-2">Email</th>
-                <th className="border px-4 py-2">Status</th>
-                <th className="border px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employers.map((emp) => (
-                <tr key={emp.id}>
-                  <td className="border px-4 py-2">{emp.id}</td>
-                  <td className="border px-4 py-2">{emp.name}</td>
-                  <td className="border px-4 py-2">{emp.companyName}</td>
-                  <td className="border px-4 py-2">{emp.email}</td>
-                  <td className="border px-4 py-2">
-                    {emp.disabled ? "Disabled" : "Active"}
-                  </td>
-                  <td className="border px-4 py-2">
-                    <button
-                      className={
-                        emp.disabled
-                          ? "bg-green-500 text-white px-3 py-1 rounded"
-                          : "bg-red-500 text-white px-3 py-1 rounded"
-                      }
-                      onClick={() => handleToggleStatus(emp.id, emp.disabled)}
-                    >
-                      {emp.disabled ? "Enable" : "Disable"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+      <div className="p-6 min-h-screen bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-3xl font-bold mb-8 text-gray-800">
+            Admin Employer Management
+          </h1>
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            {loading ? (
+              <p className="text-gray-500">Loading employers...</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Name
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Company Name
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Email
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-100">
+                    {employers.map((emp, idx) => (
+                      <tr
+                        key={emp.id}
+                        className={
+                          idx % 2 === 0
+                            ? "bg-white"
+                            : "bg-gray-50 hover:bg-gray-100"
+                        }
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                          {emp.id}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                          {emp.name}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                          {emp.companyName}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                          {emp.email}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span
+                            className={`inline-block px-2 py-1 rounded-full text-xs font-semibold ${
+                              emp.disabled
+                                ? "bg-red-100 text-red-600"
+                                : "bg-green-100 text-green-600"
+                            }`}
+                          >
+                            {emp.disabled ? "Disabled" : "Active"}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button
+                            className={`transition-colors duration-150 px-4 py-1 rounded-lg font-medium text-sm shadow-sm focus:outline-none ${
+                              emp.disabled
+                                ? "bg-green-500 hover:bg-green-600 text-white"
+                                : "bg-red-500 hover:bg-red-600 text-white"
+                            }`}
+                            onClick={() => handleToggleStatus(emp.id, emp.disabled)}
+                          >
+                            {emp.disabled ? "Enable" : "Disable"}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </AdminLayout>
   );
