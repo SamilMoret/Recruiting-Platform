@@ -101,7 +101,13 @@ const Login = () => {
       if(token){
         login(response.data, token);
         setTimeout(() => {
-          window.location.href = role === "employer"? "/employer-dashboard":"/find-jobs";
+          if (role === "admin") {
+            window.location.href = "/admin-dashboard";
+          } else if (role === "employer") {
+            window.location.href = "/employer-dashboard";
+          } else {
+            window.location.href = "/find-jobs";
+          }
         }, 2000);
       }
     } catch(error){
@@ -112,6 +118,8 @@ const Login = () => {
         message = "Incorrect email or password.";
       } else if (error.response?.data?.message) {
         message = error.response.data.message;
+      } else if (error.response?.status === 403) {
+        message = "Your account is disabled. Please contact support.";
       }
       setFormState(prev => ({
         ...prev,
