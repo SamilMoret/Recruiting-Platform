@@ -27,8 +27,8 @@ export const validateAvatar = (file) => {
   if (!allowedTypes.includes(file.type))
     return "Avatar must be a JPG or PNG file";
 
-  const maxSize = 2 * 1024 * 1024;
-  if (file.size > maxSize) return "Avatar must be less than 5MB";
+  const maxSize = 10 * 1024 * 1024;
+  if (file.size > maxSize) return "Avatar must be less than 10MB";
 
   return "";
 };
