@@ -59,12 +59,14 @@ const Header = () => {
                   <span>Ola, {user?.fullName}</span>
                   <a
                     href={
-                        user?.role === "employer" 
-                        ? "/employer-dashboard" 
+                      user?.role === "admin"
+                        ? "/admin-dashboard"
+                        : user?.role === "employer"
+                        ? "/employer-dashboard"
                         : "/find-jobs"
                     }
                     className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-sm hover:shadow-md"
-                    >
+                  >
                     Dashboard
                   </a>
                 </div>

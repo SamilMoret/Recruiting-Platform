@@ -1,6 +1,4 @@
-import React, {createContext, useContext, useState, useEffect, use} from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import axios from "axios";
+import React, {createContext, useContext, useState, useEffect} from "react";
 
 const AuthContext = createContext();
 
@@ -33,7 +31,7 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
             console.error("Error checking auth status:", error);
             logout();
-        }finally {
+        } finally {
             setLoading(false);
         }
     };
@@ -53,13 +51,13 @@ export const AuthProvider = ({children}) => {
         
         setUser(null);
         setIsAuthenticated(false);
-        window.location.href='/'
+        window.location.href = '/';
     };
 
     const updateUser = (updateUserData) => {
-        const newUserdata = { ...user, ...updateUserData };
-        localStorage.setItem("user", JSON.stringify(newUserdata));
-        setUser(newUserdata);
+        const newUserData = { ...user, ...updateUserData };
+        localStorage.setItem("user", JSON.stringify(newUserData));
+        setUser(newUserData);
     };
 
     const value = {
@@ -79,84 +77,3 @@ export const AuthProvider = ({children}) => {
         </AuthContext.Provider>
     );
 };
-
-const ProtectedRoute = ({ requiredRole }) => {
-  const { user, loading } = useAuth();
-  const location = useLocation();
-
-  // Debug logging
-  console.log('ProtectedRoute user:', user, 'loading:', loading, 'requiredRole:', requiredRole);
-
-  // Wait for auth state to finish loading
-  if (loading) {
-    return <div>Loading...</div>; // Or a spinner
-  }
-
-  // If not logged in, redirect to login
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  // If role is required and user does not have it, redirect to home
-  if (requiredRole && user.role !== requiredRole) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <Outlet />;
-};
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000", // Replace with your API base URL
-  timeout: 10000, // Request timeout
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    if (
-      originalRequest.url.includes("/api/auth/login") ||
-      originalRequest.url.includes("/api/auth/register")
-    ) {
-      return Promise.reject(error);
-    }
-    if (
-      error.response &&
-      error.response.status === 401 &&
-      !originalRequest._retry
-    ) {
-      originalRequest._retry = true;
-      try {
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (!refreshToken) throw new Error("No refresh token");
-
-        // Call your refresh endpoint
-        const res = await axios.post(`${BASE_URL}/auth/refresh`, {
-          refreshToken,
-        });
-
-        const { token, refreshToken: newRefreshToken, user } = res.data;
-        localStorage.setItem("token", token);
-        if (newRefreshToken)
-          localStorage.setItem("refreshToken", newRefreshToken);
-        if (user) localStorage.setItem("user", JSON.stringify(user));
-
-        // Update Authorization header and retry original request
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        console.error("Token refresh failed:", refreshError);
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("user");
-        alert("Session expired, please log in again.");
-        window.location.href = "/";
-        return Promise.reject(refreshError);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
