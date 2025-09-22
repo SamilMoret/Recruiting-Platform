@@ -13,9 +13,20 @@ const axiosInstance = axios.create({
 // request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("token");
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    // Normalize URL to avoid false positives with query params or absolute URLs
+    const url = config.url.replace(BASE_URL, "");
+    const isAuthRoute =
+      url.startsWith("/api/auth/login") ||
+      url.startsWith("/api/auth/register") ||
+      url.startsWith("/api/auth/refresh");
+    if (isAuthRoute) {
+      // Ensure no Authorization header is sent
+      delete config.headers.Authorization;
+      return config;
+    }
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -27,28 +38,20 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    // Don't try to refresh token on login or register endpoints
-    if (
-      originalRequest.url.includes("/api/auth/login") ||
-      originalRequest.url.includes("/api/auth/register")
-    ) {
-      return Promise.reject(error);
-    }
     if (
       error.response &&
       error.response.status === 401 &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
+      const refreshToken = localStorage.getItem("refreshToken");
+      if (!refreshToken) {
+        // Handle missing refresh token (logout or redirect)
+        // logout();
+        return Promise.reject(new Error("No refresh token"));
+      }
       try {
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (!refreshToken) throw new Error("No refresh token");
-
-        // Call your refresh endpoint
-        const res = await axios.post(`${BASE_URL}/auth/refresh`, {
-          refreshToken,
-        });
-
+        const res = await axios.post("/api/auth/refresh", { refreshToken });
         const { token, refreshToken: newRefreshToken, user } = res.data;
         localStorage.setItem("token", token);
         if (newRefreshToken)
@@ -59,12 +62,8 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${token}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Refresh failed, log out
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("user");
-        alert("Session expired, please log in again.");
-        window.location.href = "/";
+        // Handle refresh failure (logout or redirect)
+        // logout();
         return Promise.reject(refreshError);
       }
     }
