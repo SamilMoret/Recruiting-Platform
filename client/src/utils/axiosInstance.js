@@ -42,7 +42,19 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Handle 401 errors (token expired)
+    // Don't handle 401 errors for auth routes (login, register, refresh)
+    const url = originalRequest.url.replace(BASE_URL, "");
+    const isAuthRoute =
+      url.startsWith("/api/auth/login") ||
+      url.startsWith("/api/auth/register") ||
+      url.startsWith("/api/auth/refresh");
+
+    if (isAuthRoute) {
+      // Let auth routes handle their own errors
+      return Promise.reject(error);
+    }
+
+    // Handle 401 errors (token expired) for protected routes only
     if (
       error.response &&
       error.response.status === 401 &&
