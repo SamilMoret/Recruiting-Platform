@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
   },
 });
 
-// request interceptor
+// Request interceptor - adds auth token to requests
 axiosInstance.interceptors.request.use(
   (config) => {
     // Normalize URL to avoid false positives with query params or absolute URLs
@@ -19,11 +19,14 @@ axiosInstance.interceptors.request.use(
       url.startsWith("/api/auth/login") ||
       url.startsWith("/api/auth/register") ||
       url.startsWith("/api/auth/refresh");
+
+    // Don't send Authorization header for auth routes
     if (isAuthRoute) {
-      // Ensure no Authorization header is sent
       delete config.headers.Authorization;
       return config;
     }
+
+    // Add token for all other routes
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -33,20 +36,23 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// response interceptor with refresh logic
+// Response interceptor - handles token refresh and session expiration
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // Handle 401 errors (token expired)
     if (
       error.response &&
       error.response.status === 401 &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
+
       const refreshToken = localStorage.getItem("refreshToken");
       if (!refreshToken) {
-        // Log out and redirect to login if no refresh token
+        // No refresh token - log out and redirect to login
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("user");
@@ -54,11 +60,16 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/login";
         return Promise.reject(new Error("No refresh token"));
       }
+
       try {
+        // Attempt to refresh the token
         const res = await axios.post(`${BASE_URL}/api/auth/refresh`, {
           refreshToken,
         });
+
         const { token, refreshToken: newRefreshToken, user } = res.data;
+
+        // Update stored tokens and user data
         localStorage.setItem("token", token);
         if (newRefreshToken) {
           localStorage.setItem("refreshToken", newRefreshToken);
@@ -66,10 +77,12 @@ axiosInstance.interceptors.response.use(
         if (user) {
           localStorage.setItem("user", JSON.stringify(user));
         }
+
+        // Retry the original request with new token
         originalRequest.headers.Authorization = `Bearer ${token}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Log out and redirect to login on refresh failure
+        // Refresh failed - log out and redirect to login
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("user");
@@ -78,13 +91,9 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
 
 export default axiosInstance;
-
-// Example usage (uncomment and define userId to use):
-// const userId = "someUserId";
-// axiosInstance.patch(API_PATHS.ADMIN.DISABLE_USER(userId));
-// axiosInstance.patch(API_PATHS.ADMIN.ENABLE_USER(userId));
