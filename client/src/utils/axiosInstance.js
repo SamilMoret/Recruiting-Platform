@@ -3,7 +3,7 @@ import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 80000, //80 seconds timeout
+  timeout: 80000, // 80 seconds timeout
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -46,24 +46,35 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem("refreshToken");
       if (!refreshToken) {
-        // Handle missing refresh token (logout or redirect)
-        // logout();
+        // Log out and redirect to login if no refresh token
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("user");
+        alert("Session expired. Please log in again.");
+        window.location.href = "/login";
         return Promise.reject(new Error("No refresh token"));
       }
       try {
-        const res = await axios.post("/api/auth/refresh", { refreshToken });
+        const res = await axios.post(`${BASE_URL}/api/auth/refresh`, {
+          refreshToken,
+        });
         const { token, refreshToken: newRefreshToken, user } = res.data;
         localStorage.setItem("token", token);
-        if (newRefreshToken)
+        if (newRefreshToken) {
           localStorage.setItem("refreshToken", newRefreshToken);
-        if (user) localStorage.setItem("user", JSON.stringify(user));
-
-        // Update Authorization header and retry original request
+        }
+        if (user) {
+          localStorage.setItem("user", JSON.stringify(user));
+        }
         originalRequest.headers.Authorization = `Bearer ${token}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Handle refresh failure (logout or redirect)
-        // logout();
+        // Log out and redirect to login on refresh failure
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("user");
+        alert("Session expired. Please log in again.");
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
