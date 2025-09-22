@@ -1,6 +1,5 @@
 package br.com.one.jobportal.dto;
 
-import br.com.one.jobportal.entity.UserRole;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +22,13 @@ public class RegisterRequest {
     @Size(min = 6, message = "Senha deve ter pelo menos 6 caracteres")
     private String password;
 
-    @NotBlank(message = "Telefone é obrigatório")
-    @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$", message = "Telefone deve estar no formato (XX) XXXXX-XXXX")
+    @Pattern(regexp = "^(?:\\(\\d{2}\\)\\s?|\\d{2}[\\s-]?)(?:\\d{4,5}[-\\s]?\\d{4}|9[1-9]\\d{3}[-\\s]?\\d{4})?$", 
+             message = "Telefone inválido. Use os formatos: (XX) XXXXX-XXXX, (XX) XXXX-XXXX, XX XXXXXXXX, XX XXXXXXXXX, XX-XXXXXXXX, XX-XXXX-XXXX ou deixe vazio")
     private String phone;
-
-    @NotNull(message = "Tipo de usuário é obrigatório")
-    private UserRole role;
+    
+    @NotBlank(message = "Tipo de usuário é obrigatório (JOB_SEEKER ou EMPLOYER)")
+    @Pattern(regexp = "^(?i)(JOB_?SEEKER|EMPLOYER)$", message = "Tipo de usuário inválido. Use JOB_SEEKER (ou JOBSEEKER) ou EMPLOYER (não sensível a maiúsculas/minúsculas)")
+    private String role;
+    
+    private String avatar;
 }

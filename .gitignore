@@ -1,1 +1,57 @@
-tes.t
+# Logs
+/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Dependências
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+build/
+
+# Editor
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Arquivos de migração antigos
+/database/migrations/
+/database/scripts/
+
+# Logs do servidor
+/server/logs/
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos de diagnóstico
+windsurf-*.zip
+
+# Ignorar pastas específicas
+client/Server2/
+logs/
+
+# Ignorar arquivos de banco de dados antigos
+/database/
+!/server/database/
+
+# Ignorar arquivos de log
+*.log

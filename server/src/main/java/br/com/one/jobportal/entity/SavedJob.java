@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "saved_job")
+@Table(name = "saved_jobs",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"jobseeker_id", "job_id"}))
 public class SavedJob {
 
     @Id
@@ -17,7 +18,7 @@ public class SavedJob {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_seeker_id", nullable = false)
+    @JoinColumn(name = "jobseeker_id", nullable = false)
     private User jobSeeker;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,7 +26,7 @@ public class SavedJob {
     private Job job;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

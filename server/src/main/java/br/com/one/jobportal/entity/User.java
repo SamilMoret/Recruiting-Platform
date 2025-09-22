@@ -3,7 +3,6 @@ package br.com.one.jobportal.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.Convert;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,56 +11,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @Entity
-@Table(name = "`user`")
+@Table(name = "users")
 public class User implements UserDetails {
-
-    // ENUMS CORRESPONDENTES AO BANCO DE DADOS
-    public enum Role {
-        JOB_SEEKER, EMPLOYER, ADMIN;
-        
-        private static final Map<String, Role> NAME_MAP = new HashMap<>();
-        
-        static {
-            // Mapeia variações de nomes para os valores do enum
-            for (Role role : values()) {
-                // Mapeia o nome do enum (ex: JOB_SEEKER)
-                NAME_MAP.put(role.name(), role);
-                // Mapeia em minúsculas (ex: job_seeker)
-                NAME_MAP.put(role.name().toLowerCase(), role);
-                // Mapeia em maiúsculas (ex: JOB_SEEKER)
-                NAME_MAP.put(role.name().toUpperCase(), role);
-                // Mapeia sem underline (ex: jobseeker)
-                NAME_MAP.put(role.name().replace("_", "").toLowerCase(), role);
-            }
-            // Adiciona aliases comuns
-            NAME_MAP.put("jobseeker", JOB_SEEKER);
-            NAME_MAP.put("candidate", JOB_SEEKER);
-            NAME_MAP.put("recruiter", EMPLOYER);
-            NAME_MAP.put("employer", EMPLOYER);
-            NAME_MAP.put("admin", ADMIN);
-            NAME_MAP.put("administrator", ADMIN);
-        }
-        
-        public static Role fromString(String role) {
-            if (role == null) {
-                return JOB_SEEKER; // Valor padrão
-            }
-            // Remove espaços e converte para minúsculas para fazer a busca
-            String key = role.trim().toLowerCase();
-            return NAME_MAP.getOrDefault(key, JOB_SEEKER);
-        }
-        
-        public String getAuthority() {
-            return "ROLE_" + this.name();
-        }
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,73 +35,107 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Convert(converter = br.com.one.jobportal.converter.RoleConverter.class)
-    @Column(nullable = false)
-    private Role role = Role.JOB_SEEKER;  // ← valor padrão
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "ENUM('JOB_SEEKER', 'EMPLOYER', 'ADMIN') DEFAULT 'JOB_SEEKER'")
+    private Role role = Role.JOB_SEEKER;
 
     private String avatar;
     private String resume;
-    private String companyName;
-    private String companyDescription;
-    private String companyLogo;
     private String phone;
 
-    @OneToMany(mappedBy = "applicant")
-    private List<Application> applications;
+    @Column(name = "company_name")
+    private String companyName;
 
-    @OneToMany(mappedBy = "company")
-    private List<Job> postedJobs;
+    @Column(name = "company_description", columnDefinition = "TEXT")
+    private String companyDescription;
 
-    @OneToMany(mappedBy = "jobSeeker")
-    private List<SavedJob> savedJobs;
+    @Column(name = "company_logo")
+    private String companyLogo;
 
-    @OneToOne(mappedBy = "user")
-    private Analytics analytics;
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    private boolean active = true;
+    // Relacionamentos
+    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Job> postedJobs = new ArrayList<>();
 
-    // ✅ MÉTODOS OBRIGATÓRIOS da interface UserDetails
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Application> applications = new ArrayList<>();
 
+    @OneToMany(mappedBy = "jobSeeker", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SavedJob> savedJobs = new ArrayList<>();
+
+    public enum Role {
+        JOB_SEEKER, EMPLOYER, ADMIN;
+
+        private static final Map<String, Role> NAME_MAP = new HashMap<>();
+
+        static {
+            for (Role role : values()) {
+                NAME_MAP.put(role.name(), role);
+                NAME_MAP.put(role.name().toLowerCase(), role);
+                NAME_MAP.put(role.name().toUpperCase(), role);
+                NAME_MAP.put(role.name().replace("_", "").toLowerCase(), role);
+            }
+            NAME_MAP.put("jobseeker", JOB_SEEKER);
+            NAME_MAP.put("employer", EMPLOYER);
+            NAME_MAP.put("admin", ADMIN);
+        }
+
+        public static Role fromString(String role) {
+            if (role == null) {
+                return JOB_SEEKER;
+            }
+            String key = role.trim().toLowerCase();
+            return NAME_MAP.getOrDefault(key, JOB_SEEKER);
+        }
+
+        public String getAuthority() {
+            return "ROLE_" + this.name();
+        }
+    }
+
+    // Implementação dos métodos do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Retorna uma lista contendo a autoridade no formato 'ROLE_<NOME_DA_ROLE>'
-        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        return List.of(new SimpleGrantedAuthority(role.getAuthority()));
     }
 
     @Override
     public String getUsername() {
-        return email; // O Spring Security usa o email como username
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // Conta nunca expira
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // Conta nunca é bloqueada
+        return true;
     }
+
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // Credenciais nunca expiram
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return active; // Usa o campo 'active' para determinar se usuário está ativo
+        return active;
     }
 
-    // MÉTODOS ÚTEIS PARA VERIFICAÇÃO DE ROLES
+    // Métodos auxiliares
     public boolean isAdmin() {
         return this.role == Role.ADMIN;
     }

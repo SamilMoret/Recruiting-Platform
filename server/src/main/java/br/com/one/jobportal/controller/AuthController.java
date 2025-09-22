@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -24,7 +24,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
-    private final AuthService authService; // ← ADICIONE ESTA LINHA
+    private final AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
@@ -58,14 +58,34 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/register/candidate")
-    public ResponseEntity<?> registerCandidate(@Valid @RequestBody RegisterRequest registerRequest) {
-        return authService.register(registerRequest, "CANDIDATE");
+    @PostMapping("/register/jobseeker")
+    public ResponseEntity<?> registerJobSeeker(@Valid @RequestBody RegisterRequest registerRequest) {
+        return authService.register(registerRequest, "JOB_SEEKER");
     }
 
-    @PostMapping("/register/recruiter")
-    public ResponseEntity<?> registerRecruiter(@Valid @RequestBody RegisterRequest registerRequest,
-                                               @RequestParam String company) {
-        return authService.registerRecruiter(registerRequest, company);
+    @PostMapping("/register/employer")
+    public ResponseEntity<?> registerEmployer(@Valid @RequestBody RegisterRequest registerRequest,
+                                            @RequestParam(required = false) String company) {
+        return authService.registerEmployer(registerRequest, company);
+    }
+    
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest) {
+        if (registerRequest.getRole() == null) {
+            return ResponseEntity.badRequest().body("O campo 'role' é obrigatório. Valores aceitos: 'JOB_SEEKER' ou 'EMPLOYER'");
+        }
+        
+        // Normaliza o role (remove underscore se existir e converte para maiúsculas)
+        String normalizedRole = registerRequest.getRole().toUpperCase().replace("_", "");
+        
+        if ("JOBSEEKER".equals(normalizedRole)) {
+            return authService.register(registerRequest, "JOB_SEEKER");
+        } else if ("EMPLOYER".equals(normalizedRole)) {
+            // Para EMPLOYER, o nome da empresa pode ser o nome do usuário por padrão
+            // ou pode ser solicitado em um campo separado no frontend
+            return authService.registerEmployer(registerRequest, registerRequest.getName());
+        } else {
+            return ResponseEntity.badRequest().body("Valor inválido para o campo 'role'. Use 'JOB_SEEKER' (ou 'JOBSEEKER') ou 'EMPLOYER'");
+        }
     }
 }

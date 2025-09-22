@@ -31,11 +31,16 @@ public class JpaConfig {
         em.setJpaVendorAdapter(vendorAdapter);
         
         Properties properties = new Properties();
-        // Desativa a criação automática de tabelas
-        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
-        // Mantém apenas o show_sql e format_sql para facilitar o debug
+        // Desativa a criação/atualização automática de tabelas (já que usamos Flyway)
+        properties.setProperty("hibernate.hbm2ddl.auto", "none");
+        // Configurações de depuração
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.use_sql_comments", "true");
+        // Configura o dialeto do MySQL 8
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        // Desativa a validação de schema
+        properties.setProperty("jakarta.persistence.schema-generation.database.action", "none");
         
         em.setJpaProperties(properties);
         return em;

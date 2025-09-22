@@ -33,9 +33,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/**",
-                    "/error",
-                    "/**" // Temporariamente permitir todas as requisições para teste
+                    "/error"
                 ).permitAll()
+                .requestMatchers("/api/jobs/**").authenticated()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

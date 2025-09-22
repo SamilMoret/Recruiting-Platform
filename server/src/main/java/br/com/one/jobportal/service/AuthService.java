@@ -8,5 +8,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface AuthService {
     ResponseEntity<?> login(LoginRequest loginRequest);
     ResponseEntity<?> register(RegisterRequest registerRequest, String role);
-    ResponseEntity<?> registerRecruiter(RegisterRequest registerRequest, String company);
+    ResponseEntity<?> registerEmployer(RegisterRequest registerRequest, String company);
 }

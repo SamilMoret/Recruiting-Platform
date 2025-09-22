@@ -1,6 +1,7 @@
 package br.com.one.jobportal.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,22 +10,20 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "application")
+@Table(name = "applications")
 public class Application {
-
-    public enum Status {
-        APPLIED, IN_REVIEW, REJECTED, ACCEPTED
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
-    private String resume; // Caminho para o currículo do candidato
+    private String resume;
+
+    @Column(name = "cover_letter", columnDefinition = "TEXT")
+    private String coverLetter;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(columnDefinition = "ENUM('APPLIED', 'IN_REVIEW', 'REJECTED', 'ACCEPTED') DEFAULT 'APPLIED'")
     private Status status = Status.APPLIED;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,17 +31,31 @@ public class Application {
     private Job job;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "applicant_id", nullable = false)
+    @JoinColumn(name = "candidate_id", nullable = false)
     private User applicant;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(columnDefinition = "TEXT")
-    private String notes; // Notas adicionais sobre a aplicação
+    public enum Status {
+        APPLIED("Applied"),
+        IN_REVIEW("In Review"),
+        REJECTED("Rejected"),
+        ACCEPTED("Accepted");
+
+        private final String displayName;
+
+        Status(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+    }
 }
