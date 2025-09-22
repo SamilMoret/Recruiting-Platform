@@ -15,9 +15,47 @@ export const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    // Helper function to check if user is disabled
+    const isUserDisabled = (userData) => {
+        return (
+            userData?.user?.status === "DISABLED" || 
+            userData?.user?.status === "SUSPENDED" ||
+            userData?.user?.isActive === false ||
+            userData?.accountStatus === "DISABLED" ||
+            userData?.accountStatus === "SUSPENDED" ||
+            userData?.status === "DISABLED" ||
+            userData?.status === "SUSPENDED" ||
+            userData?.isActive === false
+        );
+    };
+
     useEffect(() => {
         checkAuthStatus();
     }, []);
+
+    // Periodic check for disabled users (every 30 seconds)
+    useEffect(() => {
+        if (isAuthenticated) {
+            const interval = setInterval(() => {
+                const userStr = localStorage.getItem("user");
+                if (userStr) {
+                    try {
+                        const userData = JSON.parse(userStr);
+                        if (isUserDisabled(userData)) {
+                            console.warn("User account detected as disabled during session, logging out");
+                            alert("Your account has been disabled by an administrator. Please contact support for assistance.");
+                            logout();
+                        }
+                    } catch (error) {
+                        console.error("Error checking user status:", error);
+                        logout();
+                    }
+                }
+            }, 30000); // Check every 30 seconds
+
+            return () => clearInterval(interval);
+        }
+    }, [isAuthenticated]);
     
     const checkAuthStatus = async () => {
         try {
@@ -25,6 +63,14 @@ export const AuthProvider = ({children}) => {
             const userStr = localStorage.getItem("user");
             if (token && userStr) {
                 const userData = JSON.parse(userStr);
+                
+                // Check if the user account is disabled
+                if (isUserDisabled(userData)) {
+                    console.warn("User account is disabled, logging out");
+                    logout();
+                    return;
+                }
+                
                 setUser(userData);
                 setIsAuthenticated(true);
             }
