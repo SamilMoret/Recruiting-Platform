@@ -1,11 +1,16 @@
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "https://localhost:5001/";
+// import.meta.env.VITE_API_BASE_URL || "https://wellsjhones.com.br/";
+// export const BASE_URL = "";
 export const API_PATHS = {
   AUTH: {
-    REGISTER: (role) => `/api/auth/register/${role}`, //signup (jobseeker or employer)
+    REGISTER: `/api/auth/register`, //signup (jobseeker or employer)
     LOGIN: `/api/auth/login`, //login
     GET_PROFILE: `/api/auth/profile`, //get user profile
-    UPDATE_PROFILE: `/api/auth/profile`, //update user profile
+    UPDATE_PROFILE: `/api/user/profile`, //update user profile
     DELETE_RESUME: `/api/auth/resume`, //delete user resume
+
+    FORGOT_PASSWORD: `/api/auth/forgot-password`, // request password reset
+    RESET_PASSWORD: `/api/auth/reset-password`, // reset password with token
   },
   DASHBOARD: {
     OVERVIEW: `/api/analytics/overview`, //get dashboard statistics
@@ -31,4 +36,14 @@ export const API_PATHS = {
     UPDATE_STATUS: (id) => `/api/applications/${id}/status`, //update application status
   },
   UPLOAD_IMAGE: `/api/auth/upload-image`,
+  ADMIN: {
+    GET_ALL_USERS: "/api/admin/users",
+    GET_ALL_EMPLOYERS: "/api/admin/employers",
+    GET_ALL_COMPANIES: "/api/admin/companies", // if you have companies separate from employers
+    DISABLE_USER: (id) => `/api/admin/users/${id}/disable`,
+    ENABLE_USER: (id) => `/api/admin/users/${id}/enable`,
+    DISABLE_EMPLOYER: (id) => `/api/admin/employers/${id}/disable`,
+    ENABLE_EMPLOYER: (id) => `/api/admin/employers/${id}/enable`,
+    GET_STATS: "/api/admin/stats", // for dashboard cards
+  },
 };

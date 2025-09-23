@@ -15,9 +15,15 @@ import {
   ShoppingBag,
 } from 'lucide-react';
 import { validateEmail, validateAvatar, validatePassword } from '../../utils/helper';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
+import uploadImage from '../../utils/uploadImage';
+import { useAuth } from '../../context/AuthContext';
 
 
 const SignUp = () => {
+
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -130,18 +136,55 @@ const SignUp = () => {
 
       try {
 
-      }catch(error){
+        let avatarUrl = "";
 
-        console.error("Error ", error);
+        //Upload image if present
+        if(formData.avatar){
+          const imgUploadRes = await uploadImage(formData.avatar);
+          avatarUrl = imgUploadRes.imageUrl || "";
+        }
 
+        const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+          avatar: avatarUrl || "",
+        });
+
+        // handle successful registration
         setFormState(prev => ({
           ...prev,
           loading: false,
-          errors: {
-            submit:
-            error.response?.data?.message ||
-            "Failed to create account"
-          }
+          success: true,
+          errors: {},
+        }));
+
+        const {token} = response.data;
+        if(token){
+          login(response.data, token);
+
+          // Redirect based on role
+          setTimeout(() => {
+            window.location.href =
+              formData.role === "employer"
+                ? "/employer-dashboard"
+                : "/find-jobs";
+          }, 2000);
+        }
+
+
+      }catch(error){
+        let message = "Failed to create an account";
+        if (error.response?.data?.message) {
+          message = error.response.data.message;
+        } else if (typeof error.response?.data === "string") {
+          message = error.response.data;
+        }
+        setFormState(prev => ({
+          ...prev,
+          loading: false,
+          errors: { submit: message }
         }));
       }}
 

@@ -1,4 +1,4 @@
-import{
+import {
   BrowserRouter as Router,
   Routes,
   Route,
@@ -17,27 +17,34 @@ import JobPostingForm from "./pages/Employer/JobPostingForm";
 import ManageJobs from "./pages/Employer/ManageJobs";
 import ApplicationViewer from "./pages/Employer/ApplicationViewer";
 import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
-import ProtectedRoute from "./routes/ProtectedRoute"; // Adjust the path as needed
-
-
+import ProtectedRoute from "./routes/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import AdmDashboard from "./pages/admin/AdmDashboard";
+import AdminUser from "./pages/admin/AdminUser";
+import CompanyDashboard from "./pages/admin/CompanyDashboard";
+import AdminEmployer from "./pages/admin/AdminEmployer";
 
 function App() {
   return (
-    <div>
-
+    <AuthProvider>
       <Router>
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login  />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
 
-          <Route path="/find-jobs" element={<JobSeekerDashboard />} />
-          <Route path="/job/:id" element={<JobDetails />} />
-          <Route path="/saved-jobs" element={<SavedJobs />} />
-          <Route path="/profile" element={<UserProfile />} />
+          {/* Admin Protected Routes */}
+          <Route element={<ProtectedRoute requiredRole="admin" />}>
+            <Route path="/admin-dashboard" element={<AdmDashboard />} />
+            <Route path="/admin-user" element={<AdminUser />} />
+            <Route path="/admin-company" element={<AdminEmployer />} />
+          </Route>
 
-          {/* Protected Routes */}
+          {/* Employer Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="employer" />}>
             <Route path="/employer-dashboard" element={<EmployerDashboard />} />
             <Route path="/post-job" element={<JobPostingForm />} />
@@ -46,22 +53,29 @@ function App() {
             <Route path="/company-profile" element={<EmployerProfilePage />} />
           </Route>
 
-          {/* Catch all route */}
+          {/* JobSeeker Protected Routes */}
+          <Route element={<ProtectedRoute requiredRole="jobseeker" />}>
+            <Route path="/find-jobs" element={<JobSeekerDashboard />} />
+            <Route path="/job/:jobId" element={<JobDetails />} />
+            <Route path="/saved-jobs" element={<SavedJobs />} />
+            <Route path="/profile" element={<UserProfile />} />
+          </Route>
+
+          {/* Catch all route - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
 
-      <Toaster>
-        toasterOptions={{
+      <Toaster
+        toastOptions={{
           className: "",
           style: {
             fontSize: "13px",
           },
         }}
-      </Toaster>
-
-    </div>
-  )
+      />
+    </AuthProvider>
+  );
 }
 
-export default App
-
+export default App;

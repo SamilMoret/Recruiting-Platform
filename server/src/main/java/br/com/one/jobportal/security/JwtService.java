@@ -104,11 +104,11 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         try {
-            JwtParser parser = Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
+            JwtParser parser = Jwts.parser()
+                    .verifyWith(secretKey)
                     .build();
                     
-            return parser.parseClaimsJws(token).getBody();
+            return parser.parseSignedClaims(token).getPayload();
         } catch (ExpiredJwtException ex) {
             log.warn("Token expirado: {}", ex.getMessage());
             throw ex;

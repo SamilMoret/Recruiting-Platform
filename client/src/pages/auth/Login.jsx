@@ -10,8 +10,14 @@ import {
   CheckCircle
 } from 'lucide-react'
 import { validateEmail } from '../../utils/helper';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
+import { useAuth } from '../../context/AuthContext';
+import { Link } from "react-router-dom";
 
 const Login = () => {
+
+  const {login} = useAuth();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -74,12 +80,51 @@ const Login = () => {
 
     try {
       //Login API integration
-    }
-    catch(error){
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email: formData.email,
+        password: formData.password,
+        rememberMe: formData.rememberMe
+      });
+
+      // Log the successful response
+      console.log("Login success response:", response);
+
       setFormState(prev => ({
         ...prev,
         loading: false,
-        errors: { submit: error.response.data.message || "An error occurred. Please try again." }
+        success: true,
+        errors: {}
+      }));
+
+      const { token, role } = response.data;
+
+      if(token){
+        login(response.data, token);
+        setTimeout(() => {
+          if (role === "admin") {
+            window.location.href = "/admin-dashboard";
+          } else if (role === "employer") {
+            window.location.href = "/employer-dashboard";
+          } else {
+            window.location.href = "/find-jobs";
+          }
+        }, 2000);
+      }
+    } catch(error){
+      // Log the error response
+
+      let message = "An error occurred. Please try again.";
+      if (error.response?.status === 401 || error.response?.status === 400) {
+        message = "Incorrect email or password.";
+      } else if (error.response?.data?.message) {
+        message = error.response.data.message;
+      } else if (error.response?.status === 403) {
+        message = "Your account is disabled. Please contact support.";
+      }
+      setFormState(prev => ({
+        ...prev,
+        loading: false,
+        errors: { submit: message }
       }));
     }
   };
@@ -150,26 +195,26 @@ const Login = () => {
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-               type={formState.showPassword ? "text":"password"}
-               name="password"
-               value={formData.password}
-               onChange={handleInputChanges}
-               className={`w-full pl-10 pr-4 py-3 rounded-lg border
-               ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
+                type={formState.showPassword ? "text":"password"}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChanges}
+                className={`w-full pl-10 pr-4 py-3 rounded-lg border
+                ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-               placeholder='Enter your password'
-               />
-               <button
-                  type="button"
-                  onClick={() => setFormState(prev =>({...prev, showPassword: !prev.showPassword}))}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-               >
+                placeholder='Enter your password'
+              />
+              <button
+                type="button"
+                onClick={() => setFormState(prev =>({...prev, showPassword: !prev.showPassword}))}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
                 {formState.showPassword ? (
                   <EyeOff className="w-5 h-5" />
                 ) : (
                   <Eye className="w-5 h-5" />
                 )}
-               </button>
+              </button>
             </div>
             {formState.errors.password && (
               <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -177,9 +222,14 @@ const Login = () => {
                 {formState.errors.password}
               </p>
             )}
-            
+            {/* Forgot password link */}
+            <div className="text-right mt-2">
+              <Link to="/forgot-password" className="text-blue-600 hover:underline text-sm">
+                Forgot password?
+              </Link>
             </div>
-            <div>
+          </div>
+          <div>
             {/* Submit Error */}
             {formState.errors.submit && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-3">
