@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {motion} from 'framer-motion';
 import {
   User,
@@ -22,6 +23,7 @@ import { useAuth } from '../../context/AuthContext';
 
 
 const SignUp = () => {
+  const { t } = useTranslation();
 
   const { login } = useAuth();
 
@@ -110,10 +112,10 @@ const SignUp = () => {
   const validateForm = () => {
 
       const error = {
-        fullName: !formData.fullName ? "Enter full name" : "",
+        fullName: !formData.fullName ? t('signup.fullNameError') : "",
         email: validateEmail(formData.email),
         password: validatePassword(formData.password),
-        role: !formData.role ? "Select a role" : "",
+        role: !formData.role ? t('signup.roleError') : "",
         avatar: "",
       };
       //remove empty errors
@@ -175,7 +177,7 @@ const SignUp = () => {
 
 
       }catch(error){
-        let message = "Failed to create an account";
+  let message = t('signup.submitError');
         if (error.response?.data?.message) {
           message = error.response.data.message;
         } else if (typeof error.response?.data === "string") {
@@ -198,13 +200,13 @@ const SignUp = () => {
             >
               <CheckCircle className="w-16 h-16 text-green-500 mb-4"/>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Account Created Successfully!
-                </h2>
+                {t('signup.successTitle')}
+              </h2>
               <p className="text-gray-600 mb-4">
-                Welcome to the platform! your account has been successfully created.
+                {t('signup.successMessage')}
               </p>
               <div className="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full"/>
-              <p className="text-sm text-gray-500 mt-2"> Redirecting to your dashboard</p>
+              <p className="text-sm text-gray-500 mt-2">{t('signup.redirecting')}</p>
             </motion.div>
           </div>
         )
@@ -219,10 +221,10 @@ const SignUp = () => {
       >
         <div className="text-center mb-8">
           <h2 className="text-xl font-bold text-gray-600">
-            Create Account
+            {t('signup.title')}
           </h2>
           <p className="">
-            Join thousands of professionals finding their dream jobs
+            {t('signup.subtitle')}
           </p>
         </div>
 
@@ -230,7 +232,7 @@ const SignUp = () => {
           {/* Full Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name *
+              {t('signup.fullNameLabel')}
             </label>
             <div className="relative">
               <User className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5'/>
@@ -243,7 +245,7 @@ const SignUp = () => {
                 formState.errors.fullName ? 'border-red-500' 
                 : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-                placeholder='Enter your full name'
+                placeholder={t('signup.fullNamePlaceholder')}
                 />
             </div>
             {formState.errors.fullName && (
@@ -256,7 +258,7 @@ const SignUp = () => {
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email *
+              {t('signup.emailLabel')}
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"/>
@@ -269,7 +271,7 @@ const SignUp = () => {
                 formState.errors.email ? 'border-red-500' 
                 : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-                placeholder='Enter your email address'
+                placeholder={t('signup.emailPlaceholder')}
                 />
             </div>
             {formState.errors.email && (
@@ -282,7 +284,7 @@ const SignUp = () => {
           {/* Password */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Password *
+              {t('signup.passwordLabel')}
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"/>
@@ -295,7 +297,7 @@ const SignUp = () => {
                 formState.errors.password ? 'border-red-500' 
                 : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-               placeholder='create a strong password'
+               placeholder={t('signup.passwordPlaceholder')}
                />
                 <button
                     type="button"
@@ -316,7 +318,7 @@ const SignUp = () => {
           {/* Avatar Upload */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Profile Picture (optional)
+              {t('signup.avatarLabel')}
             </label>
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
@@ -343,9 +345,9 @@ const SignUp = () => {
                    className="cursor-pointer bg-gray-50 border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors flex items-center space-x-2"
                    >
                     <Upload className='h-4 w-4 mr-2'/>
-                    <span>Upload Photo</span> 
+                    <span>{t('signup.uploadPhoto')}</span> 
                     </label>
-                    <p className="text-xs text-gray-500 mt-1">JPG, PGN up to 5MB</p>
+                    <p className="text-xs text-gray-500 mt-1">{t('signup.avatarHint')}</p>
               </div>
             </div>
             {formState.errors.avatar && (
@@ -359,7 +361,7 @@ const SignUp = () => {
           {/* Role Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              I am a *
+              {t('signup.roleLabel')}
             </label>
             <div className="grid grid-cols-2 gap-4">
               <button
@@ -372,9 +374,9 @@ const SignUp = () => {
                 }`}
                 >
                   <UserCheck className="w-8 h-8 mx-auto mb-2"/>
-                  <div className="font-medium">Job Seeker</div>
+                  <div className="font-medium">{t('signup.jobSeeker')}</div>
                   <div className="text-xs text-gray-500">
-                    Looking for opportunities
+                    {t('signup.jobSeekerDesc')}
                   </div>
                 </button>  
               <button
@@ -388,10 +390,10 @@ const SignUp = () => {
                 >
                   <Building2 className="w-8 h-8 mx-auto mb-2"/>
                   <div className="font-medium">
-                    Employer
+                    {t('signup.employer')}
                   </div>
                   <div className="text-xs text-gray-500">
-                    Hiring
+                    {t('signup.employerDesc')}
                   </div>
                 </button>
             </div>
@@ -399,7 +401,7 @@ const SignUp = () => {
               <p className="text-sm text-red-500 mt-2 flex items-center">
                 <AlertCircle  className="w-4 h-4 mr-1"/>
                 {formState.errors.role}
-                </p>
+              </p>
             )}
           </div>
           {/* Submit Error */}
@@ -421,22 +423,22 @@ const SignUp = () => {
             {formState.loading ? (
               <>
                 <Loader className="animate-spin w-5 h-5" />
-                <span>Creating Account...</span>
+                <span>{t('signup.creatingAccount')}</span>
               </>
             ) : (
-              <span>Create Account</span>
+              <span>{t('signup.createAccount')}</span>
             )}
           </button>
           
           {/* Login Link */}
           <div className="text-center">
             <p className="text-gray-600">
-              Already have an account? {""}
+              {t('signup.alreadyHaveAccount')}{" "}
               <a 
                href="/login"
                className="text-blue-600 hover:underline font-medium"
                >
-                Sign in here
+                {t('signup.signInHere')}
                </a>
             </p>
           </div>

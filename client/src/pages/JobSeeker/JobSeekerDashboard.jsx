@@ -10,12 +10,14 @@ import Navbar from "../../components/layout/Navbar"
 import FilterContent from "./components/FilterContent"
 import SearchHeader from "./components/SearchHeader"
 import JobCard from "../../components/Cards/JobCard"
+import { useTranslation } from "react-i18next"
 
 
 const JobSeekerDashboard = () => {
+  const { t } = useTranslation();
   useEffect(() => {
-    document.title = "Find Jobs - Recruiting Platform";
-  }, []);
+    document.title = t("jobSeekerDashboard.pageTitle");
+  }, [t]);
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -149,7 +151,7 @@ const JobSeekerDashboard = () => {
       >
         <div className="fixed inset-y-0 right-0 w-full max-sm: bg-white shadow-xl">
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h3 className="font-bold text-gray-900 text-lg">Filters</h3>
+            <h3 className="font-bold text-gray-900 text-lg">{t("jobSeekerDashboard.filters")}</h3>
             <button
               onClick={() => setShowMobileFilters(false)}
               className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
@@ -227,7 +229,7 @@ const JobSeekerDashboard = () => {
                 <div className="hidden lg:block w-80 flex-shrink-0">
                   <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 p-6 sticky top-20">
                     <h3 className="font-bold text-gray-900 text-xl mb-6">
-                      Filter Jobs 
+                      {t("jobSeekerDashboard.filterJobs")}
                     </h3>
                     <FilterContent
                       toggleSection={toggleSection}
@@ -246,9 +248,9 @@ const JobSeekerDashboard = () => {
                     <div>
                       <p className=" text-gray-600 text-sm lg:text-base">
                         <span className=" font-bold text-gray-900">
-                          {jobs.length}{" "}
+                          {jobs.length} {" "}
                         </span>
-                        jobs
+                        {t("jobSeekerDashboard.jobs")}
                       </p>
                     </div>
 
@@ -259,7 +261,7 @@ const JobSeekerDashboard = () => {
                         className="lg:hidden flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-200 font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                       >
                         <Filter className="w-4 h-4" />
-                        Filters
+                        {t("jobSeekerDashboard.filters")}
                       </button>
 
                       <div className="flex items-center gap-3 lg:gap-4">
@@ -293,16 +295,16 @@ const JobSeekerDashboard = () => {
                   {jobs.length === 0 ? (
                     <div className="text-center py-8">
                       <h3 className="text-lg font-bold text-gray-900 mb-2">
-                        No jobs found
+                        {t("jobSeekerDashboard.noJobsFound")}
                       </h3>
                       <p className="text-gray-600 mb-4">
-                        Try adjusting your search criteria or filters.
+                        {t("jobSeekerDashboard.tryAdjusting")}
                       </p>
                       <button
                         onClick={clearAllFilters}
                         className="bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
                       >
-                        Clear all filters
+                        {t("jobSeekerDashboard.clearAllFilters")}
                       </button>
                     </div>
                   ) : (

@@ -1,0 +1,443 @@
+{
+  "welcome": "Bem-vindo",
+  "login": {
+    "welcomeBack": "Bem-vindo de volta!",
+    "enterCredentials": "Por favor, insira suas credenciais para continuar",
+    "emailAddress": "E-mail",
+    "emailPlaceholder": "Digite seu e-mail",
+    "password": "Senha",
+    "passwordPlaceholder": "Digite sua senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "signIn": "Entrar",
+    "signingIn": "Entrando...",
+    "noAccount": "Não tem uma conta?",
+    "createAccount": "Crie uma aqui",
+    "successMessage": "Você entrou com sucesso.",
+    "redirecting": "Redirecionando para seu painel",
+    "passwordRequired": "A senha é obrigatória",
+    "genericError": "Ocorreu um erro. Tente novamente.",
+    "incorrectCredentials": "E-mail ou senha incorretos.",
+    "accountDisabled": "Sua conta está desativada. Contate o suporte."
+  },
+  "signup": {
+    "title": "Criar conta",
+    "subtitle": "Junte-se a milhares de profissionais encontrando seus empregos dos sonhos",
+    "fullNameLabel": "Nome completo *",
+    "fullNamePlaceholder": "Digite seu nome completo",
+    "fullNameError": "Digite o nome completo",
+    "emailLabel": "E-mail *",
+    "emailPlaceholder": "Digite seu e-mail",
+    "passwordLabel": "Senha *",
+    "passwordPlaceholder": "Crie uma senha forte",
+    "passwordError": "A senha deve ter pelo menos 8 caracteres",
+    "avatarLabel": "Foto de perfil (opcional)",
+    "uploadPhoto": "Enviar foto",
+    "avatarHint": "JPG, PNG até 5MB",
+    "roleLabel": "Eu sou *",
+    "roleError": "Selecione um papel",
+    "jobSeeker": "Candidato",
+    "jobSeekerDesc": "Procurando oportunidades",
+    "employer": "Empregador",
+    "employerDesc": "Contratando",
+    "submitError": "Falha ao criar a conta",
+    "successTitle": "Conta criada com sucesso!",
+    "successMessage": "Bem-vindo à plataforma! Sua conta foi criada com sucesso.",
+    "redirecting": "Redirecionando para seu painel",
+    "createAccount": "Criar conta",
+    "creatingAccount": "Criando conta...",
+    "alreadyHaveAccount": "Já tem uma conta?",
+    "signInHere": "Entrar aqui"
+  },
+  "forgotPassword": {
+    "title": "Esqueci minha senha",
+    "emailLabel": "Digite seu e-mail",
+    "emailPlaceholder": "voce@email.com",
+    "sendButton": "Enviar link de redefinição",
+    "sending": "Enviando...",
+    "successMessage": "Se esse e-mail estiver registrado, um link para redefinir a senha foi enviado."
+  },
+  "dashboard": "Painel",
+  "hero": {
+    "title": "Sua carreira, nossa missão.",
+    "perfectMatch": "Combinação perfeita",
+    "subtitle1": "Conectando candidatos a oportunidades de carreira.",
+    "subtitle2": "Seu próximo passo na carreira ou o talento certo para sua empresa está aqui.",
+    "findJobs": "Encontrar empregos",
+    "activeUsers": "Usuários ativos",
+    "companies": "Empresas",
+    "jobsPosted": "Vagas publicadas"
+  },
+  "header": {
+    "title": "Plataforma de Recrutamento",
+    "findJobs": "Encontrar empregos",
+    "forEmployers": "Para empregadores",
+    "discoverTalent": "Descobrir talentos",
+    "hello": "Olá"
+  },
+  "features": {
+    "heading1": "Tudo que você precisa para",
+    "heading2": "Ter sucesso",
+    "description": "Se você é um candidato ou um empregador, nossa plataforma oferece um conjunto completo de recursos projetados para simplificar sua busca de emprego e processo de contratação.",
+    "jobSeekers": "Para candidatos",
+    "employers": "Para empregadores",
+    "jobSeekerFeatures": [
+      { "title": "Correspondência inteligente de empregos", "description": "Encontre oportunidades de trabalho adequadas com base em suas habilidades e preferências." },
+      { "title": "Construtor de currículo", "description": "Crie um currículo profissional com nosso construtor fácil de usar." },
+      { "title": "Preparação para entrevistas", "description": "Prepare-se para suas entrevistas com nossas dicas e recursos especializados." },
+      { "title": "Desenvolvimento de habilidades", "description": "Acesse cursos e recursos para aprimorar suas habilidades." }
+    ],
+    "employerFeatures": [
+      { "title": "Otimização de perfil", "description": "Melhore seu perfil para atrair mais recrutadores e ofertas de emprego." },
+      { "title": "Informações salariais", "description": "Saiba seu valor com nossa ferramenta de comparação salarial." },
+      { "title": "Proteção de privacidade", "description": "Mantenha seus dados seguros com nossos recursos avançados de privacidade." },
+      { "title": "Rastreamento de aplicações", "description": "Organize-se com nosso sistema de rastreamento de aplicações." }
+    ]
+  },
+  "analytics": {
+    "heading1": "Plataforma",
+    "heading2": "Análise",
+    "description": "Obtenha insights sobre o desempenho da sua plataforma com nossas ferramentas avançadas de análise.",
+    "activeUsers": "Usuários ativos",
+    "jobPostings": "Vagas de emprego",
+    "successfulHires": "Contratações bem-sucedidas",
+    "matchedRate": "Taxa de correspondência"
+  },
+  "userProfile": {
+    "title": "Perfil",
+    "fullName": "Nome completo",
+    "fullNamePlaceholder": "Digite seu nome completo",
+    "email": "Endereço de e-mail",
+    "resume": "Currículo",
+    "download": "Baixar",
+    "chooseFile": "Escolher arquivo",
+    "cancel": "Cancelar",
+    "saving": "Salvando...",
+    "saveChanges": "Salvar alterações"
+  },
+  "savedJobs": {
+    "title": "Empregos salvos",
+    "emptyTitle": "Você ainda não salvou nenhum emprego.",
+    "emptyDescription": "Comece a salvar empregos que interessam para visualizá-los depois.",
+    "browseJobs": "Procurar empregos"
+  },
+  "jobSeekerDashboard": {
+    "pageTitle": "Buscar empregos - Plataforma de Recrutamento",
+    "filters": "Filtros",
+    "filterJobs": "Filtrar empregos",
+    "jobs": "empregos",
+    "noJobsFound": "Nenhum emprego encontrado",
+    "tryAdjusting": "Tente ajustar seus critérios de busca ou filtros.",
+    "clearAllFilters": "Limpar todos os filtros"
+  },
+  "jobDetails": {
+    "fetchError": "Falha ao buscar detalhes do emprego.",
+    "applySuccess": "Candidatura enviada com sucesso.",
+    "applyError": "Falha ao enviar candidatura ao emprego.",
+    "companyLogoAlt": "Logo da empresa",
+    "applyNow": "Candidatar-se",
+    "notAvailable": "N/D",
+    "compensation": "Remuneração",
+    "perYear": "por ano",
+    "competitive": "Competitivo",
+    "aboutThisRole": "Sobre esta vaga",
+    "requirementsTitle": "O que procuramos"
+  },
+  "jobSeeker": {
+    "title": "Candidato a Emprego"
+  },
+  "manageJobs": {
+    "title": "Gerenciamento de vagas",
+    "subtitle": "Gerencie suas vagas e acompanhe as candidaturas.",
+    "addNewJob": "Adicionar nova vaga",
+    "searchPlaceholder": "Buscar vagas...",
+    "allStatuses": "Todos os status",
+    "active": "Ativo",
+    "closed": "Fechado",
+    "showingJobs": "Mostrando {{count}} de {{total}} vagas",
+    "noJobsFound": "Nenhuma vaga encontrada",
+    "tryAdjusting": "Tente ajustar sua busca ou critérios de filtro.",
+    "jobDeleted": "Vaga excluída com sucesso",
+    "deleteError": "Falha ao excluir vaga",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "showingResults": "Mostrando {{start}} a {{end}} de {{total}} resultados"
+  },
+  "jobPostingForm": {
+    "fillDetails": "Preencha os detalhes abaixo para publicar uma nova vaga.",
+    "preview": "Pré-visualizar",
+    "jobTitle": "Título da vaga",
+    "jobTitlePlaceholder": "Ex: Desenvolvedor Frontend Sênior",
+    "location": "Localização",
+    "locationPlaceholder": "Ex: São Paulo, SP",
+    "category": "Categoria",
+    "categoryPlaceholder": "Selecione uma categoria",
+    "jobType": "Tipo de vaga",
+    "jobTypePlaceholder": "Selecione o tipo de vaga",
+    "description": "Descrição da vaga",
+    "descriptionPlaceholder": "Descreva o cargo e as responsabilidades...",
+    "descriptionHelper": "Inclua responsabilidades principais, tarefas diárias e estrutura da equipe.",
+    "requirements": "Requisitos",
+    "requirementsPlaceholder": "Liste as habilidades e qualificações necessárias...",
+    "requirementsHelper": "Inclua habilidades necessárias, experiência e formação educacional.",
+    "salaryRange": "Faixa salarial",
+    "salaryMin": "Mínimo",
+    "salaryMax": "Máximo",
+    "publishJob": "Publicar vaga",
+    "publishing": "Publicando vaga...",
+    "jobPosted": "Vaga publicada com sucesso",
+    "jobUpdated": "Vaga atualizada com sucesso",
+    "postError": "Falha ao publicar/atualizar vaga. Tente novamente.",
+    "jobTitleRequired": "O título da vaga é obrigatório",
+    "locationRequired": "A localização é obrigatória",
+    "categoryRequired": "A categoria é obrigatória",
+    "jobTypeRequired": "O tipo de vaga é obrigatório",
+    "descriptionRequired": "A descrição da vaga é obrigatória",
+    "requirementsRequired": "Os requisitos da vaga são obrigatórios",
+    "salaryRangeRequired": "São necessários os salários mínimo e máximo",
+    "salaryMaxGreater": "O salário máximo deve ser maior que o mínimo"
+  },
+  "employerProfile": {
+    "title": "Perfil do empregador",
+    "editProfile": "Editar perfil",
+    "personalInfo": "Informações pessoais",
+    "avatarAlt": "Avatar",
+    "companyInfo": "Informações da empresa",
+    "companyLogoAlt": "Logo da empresa",
+    "companyLabel": "Empresa",
+    "aboutCompany": "Sobre a empresa",
+    "profileUpdated": "Perfil atualizado com sucesso",
+    "updateError": "Erro ao atualizar o perfil"
+  },
+  "employerDashboard": {
+    "pageTitle": "Painel do empregador - Plataforma de Recrutamento",
+    "activeJobs": "Vagas ativas",
+    "totalApplicants": "Total de candidatos",
+    "hired": "Contratados",
+    "recentJobPosts": "Vagas recentes",
+    "latestJobPosting": "Sua última vaga publicada",
+    "viewAll": "Ver tudo",
+    "recentApplications": "Candidaturas recentes",
+    "latestCandidateApplications": "Últimas candidaturas de candidatos",
+    "quickActions": "Ações rápidas",
+    "commonTasks": "Tarefas comuns para começar",
+    "postNewJob": "Publicar nova vaga",
+    "reviewApplications": "Revisar candidaturas",
+    "companySettings": "Configurações da empresa"
+  },
+  "editProfileDetails": {
+    "editProfile": "Editar perfil",
+    "personalInfo": "Informações pessoais",
+    "avatarAlt": "Avatar",
+    "chooseAvatar": "Escolher avatar",
+    "fullName": "Nome completo",
+    "fullNamePlaceholder": "Digite seu nome completo",
+    "emailAddress": "E-mail",
+    "companyInfo": "Informações da empresa",
+    "companyLogoAlt": "Logo da empresa",
+    "chooseCompanyLogo": "Escolher logo da empresa",
+    "companyName": "Nome da empresa",
+    "companyNamePlaceholder": "Digite o nome da sua empresa",
+    "companyDescription": "Descrição da empresa",
+    "companyDescriptionPlaceholder": "Digite a descrição da sua empresa",
+    "cancel": "Cancelar",
+    "saveChanges": "Salvar alterações",
+    "saving": "Salvando..."
+  },
+  "applicationViewer": {
+    "loading": "Carregando candidaturas",
+    "title": "Visão geral das candidaturas",
+    "noApplications": "Nenhuma candidatura disponível",
+    "noApplicationFound": "Nenhuma candidatura encontrada no momento.",
+    "application": "Candidatura",
+    "applicationsPlural": "s",
+    "applied": "Candidatado",
+    "resume": "Currículo",
+    "viewProfile": "Ver perfil"
+  },
+  "salaryRangeSlider": {
+    "minSalaryLabel": "Salário mínimo",
+    "maxSalaryLabel": "Salário máximo",
+    "minSalaryPlaceholder": "0",
+    "maxSalaryPlaceholder": "0",
+    "rangeLabel": "Faixa",
+    "minNotSet": "Mínimo não definido",
+    "noLimit": "Sem limite"
+  },
+  "jobPostingPreview": {
+    "title": "Pré-visualização da vaga",
+    "backToEdit": "Voltar para editar",
+    "remote": "Remoto",
+    "postedToday": "Publicado hoje",
+    "compensation": "Remuneração",
+    "perYear": "por ano",
+    "competitive": "Competitivo",
+    "aboutThisRole": "Sobre esta vaga",
+    "requirementsTitle": "O que procuramos"
+  },
+  "jobDashBoardCard": {
+    "active": "Ativo",
+    "closed": "Fechado"
+  },
+  "jobCard": {
+    "salaryK": "R$${value}k",
+    "salary": "R$${value}",
+    "salaryRange": "{min} - {max}/m",
+    "salaryNotSpecified": "Salário não especificado",
+    "applyNow": "Candidatar-se"
+  },
+  "applicationProfilePreview": {
+    "title": "Perfil do candidato",
+    "appliedPosition": "Vaga aplicada",
+    "applicantDetails": "Detalhes do candidato",
+    "status": "Status",
+    "appliedDate": "Data de aplicação:",
+    "downloadResume": "Baixar currículo",
+    "changeStatus": "Alterar status da candidatura",
+    "updatingStatus": "Atualizando status...",
+    "statusUpdated": "Status atualizado com sucesso",
+    "statusUpdateError": "Erro ao atualizar status",
+    "statusApplied": "Aplicado",
+    "statusInReview": "Em análise",
+    "statusRejected": "Rejeitado",
+    "statusAccepted": "Aceito"
+  },
+  "applicantDashboardCard": {
+    "position": "Cargo: {{position}}",
+    "time": "{{time}}"
+  },
+  "admDashboard": {
+    "title": "Painel de Administração",
+    "activeUsers": "Usuários Ativos",
+    "activeCompanies": "Empresas Ativas",
+    "loading": "..."
+  },
+  "adminEmployer": {
+    "title": "Gestão de Empregadores",
+    "total": "Total: {{count}} empregadores",
+    "active": "Ativos: {{count}}",
+    "searchPlaceholder": "Pesquisar por nome, empresa ou e-mail...",
+    "status": {
+      "all": "Todos os status",
+      "active": "Apenas ativos",
+      "disabled": "Apenas desativados"
+    },
+    "refresh": "Atualizar",
+    "loading": "Carregando empregadores...",
+    "noMatch": "Nenhum empregador corresponde aos seus critérios de pesquisa.",
+    "noEmployers": "Nenhum empregador encontrado.",
+    "clearFilters": "Limpar filtros",
+    "table": {
+      "id": "ID",
+      "name": "Nome",
+      "company": "Empresa",
+      "email": "E-mail",
+      "status": "Status",
+      "actions": "Ações"
+    },
+    "enable": "Ativar",
+    "disable": "Desativar",
+    "delete": "Excluir",
+    "confirmDelete": "Tem certeza que deseja excluir este empregador?",
+    "showing": "Mostrando {{filtered}} de {{total}} empregadores"
+  },
+  "adminUser": {
+    "loading": "Carregando usuários...",
+    "loadError": "Falha ao carregar dados dos usuários",
+    "table": {
+      "id": "ID",
+      "avatarName": "Avatar e Nome",
+      "email": "E-mail",
+      "status": "Status",
+      "resume": "Currículo",
+      "created": "Criado",
+      "actions": "Ações"
+    },
+    "status": {
+      "active": "Ativo",
+      "disabled": "Desativado"
+    },
+    "resume": "Currículo",
+    "created": "Criado",
+    "yes": "Sim",
+    "no": "Não",
+    "na": "N/A",
+    "enable": "Ativar",
+    "disable": "Desativar",
+    "enableError": "Falha ao ativar usuário. Tente novamente.",
+    "disableError": "Falha ao desativar usuário. Tente novamente."
+  },
+  "companyDashboard": {
+    "title": "Gestão de Empresas (Admin)",
+    "description": "Esta é a página de gestão de empresas do administrador. Adicione recursos de gestão aqui."
+  },
+  "searchHeader": {
+    "title": "Encontre o emprego dos seus sonhos",
+    "subtitle": "Descubra oportunidades que combinam com sua paixão",
+    "keywordPlaceholder": "Cargo, empresa ou palavras-chave",
+    "locationPlaceholder": "Localização",
+    "searchButton": "Buscar vagas"
+  },
+  "adminLayout": {
+    "panelTitle": "Painel Administrativo",
+    "menu": {
+      "dashboard": "Painel",
+      "company": "Empresa",
+      "user": "Usuário"
+    },
+    "logout": "Sair",
+    "welcome": "Bem-vindo Administrador",
+    "managePlatform": "Gerencie a plataforma aqui"
+  },
+  "dashboardLayout": {
+    "panelTitle": "Plataforma de Recrutamento",
+    "menu": {
+      "dashboard": "Painel",
+      "companies": "Empresas",
+      "users": "Usuários"
+    },
+    "logout": "Sair",
+    "welcome": "Bem-vindo de volta",
+    "subtitle": "Veja o que está acontecendo com seus empregos hoje"
+  },
+  "navbar": {
+    "panelTitle": "Plataforma de Recrutamento",
+    "login": "Entrar",
+    "signup": "Cadastrar-se"
+  },
+  "profileDropdown": {
+    "viewProfile": "Ver perfil",
+    "signOut": "Sair"
+  },
+  "statusBadge": {
+    "Applied": "Aplicado",
+    "Inreview": "Em revisão",
+    "Hired": "Contratado",
+    "Rejected": "Rejeitado"
+  },
+  "navigationMenu": {
+    "dashboard": "Painel",
+    "postJob": "Publicar vaga",
+    "manageJobs": "Gerenciar vagas",
+    "companyProfile": "Perfil da empresa"
+  },
+  "categories": {
+    "Engineering": "Engenharia",
+    "Marketing": "Marketing",
+    "Sales": "Vendas",
+    "Design": "Design",
+    "Finance": "Finanças",
+    "ITSoftware": "TI e Software",
+    "CustomerService": "Atendimento ao cliente",
+    "Product": "Produto",
+    "Operations": "Operações",
+    "HR": "Recursos Humanos",
+    "Other": "Outro"
+  },
+  "jobTypes": {
+    "FullTime": "Tempo integral",
+    "PartTime": "Meio período",
+    "Contract": "Contrato",
+    "Remote": "Remoto",
+    "Internship": "Estágio"
+  }
+}

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AdminLayout from "../../components/layout/AdminLayout";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 
 const AdminUser = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -60,7 +62,7 @@ const AdminUser = () => {
         console.error("Error response data:", error.response.data);
         console.error("Error response headers:", error.response.headers);
       }
-      setError("Failed to load users data");
+  setError(t("adminUser.loadError"));
     } finally {
       setLoading(false);
       console.log("=== FETCH USERS COMPLETED ===");
@@ -90,7 +92,7 @@ const AdminUser = () => {
       
     } catch (error) {
       console.error(`Error ${currentlyActive ? 'disabling' : 'enabling'} user:`, error);
-      alert(`Failed to ${currentlyActive ? 'disable' : 'enable'} user. Please try again.`);
+  alert(t(`adminUser.${currentlyActive ? 'disableError' : 'enableError'}`));
       
       // Log the full error for debugging
       if (error.response) {
@@ -110,7 +112,7 @@ const AdminUser = () => {
         <div className="p-6 min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading users...</p>
+            <p className="text-gray-600">{t("adminUser.loading")}</p>
           </div>
         </div>
       </AdminLayout>
@@ -123,13 +125,13 @@ const AdminUser = () => {
 <div className="space-y-4">
   {/* Header for larger screens */}
   <div className="hidden md:grid md:grid-cols-7 gap-4 p-4 bg-gray-100 rounded-lg font-medium text-gray-500 text-sm">
-    <div>ID</div>
-    <div>Avatar & Name</div>
-    <div>Email</div>
-    <div>Status</div>
-    <div>Resume</div>
-    <div>Created</div>
-    <div>Actions</div>
+  <div>{t("adminUser.table.id")}</div>
+  <div>{t("adminUser.table.avatarName")}</div>
+  <div>{t("adminUser.table.email")}</div>
+  <div>{t("adminUser.table.status")}</div>
+  <div>{t("adminUser.table.resume")}</div>
+  <div>{t("adminUser.table.created")}</div>
+  <div>{t("adminUser.table.actions")}</div>
   </div>
 
   {/* User cards */}
@@ -160,8 +162,8 @@ const AdminUser = () => {
             </div>
           )}
           <div className="flex-1">
-            <div className="font-medium text-gray-900">#{user._id} - {user.name || 'N/A'}</div>
-            <div className="text-sm text-gray-600">{user.email || 'N/A'}</div>
+            <div className="font-medium text-gray-900">#{user._id} - {user.name || t("adminUser.na")}</div>
+            <div className="text-sm text-gray-600">{user.email || t("adminUser.na")}</div>
           </div>
           <span
             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
@@ -170,16 +172,16 @@ const AdminUser = () => {
                 : "bg-red-100 text-red-800"
             }`}
           >
-            {user.active ? "Active" : "Disabled"}
+            {user.active ? t("adminUser.status.active") : t("adminUser.status.disabled")}
           </span>
         </div>
         
         <div className="flex flex-wrap gap-2 text-sm">
           <span className="bg-gray-100 px-2 py-1 rounded text-gray-700">
-            Resume: {user.resume ? 'Yes' : 'No'}
+            {t("adminUser.resume")}: {user.resume ? t("adminUser.yes") : t("adminUser.no")}
           </span>
           <span className="bg-gray-100 px-2 py-1 rounded text-gray-700">
-            Created: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+            {t("adminUser.created")}: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : t("adminUser.na")}
           </span>
         </div>
 
@@ -196,14 +198,14 @@ const AdminUser = () => {
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728" />
               </svg>
-              Disable User
+              {t("adminUser.disable")}
             </>
           ) : (
             <>
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Enable User
+              {t("adminUser.enable")}
             </>
           )}
         </button>
@@ -211,7 +213,7 @@ const AdminUser = () => {
 
       {/* Desktop layout (grid) */}
       <div className="hidden md:grid md:grid-cols-7 gap-4 items-center">
-        <div className="font-medium text-gray-900">#{user._id}</div>
+  <div className="font-medium text-gray-900">#{user._id}</div>
         
         <div className="flex items-center space-x-3">
           {user.avatar ? (
@@ -230,10 +232,10 @@ const AdminUser = () => {
               </span>
             </div>
           )}
-          <span className="text-sm text-gray-700">{user.name || 'N/A'}</span>
+          <span className="text-sm text-gray-700">{user.name || t("adminUser.na")}</span>
         </div>
 
-        <div className="text-sm text-gray-700">{user.email || 'N/A'}</div>
+  <div className="text-sm text-gray-700">{user.email || t("adminUser.na")}</div>
 
         <span
           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
@@ -247,7 +249,7 @@ const AdminUser = () => {
               user.active ? "bg-green-400" : "bg-red-400"
             }`}
           ></div>
-          {user.active ? "Active" : "Disabled"}
+          {user.active ? t("adminUser.status.active") : t("adminUser.status.disabled")}
         </span>
 
         <div className="text-sm text-gray-700">
@@ -256,15 +258,15 @@ const AdminUser = () => {
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Yes
+              {t("adminUser.yes")}
             </span>
           ) : (
-            <span className="text-gray-400">No</span>
+            <span className="text-gray-400">{t("adminUser.no")}</span>
           )}
         </div>
 
         <div className="text-sm text-gray-700">
-          {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+          {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : t("adminUser.na")}
         </div>
 
         <button
@@ -280,14 +282,14 @@ const AdminUser = () => {
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728" />
               </svg>
-              Disable
+              {t("adminUser.disable")}
             </>
           ) : (
             <>
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Enable
+              {t("adminUser.enable")}
             </>
           )}
         </button>

@@ -18,9 +18,10 @@ import InputField from '../../components/Input/InputField';
 import SelectField from '../../components/Input/SelectField';
 import TextAreaField from '../../components/Input/TextAreaField';
 import JobPostingPreview from '../../components/Cards/JobPostingPreview';
+import { useTranslation } from 'react-i18next';
 
 function JobPostingForm() {
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const jobId = location.state?.jobId || null;
@@ -62,9 +63,7 @@ function JobPostingForm() {
       setErrors(validationErrors);
       return;
     }
-
     setIsSubmitting(true);
-
     const jobPayload = {
       title: formData.jobTitle,
       location: formData.location,
@@ -79,12 +78,10 @@ function JobPostingForm() {
       const response =jobId
       ? await axiosInstance.put(API_PATHS.JOBS.UPDATE_JOB(jobId), jobPayload)
       : await axiosInstance.post(API_PATHS.JOBS.POST_JOB, jobPayload);
-
       if (response.status === 200 || response.status === 201) {
-        console.log(jobId ? "Job updated successfully" : "Job posted successfully")
-          toast.success(
-            jobId ? "Job updated successfully" : "Job posted successfully"
-          );
+        toast.success(
+          jobId ? t("jobPostingForm.jobUpdated") : t("jobPostingForm.jobPosted")
+        );
         setFormData({
           jobTitle: '',
           location: '',
@@ -98,53 +95,49 @@ function JobPostingForm() {
         navigate("/employer-dashboard");
         return;
       }
-      console.error("Unexpected response:", response);
-      toast.error("Failed to post the job. Please try again.");
+      toast.error(t("jobPostingForm.postError"));
     } catch (error) {
       if(error.response?.data?.message){
-        console.error("API Error:", error.response.data.message);
         toast.error(error.response.data.message);
       }else{
-        console.error("unexpected error:", error);
-        toast.error("Failed to post/update job. Please try again.");
+        toast.error(t("jobPostingForm.postError"));
       }
     } finally {
       setIsSubmitting(false);
     }
   };
-
   // form validation helper
   const validateForm = (formData) =>{
     const errors = {};
 
     if(!formData.jobTitle.trim()){
-      errors.jobTitle = "Job title is required";
+      errors.jobTitle = t("jobPostingForm.jobTitleRequired");
     }
 
     if(!formData.location.trim()){
-      errors.location = "Location is required";
+      errors.location = t("jobPostingForm.locationRequired");
     }
 
     if(!formData.category){
-      errors.category = "Category is required";
+      errors.category = t("jobPostingForm.categoryRequired");
     }
 
     if(!formData.jobType){
-      errors.jobType = "Job type is required";
+      errors.jobType = t("jobPostingForm.jobTypeRequired");
     }
 
     if(!formData.description.trim()){
-      errors.description = "Job description is required";
+      errors.description = t("jobPostingForm.descriptionRequired");
     }
 
     if(!formData.requirements.trim()){
-      errors.requirements = "Job requirements are required";
+      errors.requirements = t("jobPostingForm.requirementsRequired");
     }
 
     if(!formData.salaryMin || !formData.salaryMax){
-      errors.salaryRange = "Both minimum and maximum salary are required";
+      errors.salaryRange = t("jobPostingForm.salaryRangeRequired");
     }else if(parseInt(formData.salaryMin) >= parseInt(formData.salaryMax)){
-      errors.salaryRange = "Maximum salary must be greater than minimum salary";
+      errors.salaryRange = t("jobPostingForm.salaryMaxGreater");
     }
 
     return errors;
@@ -187,13 +180,12 @@ function JobPostingForm() {
   }, []);
 
   if(isPreview){
-  return (
-    <DashBoardLayout activeMenu="post-job">
-      <JobPostingPreview formData={formData} setIsPreview={setIsPreview} />
-    </DashBoardLayout>
-  )
-}
-
+    return (
+      <DashBoardLayout activeMenu="post-job">
+        <JobPostingPreview formData={formData} setIsPreview={setIsPreview} />
+      </DashBoardLayout>
+    )
+  }
   return (
          <DashBoardLayout activeMenu="post-job">
             <div className='min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 py-8 px-4 sm:px-6 lg:px-8'>
@@ -201,11 +193,8 @@ function JobPostingForm() {
                 <div className='bg-white shadow-xl rounded-2xl p-6'>
                   <div className='flex items-center justify-between mb-8'>
                     <div>
-                        {/* <h2 className='text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent'>
-                          Post a New Job
-                        </h2> */}
                         <p className='text-sm text-gray-600 mt-1'>
-                          Fill in the details below to post a new job opening.
+                          {t("jobPostingForm.fillDetails")}
                         </p>
                     </div>
                     <div className='flex items-center space-x-2'>
@@ -215,16 +204,16 @@ function JobPostingForm() {
                         className='group flex items-center space-x-2 px-6 py-3 text-sm font-medium text-gray-600 hover:text-white/50 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 border border-gray-200 hover:border-transparent rounded-xl transition-all duration-300 shadow-lg shadow-gray-100 hover:shadow-xl transform hover:translate-y-0.5'
                       >
                         <Eye className='h-4 w-4 transition-transform group-hover:-translate-x-1' />
-                        <span>Preview</span>
+                        <span>{t("jobPostingForm.preview")}</span>
                       </button>
                     </div>
                   </div>
                   <div className='space-y-6'>
                     {/* Job Title */}
                     <InputField
-                      label="Job Title"
+                      label={t("jobPostingForm.jobTitle")}
                       id="jobTitle"
-                      placeholder="e.g., Senior Frontend Developer"
+                      placeholder={t("jobPostingForm.jobTitlePlaceholder")}
                       value={formData.jobTitle}
                       onChange={(e) => handleInputChange('jobTitle', e.target.value)}
                       error={errors.jobTitle}
@@ -236,9 +225,9 @@ function JobPostingForm() {
                         <div className='flex flex-col sm:items-end sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0'>
                           <div className='flex-1'>
                             <InputField
-                              label="Location"
+                              label={t("jobPostingForm.location")}
                               id="location"
-                              placeholder="e.g., New York, NY"
+                              placeholder={t("jobPostingForm.locationPlaceholder")}
                               value={formData.location}
                               onChange={(e)=>{
                                 handleInputChange("location",e.target.value)
@@ -252,23 +241,23 @@ function JobPostingForm() {
                       {/*  category & job type */}
                       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                         <SelectField
-                          label="Category"
+                          label={t("jobPostingForm.category")}
                           id="category"
                           value={formData.category}
                           onChange={(e) => handleInputChange('category', e.target.value)}
                           options={CATEGORIES}
-                          placeholder="Select a category"
+                          placeholder={t("jobPostingForm.categoryPlaceholder")}
                           error={errors.category}
                           required
                           icon={Users} 
                         />
                         <SelectField
-                          label="Job Type"
+                          label={t("jobPostingForm.jobType")}
                           id="jobType"
                           value={formData.jobType}
                           onChange={(e) => handleInputChange('jobType', e.target.value)}
                           options={JOB_TYPES}
-                          placeholder="Select job type"
+                          placeholder={t("jobPostingForm.jobTypePlaceholder")}
                           error={errors.jobType}
                           required
                           icon={Briefcase}
@@ -276,30 +265,30 @@ function JobPostingForm() {
                       </div>
                       {/* Description */}
                       <TextAreaField
-                        label="Job Description"
+                        label={t("jobPostingForm.description")}
                         id="description"
-                        placeholder="Describe the role and responsibilities..."
+                        placeholder={t("jobPostingForm.descriptionPlaceholder")}
                         value={formData.description}
                         onChange={(e) => handleInputChange('description', e.target.value)}
                         error={errors.description}
-                        helperText="include key responsibilities, day-to-day tasks, and team structure."
+                        helperText={t("jobPostingForm.descriptionHelper")}
                         required
                       />
                       {/* Requirements */}
                       <TextAreaField
-                        label="Requirements"
+                        label={t("jobPostingForm.requirements")}
                         id="requirements"
-                        placeholder="List the required skills and qualifications..."
+                        placeholder={t("jobPostingForm.requirementsPlaceholder")}
                         value={formData.requirements}
                         onChange={(e) => handleInputChange('requirements', e.target.value)}
                         error={errors.requirements}
-                        helperText="Include necessary skills, experience, and educational background."
+                        helperText={t("jobPostingForm.requirementsHelper")}
                         required
                      />
                      {/* Salary range */}
                      <div className='space-y-2'>
                       <label className='block text-sm font-medium text-gray-700'>
-                        Salary Range <span className='text-red-500'>*</span>
+                        {t("jobPostingForm.salaryRange")} <span className='text-red-500'>*</span>
                       </label>
                       <div className='grid grid-cols-3 gap-3'>
                         <div className='relative'>
@@ -308,7 +297,7 @@ function JobPostingForm() {
                           </div>
                           <input
                            type="number" 
-                           placeholder='Min'
+                           placeholder={t("jobPostingForm.salaryMin")}
                            value={formData.salaryMin}
                            onChange={(e) => handleInputChange('salaryMin', e.target.value)
                           }
@@ -321,7 +310,7 @@ function JobPostingForm() {
                           </div>
                           <input
                              type="number"
-                             placeholder='Max'
+                             placeholder={t("jobPostingForm.salaryMax")}
                              value={formData.salaryMax}
                              onChange={(e) => handleInputChange('salaryMax', e.target.value)
                              }
@@ -332,7 +321,7 @@ function JobPostingForm() {
                       {errors.salaryRange && (
                         <div className='flex items-center text-sm text-red-600 space-x-1'>
                           <AlertCircle className='h-4 w-4' />
-                          <span>{errors.salary}</span>
+                          <span>{errors.salaryRange}</span>
                         </div>
                       )}
                      </div>
@@ -346,12 +335,12 @@ function JobPostingForm() {
                           {isSubmitting ? (
                             <>
                               <div className='animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2'></div>
-                              Publishing Job...
+                              {t("jobPostingForm.publishing")}
                             </>
                           ) : (
                             <>
                               <Send className='h-5 w-5 mr-2'/>
-                              Publish Job
+                              {t("jobPostingForm.publishJob")}
                             </>
                           )}
                         </button>
@@ -361,7 +350,6 @@ function JobPostingForm() {
               </div>
             </div>
          </DashBoardLayout>
-         
   )
 }
 

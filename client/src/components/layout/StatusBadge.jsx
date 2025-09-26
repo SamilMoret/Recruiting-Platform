@@ -1,6 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 
 const StatusBadge = ({status}) => {
+    const { t } = useTranslation();
     const statusConfig = {
         Applied: "bg-gray-100 text-gray-800",
         Inreview: "bg-yellow-100 text-yellow-800",
@@ -13,10 +15,10 @@ const StatusBadge = ({status}) => {
         className={`px-3 py-1 rounded text-sm font-medium${
             statusConfig[status] || "bg-gray-100 text-gray-800"
         }`}>
-            {status}
+            {t(`statusBadge.${status}`)}
         </span>
     )
- 
+
 }
 
 export default StatusBadge

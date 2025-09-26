@@ -1,4 +1,5 @@
 import {useState, useEffect, use} from 'react'
+import { useTranslation } from 'react-i18next';
 import {
     Briefcase,
     Building2,
@@ -20,7 +21,7 @@ const NavigationItem = ({
     onClick,
     isCollapsed,
 }) =>{
-
+    const { t } = useTranslation();
     const Icon = item.icon;
     return <button
         onClick={() => onClick(item.id)}
@@ -33,13 +34,13 @@ const NavigationItem = ({
            <Icon
               className={`w-5 h-5 flex-shrink-0 ${
                 isActive ? "text-blue-600" : "text-gray-500"}`} 
-           /> {!isCollapsed && <span className='ml-3 truncate'>{item.name}</span>}
+           /> {!isCollapsed && <span className='ml-3 truncate'>{t(item.nameKey || item.name)}</span>}
         </button>
 }
 
 const DashBoardLayout = ({activeMenu, children}) => {
+    const { t } = useTranslation();
     const { user, logout } = useAuth();
-    // console.log("User object:", user); // <-- Add this line
     const navigate = useNavigate();
 
     const [sideBarOpen, setSideBarOpen] = useState(false);
@@ -47,7 +48,6 @@ const DashBoardLayout = ({activeMenu, children}) => {
     const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    // Handle responsive behavior
     useEffect(() => {
         const handleResize = () => {
             const mobile = window.innerWidth < 768
@@ -56,7 +56,7 @@ const DashBoardLayout = ({activeMenu, children}) => {
                 setSideBarOpen(false);
             }
         };
-        handleResize(); // Initial check
+        handleResize();
         window.addEventListener("resize", handleResize);
 
         return () => {
@@ -64,7 +64,6 @@ const DashBoardLayout = ({activeMenu, children}) => {
         };
     }, []);
 
-    // close dropdowns when clicking outside
     useEffect(() => {
         const handleClickOutside = () => {
             if (profileDropdownOpen) {
@@ -110,7 +109,7 @@ const DashBoardLayout = ({activeMenu, children}) => {
                 <div className='h-8 w-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center'>
                     <Briefcase className='h-5 w-5 text-white' />
                 </div>
-                <span className='text-gray-900 font-bold text-xl'>Recruiting Platform</span>
+                <span className='text-gray-900 font-bold text-xl'>{t('dashboardLayout.panelTitle')}</span>
             </Link>
     ): (
         <div className='h-8 w-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center'>
@@ -122,29 +121,29 @@ const DashBoardLayout = ({activeMenu, children}) => {
     {/* Nabigation */}
 
     <nav className='p-4 space-y-2'>
-      {user?.role === 'admin'
-        ? [
-            { id: "admin-dashboard", name: "Dashboard", icon: Briefcase },
-            { id: "admin-company", name: "Companies", icon: Building2 },
-            { id: "admin-user", name: "Users", icon: Users },
-          ].map((item) => (
-            <NavigationItem
-              key={item.id}
-              item={item}
-              isActive={activeNavItem === item.id}
-              onClick={handleNavigation}
-              isCollapsed={sidebarCollapsed}
-            />
-          ))
-        : NAVIGATION_MENU.map((item) => (
-            <NavigationItem
-              key={item.id}
-              item={item}
-              isActive={activeNavItem === item.id}
-              onClick={handleNavigation}
-              isCollapsed={sidebarCollapsed}
-            />
-          ))}
+            {user?.role === 'admin'
+                ? [
+                        { id: "admin-dashboard", nameKey: "dashboardLayout.menu.dashboard", icon: Briefcase },
+                        { id: "admin-company", nameKey: "dashboardLayout.menu.companies", icon: Building2 },
+                        { id: "admin-user", nameKey: "dashboardLayout.menu.users", icon: Users },
+                    ].map((item) => (
+                        <NavigationItem
+                            key={item.id}
+                            item={item}
+                            isActive={activeNavItem === item.id}
+                            onClick={handleNavigation}
+                            isCollapsed={sidebarCollapsed}
+                        />
+                    ))
+                : NAVIGATION_MENU.map((item) => (
+                        <NavigationItem
+                            key={item.id}
+                            item={item}
+                            isActive={activeNavItem === item.id}
+                            onClick={handleNavigation}
+                            isCollapsed={sidebarCollapsed}
+                        />
+                    ))}
     </nav>
 
     {/* Logout */}
@@ -154,7 +153,7 @@ const DashBoardLayout = ({activeMenu, children}) => {
         onClick={logout}
         >
             <LogOut className='w-5 h-5 flex-shrink-0 text-gray-500'/>
-            {!sidebarCollapsed && <span className=''>Logout</span>}
+            {!sidebarCollapsed && <span className=''>{t('dashboardLayout.logout')}</span>}
         </button>
     </div>
     </div>
@@ -180,10 +179,10 @@ const DashBoardLayout = ({activeMenu, children}) => {
                     )}
                     <div>
                         <h1 className='text-base font-semibold text-shadow-gray-900'>
-                            Welcome Back
+                            {t('dashboardLayout.welcome')}
                         </h1>
                         <p className='text-sm text-gray-500 hidden sm:block'>
-                            Here's what's happening with your jobs today
+                            {t('dashboardLayout.subtitle')}
                         </p>
                     </div>
         </div>

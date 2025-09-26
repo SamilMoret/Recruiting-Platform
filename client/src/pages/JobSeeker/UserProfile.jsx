@@ -7,9 +7,10 @@ import toast from 'react-hot-toast'
 import uploadImage from '../../utils/uploadImage'
 import Navbar from '../../components/layout/Navbar'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
 
 const UserProfile = () => {
-
+  const { t } = useTranslation();
   const { user, updateUser } = useAuth();
 
   const [profileData, setProfileData] = useState({
@@ -170,7 +171,7 @@ const UserProfile = () => {
           <div className='bg-white rounded-xl shadow-lg overflow-hidden'>
             {/* Header */}
             <div className='bg-gradient-to-r from-blue-500 to-blue-600 px-8 py-6 justify-between items-center'>
-              <h1 className='text-xl font-medium text-white'>Profile</h1>
+              <h1 className='text-xl font-medium text-white'>{t('userProfile.title', 'Profile')}</h1>
             </div>
 
             <div className='p-8'>
@@ -205,21 +206,21 @@ const UserProfile = () => {
                 {/* Name input */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name
+                    {t('userProfile.fullName', 'Full Name')}
                   </label>
                   <input 
                     type="text" 
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all'
-                    placeholder='Enter your full name'
+                    placeholder={t('userProfile.fullNamePlaceholder', 'Enter your full name')}
                   />
                 </div>
 
                 {/* Email (read-onl) */}
                 <div >
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
+                    {t('userProfile.email', 'Email Address')}
                   </label>
                   <input 
                     type="email"
@@ -233,7 +234,7 @@ const UserProfile = () => {
                 {user?.resume ? (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Resume
+                      {t('userProfile.resume', 'Resume')}
                     </label>
 
                     <div className='flex items-center gap-2'>
@@ -241,7 +242,7 @@ const UserProfile = () => {
                         className='bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2'
                         onClick={() => window.open(user.resume, '_blank')}
                       >
-                        Download
+                        {t('userProfile.download', 'Download')}
                       </button>
                       <button 
                         className='cursor-pointer'
@@ -253,7 +254,7 @@ const UserProfile = () => {
                   </div>
                 ):(
                   <label className='block'>
-                    <span className=''>Choose File</span>
+                    <span className=''>{t('userProfile.chooseFile', 'Choose File')}</span>
                     <input type="file"
                        accept=".pdf,.doc,.docx"
                        onChange={(e) => handleResumeUpload(e)}
@@ -272,7 +273,7 @@ const UserProfile = () => {
                   className='px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center space-x-2'
                 >
                   <X className='w-4 h-4' />
-                  <span className=''>Cancel</span>
+                  <span className=''>{t('userProfile.cancel', 'Cancel')}</span>
                 </Link>
                 <button
                   onClick={handleSave} 
@@ -284,7 +285,7 @@ const UserProfile = () => {
                  ) : (
                   <Save className='w-4 h-4' />
                  )} 
-                 <span>{saving ? 'Saving...' : 'Save Changes'}</span>
+                 <span>{saving ? t('userProfile.saving', 'Saving...') : t('userProfile.saveChanges', 'Save Changes')}</span>
                 </button>
               </div>
             </div>

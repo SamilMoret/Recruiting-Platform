@@ -1,8 +1,10 @@
 import { Briefcase } from 'lucide-react'
 import React from 'react'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next';
 
 const JobDashBoardCard = ({job}) => {
+  const { t } = useTranslation();
   return (
     <div className='flex items-center justify-between p-4 rounded-xl border-gray-100 hover:border-gray-200 transition-colors'>
         <div className='flex items-center space-x-4'>
@@ -24,7 +26,7 @@ const JobDashBoardCard = ({job}) => {
                   :"bg-gray-100 text-gray-600" 
                 }`}
                 >
-                    {job.isClosed ? "Closed" : "Active"}
+                    {job.isClosed ? t('jobDashBoardCard.closed') : t('jobDashBoardCard.active')}
             </span>
         </div>
     </div>

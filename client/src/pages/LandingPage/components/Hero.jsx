@@ -1,17 +1,18 @@
-import {motion} from 'framer-motion';
-import { Search, ArrowRight, Users, Building2,TrendingUp } from 'lucide-react';
-import { Form, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion';
+import { Search, ArrowRight, Users, Building2, TrendingUp } from 'lucide-react';
+import { Form, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
-    const {user, isAuthenticated} = useAuth();    
+    const { user, isAuthenticated } = useAuth();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const stats = [
-        { icon: Users, label: "Active Users", value :'2.4M+'},
-        { icon: Building2, label: "Companies", value :'10K+'},
-        { icon: TrendingUp, label: "Jobs Posted", value :'50K+'},
-
+        { icon: Users, label: t('hero.activeUsers'), value: '2.4M+' },
+        { icon: Building2, label: t('hero.companies'), value: '10K+' },
+        { icon: TrendingUp, label: t('hero.jobsPosted'), value: '50K+' },
     ];
 
     return (
@@ -25,9 +26,9 @@ const Hero = () => {
                         transition={{ duration: 0.8 }}
                         className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight pt-10"
                     >
-                        Your Career, Our Mission.
+                        {t('hero.title')}
                         <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mt-2">
-                            Perfect Match
+                            {t('hero.perfectMatch')}
                         </span>
                     </motion.h1>
 
@@ -38,8 +39,9 @@ const Hero = () => {
                         transition={{ duration: 0.8 }}
                         className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
                     >
-                        Connecting candidates to career opportunities.
-                        Your next career step or the right talent for your company is here.
+                        {t('hero.subtitle1')}
+                        <br />
+                        {t('hero.subtitle2')}
                     </motion.p>
 
                     {/* CTA Buttons */}
@@ -56,7 +58,7 @@ const Hero = () => {
                             onClick={() => navigate("/find-jobs")}
                         >
                             <Search className="w-5 h-5" />
-                            <span>Find Jobs</span>
+                            <span>{t('hero.findJobs')}</span>
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform " />
                         </motion.button>
 

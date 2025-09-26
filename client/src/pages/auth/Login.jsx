@@ -14,9 +14,10 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { useAuth } from '../../context/AuthContext';
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
-
+  const { t } = useTranslation();
   const {login} = useAuth();
 
   const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ const Login = () => {
   })
 
   const validatePassword = (password) => {
-    if (!password) return "Password is required";
+    if (!password) return t("login.passwordRequired");
     return "";
   }
   //hand input changes
@@ -86,9 +87,6 @@ const Login = () => {
         rememberMe: formData.rememberMe
       });
 
-      // Log the successful response
-      console.log("Login success response:", response);
-
       setFormState(prev => ({
         ...prev,
         loading: false,
@@ -111,15 +109,13 @@ const Login = () => {
         }, 2000);
       }
     } catch(error){
-      // Log the error response
-
-      let message = "An error occurred. Please try again.";
+      let message = t("login.genericError");
       if (error.response?.status === 401 || error.response?.status === 400) {
-        message = "Incorrect email or password.";
+        message = t("login.incorrectCredentials");
       } else if (error.response?.data?.message) {
         message = error.response.data.message;
       } else if (error.response?.status === 403) {
-        message = "Your account is disabled. Please contact support.";
+        message = t("login.accountDisabled");
       }
       setFormState(prev => ({
         ...prev,
@@ -138,12 +134,12 @@ const Login = () => {
           className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center"
         >
           <CheckCircle className="w-16 h-16 text-green-500 mb-4"/>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back!</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t("login.welcomeBack")}</h2>
           <p className="text-gray-600 mb-4">
-            You have successfully logged in.
+            {t("login.successMessage")}
           </p>
           <div className="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full"/>
-          <p className="text-sm text-gray-500 mt-2"> Redirecting to your dashboard</p>
+          <p className="text-sm text-gray-500 mt-2"> {t("login.redirecting")}</p>
         </motion.div>
       </div>
     )
@@ -159,15 +155,15 @@ const Login = () => {
       className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full"
       >
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back</h2>
-          <p className="text-gray-600">Please enter your credentials to continue </p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t("login.welcomeBack")}</h2>
+          <p className="text-gray-600">{t("login.enterCredentials")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
+              {t("login.emailAddress")}
               </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -179,7 +175,7 @@ const Login = () => {
                className={`w-full pl-10 py-3 rounded-lg border ${formState.errors.email 
                 ? 'border-red-500' : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-               placeholder='Enter your email'
+               placeholder={t("login.emailPlaceholder")}
                />
             </div>
             {formState.errors.email && (
@@ -191,7 +187,7 @@ const Login = () => {
           </div>
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t("login.password")}</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -202,7 +198,7 @@ const Login = () => {
                 className={`w-full pl-10 pr-4 py-3 rounded-lg border
                 ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-                placeholder='Enter your password'
+                placeholder={t("login.passwordPlaceholder")}
               />
               <button
                 type="button"
@@ -225,7 +221,7 @@ const Login = () => {
             {/* Forgot password link */}
             <div className="text-right mt-2">
               <Link to="/forgot-password" className="text-blue-600 hover:underline text-sm">
-                Forgot password?
+                {t("login.forgotPassword")}
               </Link>
             </div>
           </div>
@@ -248,19 +244,19 @@ const Login = () => {
               {formState.loading ? (
                 <>
                   <Loader className="w-5 h-5 animate-spin" />
-                  <span> Signing In...</span>
+                  <span> {t("login.signingIn")}</span>
                 </>
               ) : (
-                <span>Sign In</span>
+                <span>{t("login.signIn")}</span>
               )}
             </button>
 
             {/* Sign Up link */}
             <div className="text-center">
               <p className="text-gray-600">
-                Don't have an account?{' '}
+                {t("login.noAccount")} {' '}
                 <a href="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
-                   Create one here 
+                   {t("login.createAccount")}
                 </a>
               </p>
             </div>

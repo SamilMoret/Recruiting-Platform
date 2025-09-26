@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AdminLayout from "../../components/layout/AdminLayout";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 
 const AdminEmployer = () => {
+  const { t } = useTranslation();
   const [employers, setEmployers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,7 +46,7 @@ const AdminEmployer = () => {
   };
 
   const handleDeleteEmployer = (employerId) => {
-    if (window.confirm("Are you sure you want to delete this employer?")) {
+  if (window.confirm(t("adminEmployer.confirmDelete"))) {
       axiosInstance
         .delete(`${API_PATHS.ADMIN.GET_ALL_EMPLOYERS}/${employerId}`)
         .then(() => {
@@ -78,14 +80,14 @@ const AdminEmployer = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-0">
-              Employer Management
+              {t("adminEmployer.title")}
             </h1>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               <div className="text-sm text-gray-600 bg-white px-3 py-2 rounded-lg shadow">
-                Total: {employers.length} employers
+                {t("adminEmployer.total", { count: employers.length })}
               </div>
               <div className="text-sm text-gray-600 bg-white px-3 py-2 rounded-lg shadow">
-                Active: {employers.filter(emp => emp.active).length}
+                {t("adminEmployer.active", { count: employers.filter(emp => emp.active).length })}
               </div>
             </div>
           </div>
@@ -97,7 +99,7 @@ const AdminEmployer = () => {
               <div className="flex-1">
                 <input
                   type="text"
-                  placeholder="Search by name, company, or email..."
+                  placeholder={t("adminEmployer.searchPlaceholder")}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -111,9 +113,9 @@ const AdminEmployer = () => {
                   onChange={(e) => setFilterStatus(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="all">All Status</option>
-                  <option value="active">Active Only</option>
-                  <option value="disabled">Disabled Only</option>
+                  <option value="all">{t("adminEmployer.status.all")}</option>
+                  <option value="active">{t("adminEmployer.status.active")}</option>
+                  <option value="disabled">{t("adminEmployer.status.disabled")}</option>
                 </select>
               </div>
 
@@ -122,7 +124,7 @@ const AdminEmployer = () => {
                 onClick={fetchEmployers}
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
               >
-                Refresh
+                {t("adminEmployer.refresh")}
               </button>
             </div>
           </div>
@@ -132,14 +134,14 @@ const AdminEmployer = () => {
             {loading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                <p className="text-gray-500">Loading employers...</p>
+                <p className="text-gray-500">{t("adminEmployer.loading")}</p>
               </div>
             ) : filteredEmployers.length === 0 ? (
               <div className="p-8 text-center">
                 <p className="text-gray-500">
                   {searchTerm || filterStatus !== "all" 
-                    ? "No employers match your search criteria." 
-                    : "No employers found."}
+                    ? t("adminEmployer.noMatch")
+                    : t("adminEmployer.noEmployers")}
                 </p>
                 {(searchTerm || filterStatus !== "all") && (
                   <button
@@ -149,7 +151,7 @@ const AdminEmployer = () => {
                     }}
                     className="mt-2 px-4 py-2 text-blue-500 hover:text-blue-700"
                   >
-                    Clear filters
+                    {t("adminEmployer.clearFilters")}
                   </button>
                 )}
               </div>
@@ -161,22 +163,22 @@ const AdminEmployer = () => {
                     <thead className="bg-gray-50">
                       <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          ID
+                          {t("adminEmployer.table.id")}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Name
+                          {t("adminEmployer.table.name")}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Company
+                          {t("adminEmployer.table.company")}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Email
+                          {t("adminEmployer.table.email")}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Status
+                          {t("adminEmployer.table.status")}
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Actions
+                          {t("adminEmployer.table.actions")}
                         </th>
                       </tr>
                     </thead>
@@ -210,7 +212,7 @@ const AdminEmployer = () => {
                                   : "bg-red-100 text-red-800"
                               }`}
                             >
-                              {emp.active ? "Active" : "Disabled"}
+                              {emp.active ? t("adminEmployer.status.active") : t("adminEmployer.status.disabled")}
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -223,13 +225,13 @@ const AdminEmployer = () => {
                                     : "bg-green-100 text-green-700 hover:bg-green-200"
                                 }`}
                               >
-                                {emp.active ? "Disable" : "Enable"}
+                                {emp.active ? t("adminEmployer.disable") : t("adminEmployer.enable")}
                               </button>
                               <button
                                 onClick={() => handleDeleteEmployer(emp.id)}
                                 className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium hover:bg-gray-200 transition-colors"
                               >
-                                Delete
+                                {t("adminEmployer.delete")}
                               </button>
                             </div>
                           </td>
@@ -262,7 +264,7 @@ const AdminEmployer = () => {
                                 : "bg-red-100 text-red-800"
                             }`}
                           >
-                            {emp.active ? "Active" : "Disabled"}
+                            {emp.active ? t("adminEmployer.status.active") : t("adminEmployer.status.disabled")}
                           </span>
                         </div>
 
@@ -281,13 +283,13 @@ const AdminEmployer = () => {
                                 : "bg-green-500 text-white hover:bg-green-600"
                             }`}
                           >
-                            {emp.active ? "Disable" : "Enable"}
+                            {emp.active ? t("adminEmployer.disable") : t("adminEmployer.enable")}
                           </button>
                           <button
                             onClick={() => handleDeleteEmployer(emp.id)}
                             className="flex-1 px-4 py-2 bg-gray-500 text-white rounded-lg text-sm font-medium hover:bg-gray-600 transition-colors"
                           >
-                            Delete
+                            {t("adminEmployer.delete")}
                           </button>
                         </div>
                       </div>
@@ -301,10 +303,10 @@ const AdminEmployer = () => {
           {/* Results Summary */}
           {!loading && (
             <div className="mt-4 text-sm text-gray-600 text-center">
-              Showing {filteredEmployers.length} of {employers.length} employers
+              {t("adminEmployer.showing", { filtered: filteredEmployers.length, total: employers.length })}
               {filterStatus !== "all" && (
                 <span className="ml-2 text-blue-600">
-                  • Filtered by: {filterStatus}
+                  • {t(`adminEmployer.status.${filterStatus}`)}
                 </span>
               )}
             </div>

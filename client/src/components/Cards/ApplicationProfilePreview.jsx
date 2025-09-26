@@ -6,10 +6,16 @@ import axiosInstance from "../../utils/axiosInstance"
 import { API_PATHS } from "../../utils/apiPaths"
 import toast from "react-hot-toast"
 import StatusBadge from "../layout/StatusBadge"
+import { useTranslation } from 'react-i18next';
 
 
 
-const statusOptions = ["Applied", "In Review", "Rejected", "Accepted"];
+const statusOptions = [
+    'applicationProfilePreview.statusApplied',
+    'applicationProfilePreview.statusInReview',
+    'applicationProfilePreview.statusRejected',
+    'applicationProfilePreview.statusAccepted'
+];
 
 const ApplicationProfilePreview = ({
     selectedApplicant,
@@ -17,6 +23,7 @@ const ApplicationProfilePreview = ({
     handleDownloadResume,
     handleClose,
 }) => {
+    const { t } = useTranslation();
     const [currentStatus, setCurrentStatus] = useState(selectedApplicant.status);
     const [loading, setLoading] = useState(false);
 
@@ -31,10 +38,10 @@ const ApplicationProfilePreview = ({
             );
             if (response.status === 200) {
                 setSelectedApplicant({ ...selectedApplicant, status: newStatus });
-                toast.success("Status updated successfully");
+                toast.success(t('applicationProfilePreview.statusUpdated'));
             }
         } catch (error) {
-            toast.error("Error updating status");
+            toast.error(t('applicationProfilePreview.statusUpdateError'));
             setCurrentStatus(selectedApplicant.status);
         } finally {
             setLoading(false);
@@ -46,7 +53,7 @@ const ApplicationProfilePreview = ({
             <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
                 {/* modal header */}
                 <div className="flex justify-between items-center p-6 border-b border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900">Applicant Profile</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('applicationProfilePreview.title')}</h3>
                     <button onClick={handleClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                         <X className="w-5 h-5 text-gray-500" />
                     </button>
@@ -76,7 +83,7 @@ const ApplicationProfilePreview = ({
                     <div className="space-y-4">
                         <div className="bg-gray-50 rounded-lg p-4">
                             <h5 className=" font-medium text-gray-700 mb-2">
-                                Applied Position
+                                {t('applicationProfilePreview.appliedPosition')}
                             </h5>
                             <p className=" text-gray-700">{selectedApplicant.job.title}</p>
                             <p className=" text-gray-600 text-sm mt-1">
@@ -86,15 +93,15 @@ const ApplicationProfilePreview = ({
 
                         <div className="bg-gray-50 rounded-lg p-4">
                             <h5 className=" font-medium text-gray-700 mb-2">
-                                Applicant Details
+                                {t('applicationProfilePreview.applicantDetails')}
                             </h5>
                             <div className="space-y-2">
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600">Status</span>
+                                    <span className="text-gray-600">{t('applicationProfilePreview.status')}</span>
                                     <StatusBadge status={selectedApplicant.status} />
                                 </div>
                                 <div className="flex justify-between">
-                                    <span className="text-gray-600"> Applied Data:</span>
+                                    <span className="text-gray-600">{t('applicationProfilePreview.appliedDate')}</span>
                                     <span className="text-gray-900 ">
                                         {moment(selectedApplicant.appliedAt)?.format("MMMM Do, YYYY")}
                                     </span>
@@ -111,14 +118,14 @@ const ApplicationProfilePreview = ({
                                   className="w-full inline-flex justify-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
                               >
                                   <Download className="" />
-                                  Download Resume
+                                  {t('applicationProfilePreview.downloadResume')}
                               </button>
                             ) : null}
 
                         {/* Status Dropdown */}
                         <div className="mt-4">
                             <label className="block mb-1 text-sm text-gray-700 font-medium">
-                                Change Application Status
+                                {t('applicationProfilePreview.changeStatus')}
                             </label>
                             <select 
                                 value={currentStatus}
@@ -126,14 +133,14 @@ const ApplicationProfilePreview = ({
                                 disabled={loading}
                                 className="w-full border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
                                 >
-                                    {statusOptions.map((status) => (
-                                        <option key={status} value={status}>
-                                            {status}
+                                    {statusOptions.map((key) => (
+                                        <option key={key} value={t(key)}>
+                                            {t(key)}
                                         </option>
                                     ))}
                                 </select>
                                 {loading && (
-                                    <p className="text-xs text-gray-500 mt-1">Updating status...</p>
+                                    <p className="text-xs text-gray-500 mt-1">{t('applicationProfilePreview.updatingStatus')}</p>
                                 )}
                         </div>
                     </div>

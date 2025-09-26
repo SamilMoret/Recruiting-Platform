@@ -8,6 +8,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import { Briefcase, CheckCircle2, TrendingUp, Users, Plus, Building2 } from 'lucide-react';
 import JobDashBoardCard from '../../components/Cards/JobDashBoardCard';
 import ApplicantDashboardCard from '../../components/Cards/ApplicantDashboardCard';
+import { useTranslation } from 'react-i18next';
 
 const Card = ({className, children, title, subtitle, headerAction}) =>{
   return <div 
@@ -70,9 +71,11 @@ const StatCard = ({
 };
 
 const EmployerDashboard = () => {
+  const { t } = useTranslation();
   useEffect(() => {
-    document.title = "Employer Dashboard - Recruiting Platform";
-  }, []);
+    document.title = t("employerDashboard.pageTitle");
+  }, [t]);
+
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
@@ -104,7 +107,7 @@ const EmployerDashboard = () => {
           {/* Dashboard Stats */}
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
             <StatCard
-              title="Active Jobs"
+              title={t("employerDashboard.activeJobs")}
               value={dashboardData?.counts?.totalActiveJobs || 0}
               icon={Briefcase}
               trend={true}
@@ -113,7 +116,7 @@ const EmployerDashboard = () => {
             />
 
             <StatCard
-              title="Total Applicants"
+              title={t("employerDashboard.totalApplicants")}
               value={dashboardData?.counts?.totalApplications || 0}
               icon={Users}
               trend={true}
@@ -122,7 +125,7 @@ const EmployerDashboard = () => {
             />
 
             <StatCard
-              title="Hired"
+              title={t("employerDashboard.hired")}
               value={dashboardData?.counts?.totalHires || 0}
               icon={CheckCircle2}
               trend={true}
@@ -135,14 +138,14 @@ const EmployerDashboard = () => {
           {/* Recent Activities */}
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
               <Card
-                title="Recent Job Posts" 
-                subtitle="Your lates job posting"
+                title={t("employerDashboard.recentJobPosts")}
+                subtitle={t("employerDashboard.latestJobPosting")}
                 headerAction={
                   <button
                     className='text-sm text-blue-600 hover:text-blue-700 font-medium' 
                     onClick={() => navigate('/manage-jobs')}
                   >
-                    View all
+                    {t("employerDashboard.viewAll")}
                   </button>
                 }
               >
@@ -155,14 +158,14 @@ const EmployerDashboard = () => {
                   </div> 
                 </Card> 
               <Card
-                title="Recent Applications"
-                subtitle="Latest candidate applications"
+                title={t("employerDashboard.recentApplications")}
+                subtitle={t("employerDashboard.latestCandidateApplications")}
                 headerAction={
                   <button
                     className='text-sm text-blue-600 hover:text-blue-700 font-medium'
                     onClick={() => navigate('/manage-jobs')}
                   >
-                    View all
+                    {t("employerDashboard.viewAll")}
                   </button>
                 }
               >
@@ -183,25 +186,25 @@ const EmployerDashboard = () => {
 
           {/* Quick Actions */}
           <Card
-            title="Quick Actions"
-            subtitle="Common tasks to get you started"
+            title={t("employerDashboard.quickActions")}
+            subtitle={t("employerDashboard.commonTasks")}
           >
             <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
               {[
                 {
-                  title: "Post a New Job",
+                  title: t("employerDashboard.postNewJob"),
                   icon: Plus,
                   color: "bg-blue-50 text-blue-700",
                  path: "/post-job"
                 },
                 {
-                  title: "Review Applications",
+                  title: t("employerDashboard.reviewApplications"),
                   icon: Users,
                   color: "bg-green-50 text-green-700",
                   path: "/manage-jobs"
                 },
                 {
-                  title: "Company Settings",
+                  title: t("employerDashboard.companySettings"),
                   icon: Building2,
                   color: "bg-purple-50 text-purple-700",
                   path: "/company-profile"
