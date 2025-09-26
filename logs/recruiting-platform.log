@@ -1304,3 +1304,138 @@ Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-valid
 2025-09-04 20:06:02 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@20425fab, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71c2cb26, org.springframework.security.web.context.SecurityContextHolderFilter@54519d74, org.springframework.security.web.header.HeaderWriterFilter@18918ab9, org.springframework.web.filter.CorsFilter@593db293, org.springframework.security.web.authentication.logout.LogoutFilter@299f9a81, br.com.one.jobportal.security.JwtAuthenticationFilter@38d9c9c4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3d00c2ae, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@665574fb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5220e6ff, org.springframework.security.web.session.SessionManagementFilter@6c54d0dc, org.springframework.security.web.access.ExceptionTranslationFilter@73ab649f, org.springframework.security.web.access.intercept.AuthorizationFilter@2e5ff1d4]
 2025-09-04 20:06:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
 2025-09-04 20:06:05 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 43.015 seconds (process running for 52.081)
+2025-09-25 21:12:56 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 7256 (C:\Users\samil\Desktop\Cosas de Samil Alberto\TOTI\Programa ONE - Alura\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\TOTI\Programa ONE - Alura\Recruiting-Platform)
+2025-09-25 21:12:56 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.5.0, Spring v6.2.7
+2025-09-25 21:12:56 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-25 21:13:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-25 21:13:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 187 ms. Found 5 JPA repository interfaces.
+2025-09-25 21:13:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5001 (http)
+2025-09-25 21:13:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-25 21:13:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-09-25 21:13:03 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-25 21:13:03 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7414 ms
+2025-09-25 21:13:03 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
+2025-09-25 21:13:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-25 21:13:05 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5396eeb1
+2025-09-25 21:13:05 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-25 21:13:05 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true (MySQL 8.0)
+2025-09-25 21:13:05 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 1
+2025-09-25 21:13:05 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
+2025-09-25 21:13:05 [main] ERROR o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` has version 1, but no migration could be resolved in the configured locations !
+2025-09-25 21:13:05 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
+2025-09-25 21:13:05 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-25 21:13:06 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-09-25 21:13:06 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-25 21:13:07 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-25 21:13:07 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-25 21:13:07 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-25 21:13:07 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-25 21:13:10 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-25 21:13:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-25 21:13:12 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-25 21:13:14 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-09-25 21:13:15 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-25 21:13:15 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-25 21:13:16 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-25 21:13:17 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-25 21:13:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5001 (http) with context path '/'
+2025-09-25 21:13:18 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 24.524 seconds (process running for 28.636)
+2025-09-25 21:22:46 [http-nio-5001-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-25 21:22:46 [http-nio-5001-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-25 21:22:46 [http-nio-5001-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 55 ms
+2025-09-25 21:22:46 [http-nio-5001-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/jobs
+2025-09-25 21:22:47 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-25 21:22:47 [http-nio-5001-exec-2] DEBUG b.c.o.jobportal.security.JwtService - Token válido para o usuário: teste14@brabo.com
+2025-09-25 21:22:47 [http-nio-5001-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/jobs
+2025-09-25 21:22:48 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-25 21:22:48 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
+    /* insert for
+        br.com.one.jobportal.entity.Job */insert 
+    into
+        jobs (application_count, application_status, category, created_at, description, is_closed, is_saved, location, recruiter_id, requirements, salary_max, salary_min, title, type, updated_at) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-09-25 21:22:48 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
+    select
+        pj1_0.recruiter_id,
+        pj1_0.id,
+        pj1_0.application_count,
+        pj1_0.application_status,
+        pj1_0.category,
+        pj1_0.created_at,
+        pj1_0.description,
+        pj1_0.is_closed,
+        pj1_0.is_saved,
+        pj1_0.location,
+        pj1_0.requirements,
+        pj1_0.salary_max,
+        pj1_0.salary_min,
+        pj1_0.title,
+        pj1_0.type,
+        pj1_0.updated_at 
+    from
+        jobs pj1_0 
+    where
+        pj1_0.recruiter_id=?
+2025-09-25 21:22:48 [http-nio-5001-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Document nesting depth (1001) exceeds the maximum allowed (1000, from `StreamWriteConstraints.getMaxNestingDepth()`)
+2025-09-25 21:22:48 [http-nio-5001-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Document nesting depth (1001) exceeds the maximum allowed (1000, from `StreamWriteConstraints.getMaxNestingDepth()`)]
+2025-09-25 21:31:11 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-25 21:31:11 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-25 21:31:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-25 21:31:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-25 21:31:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
