@@ -64,16 +64,17 @@ function App() {
           <button
             onClick={() => setShowMenu(v => !v)}
             style={{
-              background: 'white',
-              border: '1px solid #ddd',
-              borderRadius: '50%',
-              width: '2.5em',
-              height: '2.5em',
+              background: 'none',
+              border: 'none',
+              borderRadius: '0',
+              width: '2.2em',
+              height: '2.2em',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              boxShadow: 'none',
               cursor: 'pointer',
+              padding: 0,
             }}
             title={currentLang.name}
           >

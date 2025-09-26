@@ -130,14 +130,22 @@ const EmployerProfilePage = () => {
                   </h2>
                   {/* Avatar and Name */}
                   <div className='flex items-center space-x-4'>
-                    <img 
-                      src={profileData.avatar} 
-                      alt={t("employerProfile.avatarAlt")}
-                      className='w-20 h-20 rounded-full object-cover border-4 border-blue-50' 
-                    />
+                    {profileData.avatar ? (
+                      <img 
+                        src={profileData.avatar} 
+                        alt={t("employerProfile.avatarAlt")}
+                        className='w-20 h-20 rounded-full object-cover border-4 border-blue-50' 
+                      />
+                    ) : (
+                      <div className='w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center border-4 border-blue-400 shadow-md'>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M15.75 9A3.75 3.75 0 1 1 8.25 9a3.75 3.75 0 0 1 7.5 0zM4.5 19.25a7.25 7.25 0 0 1 15 0v.25A2.25 2.25 0 0 1 17.25 21.75h-10.5A2.25 2.25 0 0 1 4.5 19.5v-.25z" />
+                        </svg>
+                      </div>
+                    )}
                     <div>
                       <h3 className='text-lg font-semibold text-gray-800'>
-                        {profileData.name}
+                        {profileData.name || t('employerProfile.noName', 'No Name')}
                       </h3>
                       <div className='flex items-center text:sm text-gray-600 mt-1'>
                         <Mail className='w-4 h-4 mr-2' />
@@ -153,14 +161,22 @@ const EmployerProfilePage = () => {
                 </h2>
                 {/* Company Logo and Name */}
                 <div className='flex items-center space-x-4'>
-                  <img 
-                    src={profileData.companyLogo} 
-                    alt={t("employerProfile.companyLogoAlt")}
-                    className='w-20 h-20 rounded-lg object-cover border-4 border-blue-50'
-                  />
+                  {profileData.companyLogo ? (
+                    <img 
+                      src={profileData.companyLogo} 
+                      alt={t("employerProfile.companyLogoAlt")}
+                      className='w-20 h-20 rounded-lg object-cover border-4 border-blue-50'
+                    />
+                  ) : (
+                    <div className='w-20 h-20 rounded-lg bg-blue-100 flex items-center justify-center border-4 border-blue-400 shadow-md'>
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M3 21V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14M16 3v4M8 3v4" />
+                      </svg>
+                    </div>
+                  )}
                   <div className=''>
                     <h3 className='text-lg font-semibold text-gray-800'>
-                      {profileData.companyName}
+                      {profileData.companyName || t('employerProfile.noCompanyName', 'No Company Name')}
                     </h3>
                     <div className='flex items-center text-sm text-gray-600 mt-1'>
                       <Building2 className='w-4 h-4 mr-2' />
