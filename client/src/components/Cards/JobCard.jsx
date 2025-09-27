@@ -17,11 +17,11 @@ const JobCard = ({
   const { t } = useTranslation();
   const formatSalary = (min, max) =>{
     const formatNum = (num) => {
-      if(num >= 1000) return t('jobCard.salaryK', { value: (num/1000).toFixed(0) });
-      return t('jobCard.salary', { value: num });
+      if(num >= 1000) return `$${(num/1000).toFixed(0)}k`;
+      return `$${num}`;
     };
-    return t('jobCard.salaryRange', { min: formatNum(min), max: formatNum(max) });
-  }
+    return `${formatNum(min)} - ${formatNum(max)}/m`;
+}
 
   return <div
    className='bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-xl hover:shadow-gray-200 transition-all duration-300 group relative overflow-hidden cursor-pointer'

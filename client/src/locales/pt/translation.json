@@ -420,22 +420,26 @@
     "manageJobs": "Gerenciar vagas",
     "companyProfile": "Perfil da empresa"
   },
-  "categories": {
-    "Engineering": "Engenharia",
-    "Marketing": "Marketing",
-    "Sales": "Vendas",
-    "Design": "Design",
-    "Finance": "Finanças",
-    "ITSoftware": "TI e Software",
-    "CustomerService": "Atendimento ao cliente",
-    "Product": "Produto",
-    "Operations": "Operações",
-    "HR": "Recursos Humanos",
-    "Other": "Outro"
+  "filterContent": {
+    "categories":{
+      "title": "Categorias",
+      "Engineering": "Engenharia",
+      "Marketing": "Marketing",
+      "Sales": "Vendas",
+      "Design": "Design",
+      "Finance": "Finanças",
+      "IT": "TI",
+      "Customer-service": "Atendimento ao cliente",
+      "Product": "Produto",
+      "Operations": "Operações",
+      "HR": "Recursos Humanos",
+      "Other": "Outro"
+    },
+    "category": "Categoria"
   },
   "jobTypes": {
-    "FullTime": "Tempo integral",
-    "PartTime": "Meio período",
+    "Full-Time": "Tempo integral",
+    "Part-Time": "Meio período",
     "Contract": "Contrato",
     "Remote": "Remoto",
     "Internship": "Estágio"

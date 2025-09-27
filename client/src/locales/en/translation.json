@@ -420,22 +420,25 @@
     "manageJobs": "Manage Jobs",
     "companyProfile": "Company Profile"
   },
-  "categories": {
+  "filterContent": {
+    "categories": {
     "Engineering": "Engineering",
     "Marketing": "Marketing",
     "Sales": "Sales",
     "Design": "Design",
     "Finance": "Finance",
-    "ITSoftware": "IT & Software",
-    "CustomerService": "Customer Service",
+    "IT": "IT Software",
+    "Customer-service": "Customer Service",
     "Product": "Product",
     "Operations": "Operations",
     "HR": "Human Resources",
     "Other": "Other"
+    },
+    "category": "Job Category"
   },
   "jobTypes": {
-    "FullTime": "Full-time",
-    "PartTime": "Part-time",
+    "Full-Time": "Full-time",
+    "Part-Time": "Part-time",
     "Contract": "Contract",
     "Remote": "Remote",
     "Internship": "Internship"
