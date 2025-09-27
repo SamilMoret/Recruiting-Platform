@@ -22,30 +22,26 @@ const ProfileDropDown = ({
             onClick={onToggle}
             className="flex items-center space-x-3 p-2 rounded-xl hover:bg-gray-50 transition-colors duration-200"
         >
-        {/* On mobile, show first name instead of avatar */}
-        <span className="sm:hidden text-lg font-semibold text-gray-900">
-            {companyName?.split(' ')[0]}
-        </span>
-        {/* On desktop, show avatar if present */}
-        <span className="hidden sm:inline">
-            {avatar ? (
-                <img 
-                    src={avatar} 
-                    alt="Avatar" 
-                    className="h-9 w-9 object-cover rounded-xl"
-                />
-            ) : (
-                <div className="h-9 w-9 rounded-xl bg-blue-100 flex items-center justify-center border-2 border-blue-400">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M15.75 9A3.75 3.75 0 1 1 8.25 9a3.75 3.75 0 0 1 7.5 0zM4.5 19.25a7.25 7.25 0 0 1 15 0v.25A2.25 2.25 0 0 1 17.25 21.75h-10.5A2.25 2.25 0 0 1 4.5 19.5v-.25z" />
-                  </svg>
-                </div>
-            )}
-        </span>
-        <div className="hidden sm:block text-left">
-            <p className="text-sm font-medium text-gray-900">{companyName}</p>
-        </div> 
-    <ChevronDown className="h-4 w-4 text-gray-400" />
+                <span className="flex items-center gap-2">
+                    {/* Avatar or fallback icon */}
+                    {avatar ? (
+                        <img 
+                            src={avatar} 
+                            alt="Avatar" 
+                            className="h-9 w-9 object-cover rounded-xl"
+                        />
+                    ) : (
+                        <div className="h-9 w-9 rounded-xl bg-blue-100 flex items-center justify-center border-2 border-blue-400">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M15.75 9A3.75 3.75 0 1 1 8.25 9a3.75 3.75 0 0 1 7.5 0zM4.5 19.25a7.25 7.25 0 0 1 15 0v.25A2.25 2.25 0 0 1 17.25 21.75h-10.5A2.25 2.25 0 0 1 4.5 19.5v-.25z" />
+                            </svg>
+                        </div>
+                    )}
+                    {/* Company name or user name */}
+                    <span className="hidden sm:block text-sm font-medium text-gray-900">{companyName}</span>
+                    {/* Always show dropdown arrow */}
+                    <ChevronDown className="h-4 w-4 text-gray-400" />
+                </span>
         </button>
 
         {isOpen && (

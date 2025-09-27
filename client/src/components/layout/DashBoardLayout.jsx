@@ -194,10 +194,14 @@ const DashBoardLayout = ({activeMenu, children}) => {
                         e.stopPropagation()
                         setProfileDropdownOpen(!profileDropdownOpen);
                     }}
-                    avatar={user?.avatar || ""}
-                    companyName={user?.companyName || ""}
-                    email={user?.email || ""}
-                    onLogout={logout}
+                                        avatar={(user?.role === "employer" && (!user?.companyLogo || user?.companyLogo === "companyLogo"))
+                                            ? ""
+                                            : (user?.avatar && user?.avatar !== "avatar")
+                                                ? user.avatar
+                                                : ""}
+                                        companyName={user?.role === "employer" ? user?.companyName || "" : user?.name || ""}
+                                        email={user?.email || ""}
+                                        onLogout={logout}
                 />
         </div>
     </header>

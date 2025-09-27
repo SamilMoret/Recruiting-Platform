@@ -178,15 +178,23 @@ const UserProfile = () => {
               <div className='space-y-6'>
                 <div className='flex items-center space-x-4'>
                   <div className='relative'>
-                    <img
-                     src={formData?.avatar}
-                     alt="Avatar"
-                     className='w-20 h-20 rounded-full object-cover border border-gray-200' 
-                    />
-                    {uploading?.avatar &&(
-                     <div className='absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center'>
-                      <div className='animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full'/>
-                     </div>
+                    {formData?.avatar ? (
+                      <img
+                        src={formData?.avatar}
+                        alt="Avatar"
+                        className='w-20 h-20 rounded-full object-cover border border-gray-200'
+                      />
+                    ) : (
+                      <div className='w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center border-4 border-blue-400'>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M15.75 9A3.75 3.75 0 1 1 8.25 9a3.75 3.75 0 0 1 7.5 0zM4.5 19.25a7.25 7.25 0 0 1 15 0v.25A2.25 2.25 0 0 1 17.25 21.75h-10.5A2.25 2.25 0 0 1 4.5 19.5v-.25z" />
+                        </svg>
+                      </div>
+                    )}
+                    {uploading?.avatar && (
+                      <div className='absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center'>
+                        <div className='animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full'/>
+                      </div>
                     )}
                   </div>
 

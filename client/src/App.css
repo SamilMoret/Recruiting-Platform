@@ -1,0 +1,15 @@
+.flag-icon {
+  width: 2.4em;
+  height: 1.8em;
+  object-fit: cover;
+  background: none;
+  border-radius: 0.2em;
+  padding: 0;
+  display: inline-block;
+  aspect-ratio: 4 / 3;
+}
+.flag-icon-sm {
+  width: 1.8em;
+  height: 1.35em;
+  aspect-ratio: 4 / 3;
+}

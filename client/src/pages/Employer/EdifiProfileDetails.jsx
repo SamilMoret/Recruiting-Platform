@@ -26,10 +26,18 @@ const EdifiProfileDetails = ({formData, handleImageChange, handleInputChange, ha
                   {/* Avatar upload */}
                   <div className='flex items-center space-x-4'>
                     <div className='relative'>
-                      <img
-                        src={formData?.avatar}
-                        alt={t("editProfileDetails.avatarAlt")}
-                        className="w-20 h-20 rounded-full object-cover border-4 border-gray-50" />
+                      {formData?.avatar ? (
+                        <img
+                          src={formData?.avatar}
+                          alt={t("editProfileDetails.avatarAlt")}
+                          className="w-20 h-20 rounded-full object-cover border-4 border-gray-50" />
+                      ) : (
+                        <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center border-4 border-blue-400">
+                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M15.75 9A3.75 3.75 0 1 1 8.25 9a3.75 3.75 0 0 1 7.5 0zM4.5 19.25a7.25 7.25 0 0 1 15 0v.25A2.25 2.25 0 0 1 17.25 21.75h-10.5A2.25 2.25 0 0 1 4.5 19.5v-.25z" />
+                          </svg>
+                        </div>
+                      )}
                       {uploading?.avatar && (
                         <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full'>
                           <div className='w-6 h-6 border-4 border-t-transparent border-white rounded-full animate-spin'></div>
@@ -82,10 +90,18 @@ const EdifiProfileDetails = ({formData, handleImageChange, handleInputChange, ha
                   {/* Company Logo Upload */}
                   <div className='flex items-center space-x-4'>
                     <div className='relative'>
-                      <img
-                        src={formData?.companyLogo}
-                        alt={t("editProfileDetails.companyLogoAlt")}
-                        className="w-20 h-20 rounded-lg object-cover border-4 border-gray-200" />
+                      {formData?.companyLogo ? (
+                        <img
+                          src={formData?.companyLogo}
+                          alt={t("editProfileDetails.companyLogoAlt")}
+                          className="w-20 h-20 rounded-lg object-cover border-4 border-gray-200" />
+                      ) : (
+                        <div className="w-20 h-20 rounded-lg bg-green-100 flex items-center justify-center border-4 border-green-400">
+                          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M3 21V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14M16 3v4M8 3v4" />
+                          </svg>
+                        </div>
+                      )}
                       {uploading.logo && (
                         <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg'>
                           <div className='w-6 h-6 border-4 border-t-transparent border-white rounded-full animate-spin'></div>

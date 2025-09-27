@@ -26,7 +26,13 @@ import AdminUser from "./pages/admin/AdminUser";
 import CompanyDashboard from "./pages/admin/CompanyDashboard";
 import AdminEmployer from "./pages/admin/AdminEmployer";
 import { useTranslation } from 'react-i18next';
-import ReactCountryFlag from 'react-country-flag';
+// import ReactCountryFlag from 'react-country-flag';
+
+import gbFlag from './assets/flags/gb.svg';
+import esFlag from './assets/flags/es.svg';
+import ptFlag from './assets/flags/pt.svg';
+import './App.css';
+
 import { useState, useRef, useEffect } from 'react';
 
 
@@ -34,12 +40,10 @@ function App() {
   const { i18n } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
-
-  // Map language codes to flags and names
   const languages = [
-    { code: 'en', country: 'US', name: 'English' },
-    { code: 'es', country: 'ES', name: 'Español' },
-    { code: 'pt', country: 'PT', name: 'Português' },
+    { code: 'en', country: 'gb', name: 'English', flag: gbFlag },
+    { code: 'es', country: 'es', name: 'Español', flag: esFlag },
+    { code: 'pt', country: 'pt', name: 'Português', flag: ptFlag },
   ];
   const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
 
@@ -78,7 +82,7 @@ function App() {
             }}
             title={currentLang.name}
           >
-            <ReactCountryFlag countryCode={currentLang.country} svg style={{ width: '2em', height: '2em', background: 'none', borderRadius: '0', padding: '0' }} />
+            <img src={currentLang.flag} alt={currentLang.name + ' flag'} className="flag-icon" />
           </button>
           {showMenu && (
             <div style={{
@@ -110,7 +114,7 @@ function App() {
                     padding: '0.25em 0',
                   }}
                 >
-                  <ReactCountryFlag countryCode={lang.country} svg style={{ width: '1.5em', height: '1.5em', background: 'none', borderRadius: '0', padding: '0' }} />
+                  <img src={lang.flag} alt={lang.name + ' flag'} className="flag-icon flag-icon-sm" />
                   {lang.name}
                 </button>
               ))}
