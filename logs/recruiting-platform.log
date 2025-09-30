@@ -1,1335 +1,23 @@
-2025-09-04 15:53:53 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 4520 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 15:53:53 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 15:53:53 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 15:53:59 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 15:54:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 703 ms. Found 3 JPA repository interfaces.
-2025-09-04 15:54:09 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 15:54:09 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 15:54:09 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 15:54:09 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 15:54:09 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 15964 ms
-2025-09-04 15:54:10 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 15:54:11 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 15:54:11 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 15:54:11 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 15:54:12 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 15:54:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 15:54:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7adae08e
-2025-09-04 15:54:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 15:54:18 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 15:54:18 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 15:54:21 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 15:54:22 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 15:54:27 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@698394bf, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31887330, org.springframework.security.web.context.SecurityContextHolderFilter@65fa1cd, org.springframework.security.web.header.HeaderWriterFilter@60ae950f, org.springframework.web.filter.CorsFilter@65528bcf, org.springframework.security.web.authentication.logout.LogoutFilter@589a82af, br.com.one.jobportal.security.JwtAuthenticationFilter@79a92277, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6cd1ee, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@122a6078, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7bb4f09d, org.springframework.security.web.session.SessionManagementFilter@7e9d171c, org.springframework.security.web.access.ExceptionTranslationFilter@7ef8899d, org.springframework.security.web.access.intercept.AuthorizationFilter@209f0986]
-2025-09-04 15:54:30 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 15:54:30 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 42.097 seconds (process running for 66.298)
-2025-09-04 15:57:29 [http-nio-5000-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-04 15:57:29 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-04 15:57:29 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 40 ms
-2025-09-04 15:57:29 [http-nio-5000-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 15:57:29 [http-nio-5000-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 15:57:29 [http-nio-5000-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 15:57:30 [http-nio-5000-exec-1] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 15:57:30 [http-nio-5000-exec-1] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 15:57:31 [http-nio-5000-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
-2025-09-04 16:01:24 [http-nio-5000-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 16:01:24 [http-nio-5000-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 16:01:24 [http-nio-5000-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 16:01:24 [http-nio-5000-exec-5] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 16:01:24 [http-nio-5000-exec-5] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 16:01:24 [http-nio-5000-exec-5] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
-2025-09-04 16:01:24 [http-nio-5000-exec-5] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
-2025-09-04 16:20:21 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 16:20:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 16:20:22 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 16:30:42 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 4468 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 16:30:42 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 16:30:42 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 16:30:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 16:30:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 147 ms. Found 3 JPA repository interfaces.
-2025-09-04 16:30:50 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 16:30:50 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 16:30:50 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 16:30:50 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 16:30:50 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8394 ms
-2025-09-04 16:30:50 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 16:30:52 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 16:30:52 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 16:30:52 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 16:30:54 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 16:30:54 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 16:30:55 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@586728e8
-2025-09-04 16:30:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 16:30:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 16:30:58 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 16:30:59 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 16:31:00 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 16:31:00 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@22db974d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@10545d02, org.springframework.security.web.context.SecurityContextHolderFilter@d91e8c7, org.springframework.security.web.header.HeaderWriterFilter@2e93f91d, org.springframework.web.filter.CorsFilter@79d3fb99, org.springframework.security.web.authentication.logout.LogoutFilter@4628f386, br.com.one.jobportal.security.JwtAuthenticationFilter@2ddb6c71, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@66011fbc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@77afdbc5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f4b2d13, org.springframework.security.web.session.SessionManagementFilter@7c6557da, org.springframework.security.web.access.ExceptionTranslationFilter@7baea18b, org.springframework.security.web.access.intercept.AuthorizationFilter@20e25bf7]
-2025-09-04 16:31:01 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 16:31:01 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 20.813 seconds (process running for 22.451)
-2025-09-04 16:31:16 [http-nio-5000-exec-3] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-04 16:31:16 [http-nio-5000-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-04 16:31:16 [http-nio-5000-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 66 ms
-2025-09-04 16:31:16 [http-nio-5000-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 16:31:16 [http-nio-5000-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 16:31:16 [http-nio-5000-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 16:31:18 [http-nio-5000-exec-3] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 16:31:18 [http-nio-5000-exec-3] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 16:31:18 [http-nio-5000-exec-3] DEBUG o.s.s.a.DefaultAuthenticationEventPublisher - No event was found for the exception org.springframework.security.authentication.InternalAuthenticationServiceException
-2025-09-04 16:33:32 [http-nio-5000-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 16:33:32 [http-nio-5000-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 16:33:32 [http-nio-5000-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 16:33:32 [http-nio-5000-exec-6] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 16:33:32 [http-nio-5000-exec-6] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 16:33:32 [http-nio-5000-exec-6] DEBUG o.s.s.a.DefaultAuthenticationEventPublisher - No event was found for the exception org.springframework.security.authentication.InternalAuthenticationServiceException
-2025-09-04 16:41:20 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 16:41:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 16:41:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 16:47:37 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 7884 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 16:47:37 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 16:47:37 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 16:47:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 16:47:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 129 ms. Found 3 JPA repository interfaces.
-2025-09-04 16:47:42 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 16:47:42 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 16:47:42 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 16:47:42 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 16:47:42 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4720 ms
-2025-09-04 16:47:42 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 16:47:42 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 16:47:43 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 16:47:43 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 16:47:44 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 16:47:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 16:47:44 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ccdacf5
-2025-09-04 16:47:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 16:47:48 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 16:47:48 [main] ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-2025-09-04 16:47:48 [main] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-2025-09-04 16:47:48 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2025-09-04 16:47:48 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 16:47:48 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 16:47:48 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-09-04 16:47:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 16:47:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 16:47:48 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-04 16:47:48 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.context.ApplicationContextException: Unable to start web server
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at br.com.one.jobportal.RecruitingPlatformApplication.main(RecruitingPlatformApplication.java:12)
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:145)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:105)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:499)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:218)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
-	... 8 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
-	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
-	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4866)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:921)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:126)
-	... 13 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 54 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1685)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1434)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 68 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 82 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [br/com/one/jobportal/config/JpaConfig.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 94 common frames omitted
-Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 101 common frames omitted
-Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateColumnType(AbstractSchemaValidator.java:165)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:152)
-	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:97)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:75)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:295)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
-	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
-	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
-	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
-	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
-	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
-	... 105 common frames omitted
-2025-09-04 16:55:40 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 13412 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 16:55:40 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 16:55:40 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 16:55:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 16:55:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 128 ms. Found 3 JPA repository interfaces.
-2025-09-04 16:55:46 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 16:55:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 16:55:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 16:55:47 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 16:55:47 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5950 ms
-2025-09-04 16:55:47 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 16:55:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 16:55:48 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@79b18230
-2025-09-04 16:55:48 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 16:55:49 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 16:55:49 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 16:55:49 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 16:55:49 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 16:55:50 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table `recruiting_platform`.`flyway_schema_history` does not exist yet
-2025-09-04 16:55:50 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 0 migrations (execution time 00:00.155s)
-2025-09-04 16:55:50 [main] WARN  o.f.core.internal.command.DbValidate - No migrations found. Are your locations set up correctly?
-2025-09-04 16:55:50 [main] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-2025-09-04 16:55:50 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2025-09-04 16:55:50 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 16:55:50 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 16:55:50 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-09-04 16:55:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 16:55:50 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 16:55:50 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-04 16:55:50 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.context.ApplicationContextException: Unable to start web server
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at br.com.one.jobportal.RecruitingPlatformApplication.main(RecruitingPlatformApplication.java:12)
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:145)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:105)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:499)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:218)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
-	... 8 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
-	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
-	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4866)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:921)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:126)
-	... 13 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 54 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1685)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1434)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 68 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 82 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Found non-empty schema(s) `recruiting_platform` but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 94 common frames omitted
-Caused by: org.flywaydb.core.api.FlywayException: Found non-empty schema(s) `recruiting_platform` but no schema history table. Use baseline() or set baselineOnMigrate to true to initialize the schema history table.
-	at org.flywaydb.core.Flyway.lambda$migrate$0(Flyway.java:178)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:213)
-	at org.flywaydb.core.Flyway.migrate(Flyway.java:140)
-	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 103 common frames omitted
-2025-09-04 17:01:53 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 13344 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 17:01:53 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 17:01:53 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 17:01:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 17:01:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 200 ms. Found 3 JPA repository interfaces.
-2025-09-04 17:01:58 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 17:01:58 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 17:01:58 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 17:01:58 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 17:01:58 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5011 ms
-2025-09-04 17:01:58 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 17:01:58 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 17:01:58 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 17:01:59 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 17:02:00 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 17:02:00 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 17:02:00 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60652518
-2025-09-04 17:02:00 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 17:02:04 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 17:02:04 [main] ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-2025-09-04 17:02:04 [main] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-2025-09-04 17:02:04 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2025-09-04 17:02:04 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 17:02:04 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 17:02:04 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-09-04 17:02:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 17:02:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 17:02:04 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-04 17:02:04 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.context.ApplicationContextException: Unable to start web server
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at br.com.one.jobportal.RecruitingPlatformApplication.main(RecruitingPlatformApplication.java:12)
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:145)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:105)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:499)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:218)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
-	... 8 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
-	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
-	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4866)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:921)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:126)
-	... 13 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 54 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1685)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1434)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 68 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 82 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [br/com/one/jobportal/config/JpaConfig.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 94 common frames omitted
-Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 101 common frames omitted
-Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateColumnType(AbstractSchemaValidator.java:165)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:152)
-	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:97)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:75)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:295)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
-	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
-	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
-	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
-	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
-	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
-	... 105 common frames omitted
-2025-09-04 17:10:23 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 5160 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 17:10:23 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 17:10:23 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 17:10:26 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 17:10:26 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 246 ms. Found 3 JPA repository interfaces.
-2025-09-04 17:10:29 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 17:10:29 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 17:10:29 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 17:10:30 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 17:10:30 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6142 ms
-2025-09-04 17:10:30 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 17:10:30 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 17:10:31 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5934153e
-2025-09-04 17:10:31 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 17:10:31 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 17:10:31 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 17:10:31 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 17:10:31 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 17:10:31 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table `recruiting_platform`.`flyway_schema_history` with baseline ...
-2025-09-04 17:10:32 [main] INFO  o.f.core.internal.command.DbBaseline - Successfully baselined schema with version: 0
-2025-09-04 17:10:32 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 0
-2025-09-04 17:10:32 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 17:10:32 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema `recruiting_platform` to version "1 - Initial schema"
-2025-09-04 17:10:32 [main] WARN  o.f.c.i.s.DefaultSqlScriptExecutor - DB: Table 'user' already exists (SQL State: 42S01 - Error Code: 1050)
-2025-09-04 17:10:32 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 1 migration to schema `recruiting_platform`, now at version v1 (execution time 00:00.292s)
-2025-09-04 17:10:33 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 17:10:33 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 17:10:33 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 17:10:34 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 17:10:37 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 17:10:37 [main] ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-2025-09-04 17:10:37 [main] ERROR o.s.b.w.e.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-2025-09-04 17:10:37 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2025-09-04 17:10:37 [main] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [api] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base/jdk.internal.misc.Unsafe.park(Native Method)
- java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
- java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
- java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
- java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
- java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
- java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
- java.base/java.lang.Thread.run(Thread.java:1570)
-2025-09-04 17:10:37 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server
-2025-09-04 17:10:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 17:10:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 17:10:38 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2025-09-04 17:10:38 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.context.ApplicationContextException: Unable to start web server
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at br.com.one.jobportal.RecruitingPlatformApplication.main(RecruitingPlatformApplication.java:12)
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:145)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:105)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:499)
-	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:218)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
-	... 8 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'jwtAuthenticationFilter' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\JwtAuthenticationFilter.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:210)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:173)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:168)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:153)
-	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:86)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240)
-	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52)
-	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4866)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:845)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1332)
-	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1322)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
-	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
-	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
-	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:866)
-	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:240)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:433)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:921)
-	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:171)
-	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437)
-	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:126)
-	... 13 common frames omitted
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userDetailsServiceImpl' defined in file [C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes\br\com\one\jobportal\security\UserDetailsServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 54 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository' defined in br.com.one.jobportal.repository.UserRepository defined in @EnableJpaRepositories declared on JpaConfig: Cannot resolve reference to bean 'jpaSharedEM_entityManagerFactory' while setting bean property 'entityManager'
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1685)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1434)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 68 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaSharedEM_entityManagerFactory': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:377)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:682)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1335)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1165)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 82 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [br/com/one/jobportal/config/JpaConfig.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
-	... 94 common frames omitted
-Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 101 common frames omitted
-Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: wrong column type encountered in column [role] in table [`user`]; found [enum (Types#CHAR)], but expecting [varchar(255) (Types#VARCHAR)]
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateColumnType(AbstractSchemaValidator.java:165)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:152)
-	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:46)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:97)
-	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:75)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:295)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
-	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
-	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
-	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
-	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
-	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
-	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
-	... 105 common frames omitted
-2025-09-04 17:34:01 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 15772 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 17:34:01 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 17:34:01 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 17:34:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 17:34:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 148 ms. Found 3 JPA repository interfaces.
-2025-09-04 17:34:07 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 17:34:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 17:34:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 17:34:07 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 17:34:07 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5725 ms
-2025-09-04 17:34:07 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 17:34:07 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 17:34:08 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5934153e
-2025-09-04 17:34:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 17:34:08 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 17:34:08 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 17:34:08 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 17:34:08 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 17:34:08 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 1
-2025-09-04 17:34:08 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 17:34:08 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema `recruiting_platform` to version "2 - Alter user role column"
-2025-09-04 17:34:08 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 1 migration to schema `recruiting_platform`, now at version v2 (execution time 00:00.094s)
-2025-09-04 17:34:09 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 17:34:09 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 17:34:09 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 17:34:10 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 17:34:14 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 17:34:14 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 17:34:15 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 17:34:16 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 17:34:17 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5a457aa1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@763a72da, org.springframework.security.web.context.SecurityContextHolderFilter@65011123, org.springframework.security.web.header.HeaderWriterFilter@622e39d, org.springframework.web.filter.CorsFilter@50e32998, org.springframework.security.web.authentication.logout.LogoutFilter@6cb5a64d, br.com.one.jobportal.security.JwtAuthenticationFilter@1e186006, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@36d7e8d2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@715ea64a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5fc76532, org.springframework.security.web.session.SessionManagementFilter@2f9d47a3, org.springframework.security.web.access.ExceptionTranslationFilter@2e41e0c, org.springframework.security.web.access.intercept.AuthorizationFilter@a94c8e3]
-2025-09-04 17:34:17 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 17:34:17 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 18.239 seconds (process running for 19.505)
-2025-09-04 17:34:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 17:34:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 17:34:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 17:36:01 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 7388 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 17:36:01 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 17:36:01 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 17:36:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 17:36:05 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 128 ms. Found 3 JPA repository interfaces.
-2025-09-04 17:36:10 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 17:36:10 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 17:36:10 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 17:36:10 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 17:36:10 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8675 ms
-2025-09-04 17:36:10 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 17:36:10 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 17:36:11 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e900e1a
-2025-09-04 17:36:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 17:36:12 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 17:36:12 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 17:36:12 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 17:36:12 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 17:36:12 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 2
-2025-09-04 17:36:12 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 17:36:12 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
-2025-09-04 17:36:12 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 17:36:12 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 17:36:12 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 17:36:13 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 17:36:17 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 17:36:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 17:36:18 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 17:36:19 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 17:36:19 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7d619bcb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@57f83dc7, org.springframework.security.web.context.SecurityContextHolderFilter@552b7481, org.springframework.security.web.header.HeaderWriterFilter@593db293, org.springframework.web.filter.CorsFilter@75937998, org.springframework.security.web.authentication.logout.LogoutFilter@6edc8385, br.com.one.jobportal.security.JwtAuthenticationFilter@41962299, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@24244ea, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69c7fb94, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@696d28ee, org.springframework.security.web.session.SessionManagementFilter@6a4f15bc, org.springframework.security.web.access.ExceptionTranslationFilter@20425fab, org.springframework.security.web.access.intercept.AuthorizationFilter@38624a3a]
-2025-09-04 17:36:20 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 17:36:20 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 20.715 seconds (process running for 22.468)
-2025-09-04 17:36:35 [http-nio-5000-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-04 17:36:35 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-04 17:36:35 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
-2025-09-04 17:36:35 [http-nio-5000-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 17:36:35 [http-nio-5000-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 17:36:35 [http-nio-5000-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 17:36:36 [http-nio-5000-exec-1] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 17:36:36 [http-nio-5000-exec-1] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 17:36:36 [http-nio-5000-exec-1] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
-2025-09-04 17:36:36 [http-nio-5000-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
-2025-09-04 17:36:52 [http-nio-5000-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 17:36:52 [http-nio-5000-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 17:36:52 [http-nio-5000-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 17:36:52 [http-nio-5000-exec-3] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 17:36:52 [http-nio-5000-exec-3] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 17:36:52 [http-nio-5000-exec-3] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
-2025-09-04 17:36:52 [http-nio-5000-exec-3] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
-2025-09-04 17:58:14 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 17:58:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 17:58:14 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 17:58:22 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 12784 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 17:58:22 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 17:58:22 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 17:58:25 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 17:58:25 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 147 ms. Found 3 JPA repository interfaces.
-2025-09-04 17:58:27 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 17:58:27 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 17:58:27 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 17:58:28 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 17:58:28 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5686 ms
-2025-09-04 17:58:28 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 17:58:28 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 17:58:29 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3f9b7fe1
-2025-09-04 17:58:29 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 17:58:29 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 17:58:29 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 17:58:29 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 17:58:29 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 17:58:29 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 2
-2025-09-04 17:58:29 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 17:58:29 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
-2025-09-04 17:58:29 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 17:58:30 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 17:58:30 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 17:58:31 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 17:58:34 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 17:58:34 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 17:58:35 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 17:58:36 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 17:58:37 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6a9c848, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@498cf1dc, org.springframework.security.web.context.SecurityContextHolderFilter@374712f8, org.springframework.security.web.header.HeaderWriterFilter@33a39d7e, org.springframework.web.filter.CorsFilter@b9c8678, org.springframework.security.web.authentication.logout.LogoutFilter@552b7481, br.com.one.jobportal.security.JwtAuthenticationFilter@3453f79c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@125ed27, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2dedde74, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@318beab4, org.springframework.security.web.session.SessionManagementFilter@4b19ee18, org.springframework.security.web.access.ExceptionTranslationFilter@3119fcad, org.springframework.security.web.access.intercept.AuthorizationFilter@7976d382]
-2025-09-04 17:58:37 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 17:58:37 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 17.254 seconds (process running for 18.66)
-2025-09-04 17:59:02 [http-nio-5000-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-04 17:59:02 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-04 17:59:02 [http-nio-5000-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
-2025-09-04 17:59:02 [http-nio-5000-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-04 17:59:02 [http-nio-5000-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-04 17:59:02 [http-nio-5000-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-04 17:59:03 [http-nio-5000-exec-1] DEBUG org.hibernate.SQL - 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.avatar,
-        u1_0.companyDescription,
-        u1_0.companyLogo,
-        u1_0.companyName,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.phone,
-        u1_0.resume,
-        u1_0.role,
-        u1_0.updated_at 
-    from
-        `user` u1_0 
-    where
-        u1_0.email=?
-2025-09-04 17:59:03 [http-nio-5000-exec-1] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.id,
-        a1_0.created_at,
-        a1_0.total_applications_received,
-        a1_0.total_hired,
-        a1_0.total_jobs_posted,
-        a1_0.updated_at,
-        a1_0.user_id 
-    from
-        analytics a1_0 
-    where
-        a1_0.user_id=?
-2025-09-04 17:59:03 [http-nio-5000-exec-1] WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt
-2025-09-04 17:59:03 [http-nio-5000-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Failed to authenticate since password does not match stored value
-2025-09-04 18:05:12 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 18:05:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 18:05:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 18:05:24 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 11256 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 18:05:24 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 18:05:24 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 18:05:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 18:05:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 198 ms. Found 3 JPA repository interfaces.
-2025-09-04 18:05:33 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 18:05:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 18:05:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 18:05:34 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 18:05:34 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 9112 ms
-2025-09-04 18:05:34 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 18:05:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 18:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4a070cf0
-2025-09-04 18:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 18:05:36 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 18:05:36 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 18:05:36 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 18:05:36 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 18:05:36 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 2
-2025-09-04 18:05:36 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 18:05:36 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
-2025-09-04 18:05:37 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 18:05:37 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 18:05:37 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 18:05:39 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 18:05:43 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 18:05:43 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 18:05:46 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 18:05:47 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 18:05:49 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@12faeada, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@73a5cc47, org.springframework.security.web.context.SecurityContextHolderFilter@146b4c6c, org.springframework.security.web.header.HeaderWriterFilter@65a7bc80, org.springframework.web.filter.CorsFilter@17fa25f1, org.springframework.security.web.authentication.logout.LogoutFilter@6a35cccf, br.com.one.jobportal.security.JwtAuthenticationFilter@452d6fd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49318c2a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@17adbecf, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@50ac63b2, org.springframework.security.web.session.SessionManagementFilter@4d305059, org.springframework.security.web.access.ExceptionTranslationFilter@52984065, org.springframework.security.web.access.intercept.AuthorizationFilter@7ecca48]
-2025-09-04 18:05:51 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 18:05:51 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 29.227 seconds (process running for 32.367)
-2025-09-04 18:16:02 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 18:16:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 18:16:03 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 18:30:09 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 4700 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 18:30:09 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 18:30:09 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 18:30:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 18:30:13 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 234 ms. Found 3 JPA repository interfaces.
-2025-09-04 18:30:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 18:30:18 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 18:30:18 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 18:30:18 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 18:30:18 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8979 ms
-2025-09-04 18:30:18 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 18:30:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 18:30:20 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7fdd43cd
-2025-09-04 18:30:20 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 18:30:20 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 18:30:20 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 18:30:20 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 18:30:21 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 18:30:21 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 2
-2025-09-04 18:30:21 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 18:30:21 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
-2025-09-04 18:30:21 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 18:30:21 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 18:30:22 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 18:30:23 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 18:30:28 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 18:30:28 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 18:30:30 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 18:30:33 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 18:30:34 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@98c4a8b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@130bd00e, org.springframework.security.web.context.SecurityContextHolderFilter@498cf1dc, org.springframework.security.web.header.HeaderWriterFilter@7e092ca, org.springframework.web.filter.CorsFilter@4eb69e8d, org.springframework.security.web.authentication.logout.LogoutFilter@57f83dc7, br.com.one.jobportal.security.JwtAuthenticationFilter@5e8bc83e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@318beab4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@79a88f45, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@78fd1179, org.springframework.security.web.session.SessionManagementFilter@59f36439, org.springframework.security.web.access.ExceptionTranslationFilter@19412eef, org.springframework.security.web.access.intercept.AuthorizationFilter@7e2c8622]
-2025-09-04 18:30:36 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 18:30:36 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 30.178 seconds (process running for 32.378)
-2025-09-04 18:46:44 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 18:46:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-04 18:46:44 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-04 20:05:26 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 16408 (C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\Certificados Samil\Cursos de Tecnología\ONE\Tech Avanced\Recruiting-Platform)
-2025-09-04 20:05:26 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.2.4, Spring v6.1.5
-2025-09-04 20:05:26 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-04 20:05:31 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-04 20:05:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 434 ms. Found 3 JPA repository interfaces.
-2025-09-04 20:05:38 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5000 (http)
-2025-09-04 20:05:38 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-04 20:05:38 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2025-09-04 20:05:39 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2025-09-04 20:05:39 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 12834 ms
-2025-09-04 20:05:39 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-04 20:05:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-04 20:05:42 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7f3ca64a
-2025-09-04 20:05:42 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-04 20:05:43 [main] INFO  o.f.c.i.license.VersionPrinter - Flyway Community Edition 9.22.3 by Redgate
-2025-09-04 20:05:43 [main] INFO  o.f.c.i.license.VersionPrinter - See release notes here: https://rd.gt/416ObMi
-2025-09-04 20:05:43 [main] INFO  o.f.c.i.license.VersionPrinter - 
-2025-09-04 20:05:43 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform (MySQL 8.0)
-2025-09-04 20:05:43 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 2
-2025-09-04 20:05:43 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-04 20:05:43 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
-2025-09-04 20:05:44 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-04 20:05:44 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2025-09-04 20:05:45 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-04 20:05:47 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-04 20:05:54 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-04 20:05:54 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-04 20:05:57 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-04 20:05:59 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-04 20:06:02 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@20425fab, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71c2cb26, org.springframework.security.web.context.SecurityContextHolderFilter@54519d74, org.springframework.security.web.header.HeaderWriterFilter@18918ab9, org.springframework.web.filter.CorsFilter@593db293, org.springframework.security.web.authentication.logout.LogoutFilter@299f9a81, br.com.one.jobportal.security.JwtAuthenticationFilter@38d9c9c4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3d00c2ae, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@665574fb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5220e6ff, org.springframework.security.web.session.SessionManagementFilter@6c54d0dc, org.springframework.security.web.access.ExceptionTranslationFilter@73ab649f, org.springframework.security.web.access.intercept.AuthorizationFilter@2e5ff1d4]
-2025-09-04 20:06:04 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5000 (http) with context path '/api'
-2025-09-04 20:06:05 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 43.015 seconds (process running for 52.081)
-2025-09-25 21:12:56 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 7256 (C:\Users\samil\Desktop\Cosas de Samil Alberto\TOTI\Programa ONE - Alura\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\TOTI\Programa ONE - Alura\Recruiting-Platform)
-2025-09-25 21:12:56 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.5.0, Spring v6.2.7
-2025-09-25 21:12:56 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-25 21:13:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25 21:13:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 187 ms. Found 5 JPA repository interfaces.
-2025-09-25 21:13:03 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5001 (http)
-2025-09-25 21:13:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-25 21:13:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
-2025-09-25 21:13:03 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-25 21:13:03 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7414 ms
-2025-09-25 21:13:03 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
-2025-09-25 21:13:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-25 21:13:05 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5396eeb1
-2025-09-25 21:13:05 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-25 21:13:05 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/recruiting_platform?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true (MySQL 8.0)
-2025-09-25 21:13:05 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruiting_platform`: 1
-2025-09-25 21:13:05 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruiting_platform` may not be reproducible.
-2025-09-25 21:13:05 [main] ERROR o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` has version 1, but no migration could be resolved in the configured locations !
-2025-09-25 21:13:05 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruiting_platform` is up to date. No migration necessary.
-2025-09-25 21:13:05 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25 21:13:06 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
-2025-09-25 21:13:06 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-25 21:13:07 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25 21:13:07 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25 21:13:07 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2025-09-25 21:13:07 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-09-30 06:37:02 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Starting RecruitingPlatformApplication using Java 22.0.1 with PID 16148 (C:\Users\samil\Desktop\Cosas de Samil Alberto\TOTI\Programa ONE - Alura\Recruiting-Platform\server\target\classes started by samil in C:\Users\samil\Desktop\Cosas de Samil Alberto\TOTI\Programa ONE - Alura\Recruiting-Platform)
+2025-09-30 06:37:02 [main] DEBUG b.c.o.j.RecruitingPlatformApplication - Running with Spring Boot v3.5.0, Spring v6.2.7
+2025-09-30 06:37:02 [main] INFO  b.c.o.j.RecruitingPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-30 06:37:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-30 06:37:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 727 ms. Found 5 JPA repository interfaces.
+2025-09-30 06:37:18 [main] INFO  b.c.o.jobportal.security.JwtService - JwtService inicializado com expiração de 2592000000 ms (30 dias)
+2025-09-30 06:37:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-30 06:37:22 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f9f3e58
+2025-09-30 06:37:22 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-30 06:37:23 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:mysql://localhost:3306/RecruitingPlatform?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true (MySQL 8.0)
+2025-09-30 06:37:23 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema `recruitingplatform`: 4
+2025-09-30 06:37:23 [main] WARN  o.f.core.internal.command.DbMigrate - outOfOrder mode is active. Migration of schema `recruitingplatform` may not be reproducible.
+2025-09-30 06:37:24 [main] INFO  o.f.core.internal.command.DbMigrate - Schema `recruitingplatform` is up to date. No migration necessary.
+2025-09-30 06:37:24 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-30 06:37:24 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-09-30 06:37:24 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-30 06:37:27 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-30 06:37:27 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-30 06:37:27 [main] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-30 06:37:27 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 8.0
@@ -1337,105 +25,375 @@ Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-valid
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-09-25 21:13:10 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25 21:13:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 21:13:12 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-09-25 21:13:14 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2025-09-25 21:13:15 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-25 21:13:15 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-25 21:13:16 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-25 21:13:17 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-09-25 21:13:18 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5001 (http) with context path '/'
-2025-09-25 21:13:18 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 24.524 seconds (process running for 28.636)
-2025-09-25 21:22:46 [http-nio-5001-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-25 21:22:46 [http-nio-5001-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-25 21:22:46 [http-nio-5001-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 55 ms
-2025-09-25 21:22:46 [http-nio-5001-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/jobs
-2025-09-25 21:22:47 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
-    /* SELECT
-        u 
+2025-09-30 06:37:32 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-30 06:37:32 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30 06:37:33 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-30 06:37:40 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 5001 (http)
+2025-09-30 06:37:40 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-30 06:37:40 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-09-30 06:37:40 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-30 06:37:40 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 37851 ms
+2025-09-30 06:37:41 [main] DEBUG b.c.o.j.s.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-09-30 06:37:42 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-30 06:37:42 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-30 06:37:43 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-30 06:37:45 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-30 06:37:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 5001 (http) with context path '/'
+2025-09-30 06:37:47 [main] INFO  b.c.o.j.RecruitingPlatformApplication - Started RecruitingPlatformApplication in 50.704 seconds (process running for 57.404)
+2025-09-30 06:40:44 [http-nio-5001-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-30 06:40:44 [http-nio-5001-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-30 06:40:44 [http-nio-5001-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 51 ms
+2025-09-30 06:40:45 [http-nio-5001-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/register
+2025-09-30 06:40:45 [http-nio-5001-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-30 06:40:45 [http-nio-5001-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/register
+2025-09-30 06:40:47 [http-nio-5001-exec-3] DEBUG org.hibernate.SQL - 
+    /* dynamic native SQL query */ SELECT
+        COUNT(*) 
     FROM
-        User u 
+        users 
     WHERE
-        LOWER(u.email) = LOWER(:email) */ select
-            u1_0.id,
-            u1_0.active,
-            u1_0.avatar,
-            u1_0.company_description,
-            u1_0.company_logo,
-            u1_0.company_name,
-            u1_0.created_at,
-            u1_0.email,
-            u1_0.name,
-            u1_0.password,
-            u1_0.phone,
-            u1_0.resume,
-            u1_0.role,
-            u1_0.updated_at 
-        from
-            users u1_0 
-        where
-            lower(u1_0.email)=lower(?)
-2025-09-25 21:22:47 [http-nio-5001-exec-2] DEBUG b.c.o.jobportal.security.JwtService - Token válido para o usuário: teste14@brabo.com
-2025-09-25 21:22:47 [http-nio-5001-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/jobs
-2025-09-25 21:22:48 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
-    /* SELECT
-        u 
-    FROM
-        User u 
-    WHERE
-        LOWER(u.email) = LOWER(:email) */ select
-            u1_0.id,
-            u1_0.active,
-            u1_0.avatar,
-            u1_0.company_description,
-            u1_0.company_logo,
-            u1_0.company_name,
-            u1_0.created_at,
-            u1_0.email,
-            u1_0.name,
-            u1_0.password,
-            u1_0.phone,
-            u1_0.resume,
-            u1_0.role,
-            u1_0.updated_at 
-        from
-            users u1_0 
-        where
-            lower(u1_0.email)=lower(?)
-2025-09-25 21:22:48 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
+        LOWER(email) = LOWER(?)
+2025-09-30 06:40:48 [http-nio-5001-exec-3] DEBUG org.hibernate.SQL - 
     /* insert for
-        br.com.one.jobportal.entity.Job */insert 
+        br.com.one.jobportal.entity.User */insert 
     into
-        jobs (application_count, application_status, category, created_at, description, is_closed, is_saved, location, recruiter_id, requirements, salary_max, salary_min, title, type, updated_at) 
+        users (active, avatar, company_description, company_logo, company_name, created_at, email, name, password, phone, resume, role, updated_at) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2025-09-25 21:22:48 [http-nio-5001-exec-2] DEBUG org.hibernate.SQL - 
-    select
-        pj1_0.recruiter_id,
-        pj1_0.id,
-        pj1_0.application_count,
-        pj1_0.application_status,
-        pj1_0.category,
-        pj1_0.created_at,
-        pj1_0.description,
-        pj1_0.is_closed,
-        pj1_0.is_saved,
-        pj1_0.location,
-        pj1_0.requirements,
-        pj1_0.salary_max,
-        pj1_0.salary_min,
-        pj1_0.title,
-        pj1_0.type,
-        pj1_0.updated_at 
-    from
-        jobs pj1_0 
-    where
-        pj1_0.recruiter_id=?
-2025-09-25 21:22:48 [http-nio-5001-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Document nesting depth (1001) exceeds the maximum allowed (1000, from `StreamWriteConstraints.getMaxNestingDepth()`)
-2025-09-25 21:22:48 [http-nio-5001-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Document nesting depth (1001) exceeds the maximum allowed (1000, from `StreamWriteConstraints.getMaxNestingDepth()`)]
-2025-09-25 21:31:11 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-25 21:31:11 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-25 21:31:11 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 21:31:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-25 21:31:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-09-30 06:41:21 [http-nio-5001-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/login
+2025-09-30 06:41:21 [http-nio-5001-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-30 06:41:21 [http-nio-5001-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/login
+2025-09-30 06:41:22 [http-nio-5001-exec-1] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:41:22 [http-nio-5001-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-09-30 06:41:22 [http-nio-5001-exec-1] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:41:22 [http-nio-5001-exec-1] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:41:22 [http-nio-5001-exec-1] DEBUG b.c.o.jobportal.security.JwtService - Criando token para 'contato@empresaxyz.com' emitido em Tue Sep 30 06:41:22 BRT 2025 e expirando em Thu Oct 30 06:41:22 BRT 2025
+2025-09-30 06:41:24 [http-nio-5001-exec-1] INFO  b.c.o.jobportal.security.JwtService - Novo token gerado para usuário: contato@empresaxyz.com
+2025-09-30 06:41:24 [http-nio-5001-exec-1] INFO  b.c.o.jobportal.security.JwtService - Token expira em: Thu Oct 30 06:41:22 BRT 2025
+2025-09-30 06:41:24 [http-nio-5001-exec-1] INFO  b.c.o.jobportal.security.JwtService - Tempo de expiração definido para: 2592000000 milissegundos
+2025-09-30 06:49:49 [http-nio-5001-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/login
+2025-09-30 06:49:49 [http-nio-5001-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-30 06:49:49 [http-nio-5001-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/login
+2025-09-30 06:49:49 [http-nio-5001-exec-5] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:49:50 [http-nio-5001-exec-5] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-09-30 06:49:50 [http-nio-5001-exec-5] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:49:50 [http-nio-5001-exec-5] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:49:50 [http-nio-5001-exec-5] DEBUG b.c.o.jobportal.security.JwtService - Criando token para 'teste17@brabo.com' emitido em Tue Sep 30 06:49:50 BRT 2025 e expirando em Thu Oct 30 06:49:50 BRT 2025
+2025-09-30 06:49:50 [http-nio-5001-exec-5] INFO  b.c.o.jobportal.security.JwtService - Novo token gerado para usuário: teste17@brabo.com
+2025-09-30 06:49:50 [http-nio-5001-exec-5] INFO  b.c.o.jobportal.security.JwtService - Token expira em: Thu Oct 30 06:49:50 BRT 2025
+2025-09-30 06:49:50 [http-nio-5001-exec-5] INFO  b.c.o.jobportal.security.JwtService - Tempo de expiração definido para: 2592000000 milissegundos
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/login
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/login
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:50:10 [http-nio-5001-exec-4] DEBUG b.c.o.jobportal.security.JwtService - Criando token para 'teste19@brabo.com' emitido em Tue Sep 30 06:50:10 BRT 2025 e expirando em Thu Oct 30 06:50:10 BRT 2025
+2025-09-30 06:50:10 [http-nio-5001-exec-4] INFO  b.c.o.jobportal.security.JwtService - Novo token gerado para usuário: teste19@brabo.com
+2025-09-30 06:50:10 [http-nio-5001-exec-4] INFO  b.c.o.jobportal.security.JwtService - Token expira em: Thu Oct 30 06:50:10 BRT 2025
+2025-09-30 06:50:10 [http-nio-5001-exec-4] INFO  b.c.o.jobportal.security.JwtService - Tempo de expiração definido para: 2592000000 milissegundos
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/auth/login
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/auth/login
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        LOWER(u.email) = LOWER(:email) */ select
+            u1_0.id,
+            u1_0.active,
+            u1_0.avatar,
+            u1_0.company_description,
+            u1_0.company_logo,
+            u1_0.company_name,
+            u1_0.created_at,
+            u1_0.email,
+            u1_0.name,
+            u1_0.password,
+            u1_0.phone,
+            u1_0.resume,
+            u1_0.role,
+            u1_0.updated_at 
+        from
+            users u1_0 
+        where
+            lower(u1_0.email)=lower(?)
+2025-09-30 06:51:02 [http-nio-5001-exec-10] DEBUG b.c.o.jobportal.security.JwtService - Criando token para 'contato@empresaxyz.com' emitido em Tue Sep 30 06:51:02 BRT 2025 e expirando em Thu Oct 30 06:51:02 BRT 2025
+2025-09-30 06:51:02 [http-nio-5001-exec-10] INFO  b.c.o.jobportal.security.JwtService - Novo token gerado para usuário: contato@empresaxyz.com
+2025-09-30 06:51:02 [http-nio-5001-exec-10] INFO  b.c.o.jobportal.security.JwtService - Token expira em: Thu Oct 30 06:51:02 BRT 2025
+2025-09-30 06:51:02 [http-nio-5001-exec-10] INFO  b.c.o.jobportal.security.JwtService - Tempo de expiração definido para: 2592000000 milissegundos
+2025-09-30 06:51:42 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-30 06:51:42 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-30 06:51:42 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-30 06:51:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-30 06:51:42 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

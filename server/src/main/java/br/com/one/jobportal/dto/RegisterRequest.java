@@ -31,4 +31,11 @@ public class RegisterRequest {
     private String role;
     
     private String avatar;
+    
+    private String resume;
+    
+    // Campos específicos para EMPLOYER
+    private String companyDescription;
+    
+    private String companyLogo;
 }

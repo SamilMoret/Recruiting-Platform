@@ -2,6 +2,9 @@ package br.com.one.jobportal.controller;
 
 import br.com.one.jobportal.dto.LoginRequest;
 import br.com.one.jobportal.dto.RegisterRequest;
+import br.com.one.jobportal.dto.response.LoginResponse;
+import br.com.one.jobportal.entity.User;
+import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.security.JwtService;
 import br.com.one.jobportal.service.AuthService;
 import jakarta.validation.Valid;
@@ -13,8 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -25,6 +26,8 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final AuthService authService;
+
+    private final UserRepository userRepository;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
@@ -41,15 +44,17 @@ public class AuthController {
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
             System.out.println("Detalhes do usuário carregados: " + userDetails.getUsername());
 
+            // Busca o usuário completo para obter os dados adicionais
+            User user = userRepository.findByEmail(request.getEmail())
+                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
             // Gera o token JWT
             String jwt = jwtService.generateToken(userDetails);
             System.out.println("Token JWT gerado com sucesso");
 
-            return ResponseEntity.ok(Map.of(
-                    "token", jwt,
-                    "type", "Bearer",
-                    "email", request.getEmail()
-            ));
+            // Cria a resposta personalizada
+            LoginResponse response = LoginResponse.fromUserAndToken(user, jwt);
+            return ResponseEntity.ok(response);
 
         } catch (Exception e) {
             System.err.println("Erro durante o login: " + e.getMessage());

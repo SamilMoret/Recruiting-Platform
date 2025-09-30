@@ -40,7 +40,10 @@ public class SecurityConfig {
                     "/api/auth/**",
                     "/error"
                 ).permitAll()
-                .requestMatchers("/api/jobs/**").authenticated()
+                .requestMatchers(
+                    "/api/jobs/**",
+                    "/api/profile/**"
+                ).authenticated()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
