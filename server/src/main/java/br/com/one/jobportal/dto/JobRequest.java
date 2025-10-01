@@ -26,25 +26,25 @@ public class JobRequest {
     @NotBlank(message = "Localização é obrigatória")
     private String location;
 
-    @NotNull(message = "Tipo de emprego é obrigatório")
-    @JsonProperty("employmentType")
-    private EmploymentType employmentType;
+    @NotBlank(message = "Categoria é obrigatória")
+    private String category;
+
+    @NotBlank(message = "Tipo de emprego é obrigatório")
+    private String type;
 
     @NotNull(message = "Salário mínimo é obrigatório")
     @Positive(message = "Salário mínimo deve ser positivo")
-    private Double salaryMin;
+    private Integer salaryMin;
 
     @NotNull(message = "Salário máximo é obrigatório")
     @Positive(message = "Salário máximo deve ser positivo")
-    private Double salaryMax;
+    private Integer salaryMax;
 
-    @NotNull(message = "Status é obrigatório")
-    private Boolean active;
-    
-    // Add this method to help with form data binding
-    public void setEmploymentType(String employmentType) {
-        if (employmentType != null) {
-            this.employmentType = EmploymentType.fromString(employmentType);
-        }
+    // Default value for active status
+    private Boolean active = true;
+
+    // Helper method to get EmploymentType
+    public EmploymentType getEmploymentType() {
+        return type != null ? EmploymentType.fromString(type) : null;
     }
 }

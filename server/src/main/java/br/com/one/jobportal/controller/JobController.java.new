@@ -7,7 +7,6 @@ import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.service.JobService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.criteria.Predicate;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,8 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -48,8 +46,7 @@ public class JobController {
 
         try {
             Job job = convertToEntity(jobRequest);
-            job.setRecruiter(user);
-            Job createdJob = jobService.saveJob(job);
+            Job createdJob = jobService.createJob(job, user);
             JobResponse response = JobResponse.fromEntity(createdJob);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (IllegalArgumentException e) {
@@ -80,29 +77,7 @@ public class JobController {
             @RequestParam(required = false) String employmentType,
             @PageableDefault(size = 10) Pageable pageable) {
         try {
-            // Filtro para buscar vagas ativas
-            Specification<Job> spec = (root, query, cb) -> {
-                List<Predicate> predicates = new ArrayList<>();
-                predicates.add(cb.isFalse(root.get("isClosed")));
-                
-                if (title != null && !title.isEmpty()) {
-                    predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
-                }
-                if (location != null && !location.isEmpty()) {
-                    predicates.add(cb.like(cb.lower(root.get("location")), "%" + location.toLowerCase() + "%"));
-                }
-                if (employmentType != null && !employmentType.isEmpty()) {
-                    try {
-                        EmploymentType type = EmploymentType.fromString(employmentType);
-                        predicates.add(cb.equal(root.get("type"), type));
-                    } catch (IllegalArgumentException e) {
-                        // Tipo de emprego inválido, não filtra por tipo
-                    }
-                }
-                return cb.and(predicates.toArray(new Predicate[0]));
-            };
-            
-            Page<Job> jobs = jobService.searchJobs(spec, pageable);
+            Page<Job> jobs = jobService.findActiveJobs(title, location, employmentType, pageable);
             return ResponseEntity.ok(jobs.map(JobResponse::fromEntity));
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
@@ -120,13 +95,9 @@ public class JobController {
                 return ResponseEntity.status(401).body(Map.of("message", "Usuário não autenticado"));
             }
             
-            // Cria um novo objeto Job com os dados atualizados
-            Job jobUpdates = convertToEntity(jobRequest);
-            
-            // Chama o serviço para atualizar a vaga
-            Job updatedJob = jobService.updateJob(id, jobUpdates, user);
+            Job job = convertToEntity(jobRequest);
+            Job updatedJob = jobService.updateJob(id, job, user);
             return ResponseEntity.ok(JobResponse.fromEntity(updatedJob));
-            
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("message", e.getMessage()));
@@ -150,7 +121,6 @@ public class JobController {
             
             jobService.deleteJob(id, user);
             return ResponseEntity.noContent().build();
-            
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("message", e.getMessage()));

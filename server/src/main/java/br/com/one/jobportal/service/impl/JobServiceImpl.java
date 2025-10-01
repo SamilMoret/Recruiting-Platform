@@ -1,9 +1,7 @@
 package br.com.one.jobportal.service.impl;
 
-import br.com.one.jobportal.dto.JobRequest;
 import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
-import br.com.one.jobportal.entity.EmploymentType;
 import br.com.one.jobportal.repository.JobRepository;
 import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.service.JobService;
@@ -15,9 +13,12 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Objects;
 
+/**
+ * Implementação do serviço de gerenciamento de vagas.
+ * Fornece operações CRUD e de negócio para a entidade Job.
+ */
 @Service
 @Transactional
 public class JobServiceImpl implements JobService {
@@ -31,243 +32,94 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job createJob(Job job, String recruiterEmail) {
-        User recruiter = userRepository.findByEmail(recruiterEmail)
-                .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado"));
-        
-        job.setRecruiter(recruiter);
+    public Job saveJob(Job job) {
+        Objects.requireNonNull(job, "O objeto Job não pode ser nulo");
         return jobRepository.save(job);
     }
 
     @Override
-    public Job updateJob(Long id, JobRequest jobRequest, User recruiter) {
-        Job job = jobRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
-        
-        if (!job.getRecruiter().getId().equals(recruiter.getId())) {
-            throw new AccessDeniedException("Acesso negado");
-        }
-        
-        // Atualiza os campos da vaga com base no jobRequest
-        job.setTitle(jobRequest.getTitle());
-        job.setDescription(jobRequest.getDescription());
-        job.setLocation(jobRequest.getLocation());
-        if (jobRequest.getEmploymentType() != null) {
-            job.setType(jobRequest.getEmploymentType());
-        }
-        
-        if (jobRequest.getSalaryMin() != null) {
-            job.setSalaryMin(jobRequest.getSalaryMin().intValue());
-        }
-        if (jobRequest.getSalaryMax() != null) {
-            job.setSalaryMax(jobRequest.getSalaryMax().intValue());
-        }
-        if (jobRequest.getActive() != null) {
-            job.setClosed(!jobRequest.getActive());
-        }
-        
-        return jobRepository.save(job);
+    @Transactional(readOnly = true)
+    public Job getJobById(Long id) throws EntityNotFoundException {
+        return jobRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com o ID: " + id));
     }
-    
+
     @Override
-    public Job updateJob(Long id, User recruiter, boolean active) {
+    @Transactional
+    public void deleteJob(Long id, User recruiter) throws EntityNotFoundException, AccessDeniedException {
+        Objects.requireNonNull(id, "O ID da vaga não pode ser nulo");
+        Objects.requireNonNull(recruiter, "O usuário recrutador não pode ser nulo");
+        
         Job job = jobRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com o ID: " + id));
                 
-        if (!job.getRecruiter().getId().equals(recruiter.getId())) {
-            throw new AccessDeniedException("Acesso negado");
-        }
-        
-        job.setClosed(!active);
-        return jobRepository.save(job);
-    }
-
-    @Override
-    public void deleteJob(Long id, User recruiter) {
-        Job job = jobRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
-        
-        if (!job.getRecruiter().getId().equals(recruiter.getId())) {
-            throw new AccessDeniedException("Acesso negado");
+        if (!isJobOwner(id, recruiter)) {
+            throw new AccessDeniedException("Acesso negado: você não tem permissão para excluir esta vaga");
         }
         
         jobRepository.delete(job);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Job getJobById(Long id) {
-        return jobRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
-    }
-
-    // ===== MÉTODOS DE CONSULTA POR CAMPO =====
-    
-    // 1. Campos básicos
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByTitle(String title) {
-        return jobRepository.findByTitleContainingIgnoreCase(title);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> searchInDescriptionOrRequirements(String keyword) {
-        return jobRepository.searchInDescriptionOrRequirements(keyword);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByLocation(String location) {
-        return jobRepository.findByLocationContainingIgnoreCase(location);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByCategory(String category) {
-        return jobRepository.findByCategory(category);
-    }
-    
-    // 2. Tipo de emprego
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByType(EmploymentType type) {
-        return jobRepository.findByType(type);
-    }
-    
-    // 3. Faixa salarial
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsBySalaryRange(Integer minSalary, Integer maxSalary) {
-        return jobRepository.findBySalaryMinGreaterThanEqualAndSalaryMaxLessThanEqual(
-            minSalary != null ? minSalary : 0,
-            maxSalary != null ? maxSalary : Integer.MAX_VALUE
-        );
-    }
-    
-    // 4. Status da vaga
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByStatus(boolean isClosed) {
-        return jobRepository.findByIsClosed(isClosed);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getActiveJobs() {
-        return jobRepository.findByIsClosedFalse();
-    }
-    
-    // 5. Vaga salva
-    @Override
     @Transactional
-    public Job toggleSaveStatus(Long jobId, User user) {
-        Job job = getJobById(jobId);
-        job.setIsSaved(!job.getIsSaved());
-        return jobRepository.save(job);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getSavedJobs(User user) {
-        return jobRepository.findByIsSavedAndRecruiter(true, user);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public boolean isJobSaved(Long jobId, User user) {
-        return jobRepository.findById(jobId)
-                .map(job -> job.getIsSaved() && job.getRecruiter().equals(user))
-                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
-    }
-    
-    // 6. Relacionamento com recrutador
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByRecruiter(User recruiter) {
-        return jobRepository.findByRecruiter(recruiter);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByRecruiterEmail(String recruiterEmail) {
-        User recruiter = userRepository.findByEmail(recruiterEmail)
-                .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado"));
-        return jobRepository.findByRecruiter(recruiter);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Long getJobCountByRecruiter(User recruiter) {
-        return jobRepository.countByRecruiter(recruiter);
-    }
-    
-    // 7. Status da candidatura
-    @Override
-    @Transactional
-    public Job updateApplicationStatus(Long jobId, String status, User user) {
-        Job job = getJobById(jobId);
-        if (!job.getRecruiter().equals(user)) {
-            throw new AccessDeniedException("Acesso negado: você não é o recrutador desta vaga");
+    public Job updateJob(Long id, Job jobUpdates, User recruiter) throws EntityNotFoundException, AccessDeniedException {
+        Objects.requireNonNull(id, "O ID da vaga não pode ser nulo");
+        Objects.requireNonNull(jobUpdates, "Os dados de atualização da vaga não podem ser nulos");
+        Objects.requireNonNull(recruiter, "O usuário recrutador não pode ser nulo");
+        
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com o ID: " + id));
+        
+        if (!isJobOwner(id, recruiter)) {
+            throw new AccessDeniedException("Acesso negado: você não tem permissão para atualizar esta vaga");
         }
-        job.setApplicationStatus(status);
+        
+        // Atualiza apenas os campos não nulos
+        if (jobUpdates.getTitle() != null) {
+            job.setTitle(jobUpdates.getTitle());
+        }
+        if (jobUpdates.getDescription() != null) {
+            job.setDescription(jobUpdates.getDescription());
+        }
+        if (jobUpdates.getRequirements() != null) {
+            job.setRequirements(jobUpdates.getRequirements());
+        }
+        if (jobUpdates.getLocation() != null) {
+            job.setLocation(jobUpdates.getLocation());
+        }
+        if (jobUpdates.getCategory() != null) {
+            job.setCategory(jobUpdates.getCategory());
+        }
+        if (jobUpdates.getType() != null) {
+            job.setType(jobUpdates.getType());
+        }
+        if (jobUpdates.getSalaryMin() != null) {
+            job.setSalaryMin(jobUpdates.getSalaryMin());
+        }
+        if (jobUpdates.getSalaryMax() != null) {
+            job.setSalaryMax(jobUpdates.getSalaryMax());
+        }
+        
         return jobRepository.save(job);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByApplicationStatus(String status) {
-        return jobRepository.findByApplicationStatus(status);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByApplicationStatusAndRecruiter(String status, User recruiter) {
-        return jobRepository.findByApplicationStatusAndRecruiter(status, recruiter);
-    }
-    
-    // 8. Contagem de candidaturas
-    @Override
-    @Transactional
-    public void incrementApplicationCount(Long jobId) {
-        jobRepository.incrementApplicationCount(jobId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getMostAppliedJobs() {
-        return jobRepository.findTop10ByOrderByApplicationCountDesc();
-    }
-    
-    // 9. Métodos de auditoria
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsCreatedAfter(LocalDateTime date) {
-        return jobRepository.findByCreatedAtAfter(date);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsUpdatedAfter(LocalDateTime date) {
-        return jobRepository.findByUpdatedAtAfter(date);
-    }
-    
-    // ===== MÉTODOS DE PESQUISA AVANÇADA =====
     @Override
     @Transactional(readOnly = true)
     public Page<Job> searchJobs(Specification<Job> spec, Pageable pageable) {
+        Objects.requireNonNull(spec, "A especificação de pesquisa não pode ser nula");
+        Objects.requireNonNull(pageable, "A configuração de paginação não pode ser nula");
+        
         return jobRepository.findAll(spec, pageable);
     }
-    
-    // ===== MÉTODOS DE ATUALIZAÇÃO =====
+
     @Override
-    public Job updateJobStatus(Long id, User recruiter, boolean active) {
-        Job job = getJobById(id);
-        if (!job.getRecruiter().equals(recruiter)) {
-            throw new AccessDeniedException("Acesso negado: você não é o recrutador desta vaga");
+    @Transactional(readOnly = true)
+    public boolean isJobOwner(Long jobId, User user) {
+        if (jobId == null || user == null) {
+            return false;
         }
-        job.setClosed(!active);
-        return jobRepository.save(job);
+        return jobRepository.findById(jobId)
+                .map(job -> job.getRecruiter() != null && job.getRecruiter().getId().equals(user.getId()))
+                .orElse(false);
     }
-    
 }
