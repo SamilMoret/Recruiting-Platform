@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';
 import {
     Briefcase,
     Bookmark,
@@ -9,11 +10,11 @@ import { useAuth } from '../../context/AuthContext'
 import ProfileDropDown from './ProfileDropDown'
 
 const Navbar = () => {
+    const { t } = useTranslation();
     const {user, logout, isAuthenticated} = useAuth();
     const navigate = useNavigate();
     const [profileDropDownOpen, setProfileDropDownOpen] = useState(false);
 
-    //close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = () => {
             if (profileDropDownOpen ) {
@@ -35,7 +36,7 @@ const Navbar = () => {
                 <div className='w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center'>
                     <Briefcase className='w-5 h-5 text-white' />
                 </div>
-                <span className=' text-lg font-bold text-gray-900'>Recruiting Platform</span>
+                <span className=' text-lg font-bold text-gray-900'>{t('navbar.panelTitle')}</span>
             </Link>
 
             {/* Auth Buttons */}
@@ -68,13 +69,13 @@ const Navbar = () => {
                                          href='/login' 
                                          className='text-gray-600 hover:text-gray-900 transition-colors font-medium px-4 py-2 rounded-lg hover:bg-gray-500'
                                          >
-                                               Login 
+                                               {t('navbar.login')}
                                         </a>
                                         <a
                                          href="/signup"
                                          className='bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-sm hover:shadow-md'
                                          >
-                                            Sign Up
+                                            {t('navbar.signup')}
                                          </a>
                                 </>)}
 

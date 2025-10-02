@@ -12,9 +12,10 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/layout/Navbar";
 import JobCard from "../../components/Cards/JobCard";
 import toast from "react-hot-toast";
+import { useTranslation } from 'react-i18next';
 
 const SavedJobs = () => {
-
+  const { t } = useTranslation();
   const {user} = useAuth();
   const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ const SavedJobs = () => {
                   <ArrowLeft className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
                 <h1 className="text-lg lg:text-xl font-semibold leading-tight text-gray-900">
-                  Saved Jobs
+                  {t('savedJobs.title', 'Saved Jobs')}
                 </h1>
               </div>
 
@@ -101,16 +102,16 @@ const SavedJobs = () => {
                     <Bookmark className="h-16 w-16 mx-auto" />
                   </div>
                   <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3">
-                    You haven't saved any jobs yet.
+                    {t('savedJobs.emptyTitle', "You haven't saved any jobs yet.")}
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Start saving jobs that interest you to view them later.
+                    {t('savedJobs.emptyDescription', "Start saving jobs that interest you to view them later.")}
                   </p>
                   <button
                     onClick={() => navigate("/find-jobs")}
                     className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors "
                   >
-                    Browse Jobs
+                    {t('savedJobs.browseJobs', 'Browse Jobs')}
                   </button>
                 </div>
               ) : (

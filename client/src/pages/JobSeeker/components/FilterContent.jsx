@@ -3,6 +3,7 @@ import {
   ChevronUp,
   Filter
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next';
 import { CATEGORIES, JOB_TYPES } from '../../../utils/data'
 import SalaryRangeSlider from "../../../components/Input/SalaryRangeSlider" 
 
@@ -21,25 +22,26 @@ const FilterSection = ({title, children, isExpanded, onToggle}) => {
   );
 }
 
-const filterContent = ({
+const FilterContent = ({
     toggleSection,
     clearAllFilters,
     expandedSections,
     filters,
     handleFilterChange
 }) => {
+  const { t } = useTranslation();
   return <>
     <div className='flex items-center justify-between mb-6'>
       <button
         onClick={clearAllFilters} 
         className='text-blue-600 hover:text-blue-700 font-semibold text-sm'
       >
-        Clear All
+        {t('jobSeekerDashboard.clearAllFilters')}
       </button>
     </div> 
 
     <FilterSection
-      title="Job Type" 
+      title={t('jobSeekerDashboard.filterJobs')} 
       isExpanded={expandedSections?.jobType}
       onToggle={()=>toggleSection('jobType')}
     >
@@ -60,7 +62,7 @@ const filterContent = ({
               }}
               className='rounded border-gray-300 to-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50'
             />
-            <span>{type.label}</span>
+            <span className='ml-3 text-gray-700 font-medium'>{t(`jobTypes.${type.value}`, type.label)}</span>
           </label>
         ))}
       </div>
@@ -68,7 +70,7 @@ const filterContent = ({
    
 
     <FilterSection
-      title="Category" 
+      title={t('filterContent.category')} 
       isExpanded={expandedSections?.category}
       onToggle={()=>toggleSection('category')}
     >
@@ -90,7 +92,7 @@ const filterContent = ({
                handleFilterChange('category', newCategories);
              }}
            />
-           <span className='ml-3 text-gray-700 font-medium'>{type.label}</span>
+           <span className='ml-3 text-gray-700 font-medium'>{t(`filterContent.categories.${type.value}`, type.label)}</span>
           </label>
         ))
       }
@@ -100,4 +102,4 @@ const filterContent = ({
   
 }
 
-export default filterContent
+export default FilterContent

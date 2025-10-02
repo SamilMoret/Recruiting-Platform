@@ -15,10 +15,11 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import DashBoardLayout from "../../components/layout/DashBoardLayout";
+import { useTranslation } from "react-i18next";
 
 
 const ManageJobs = () => {
-
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -95,11 +96,11 @@ const ManageJobs = () => {
         try {
           await axiosInstance.delete(API_PATHS.JOBS.DELETE_JOB(jobId));
           setJobs(jobs => jobs.filter(job => job.id !== jobId));
-          toast.success("Job deleted successfully");
+          toast.success(t("manageJobs.jobDeleted"));
         } catch (error) {
           console.error("Error deleting job:", error);
-          toast.error("Failed to delete job");
-  }
+          toast.error(t("manageJobs.deleteError"));
+        }
       };
 
       //decide which sort icon to display based on current sort field and direction
@@ -187,10 +188,10 @@ const ManageJobs = () => {
                   <div className='flex flex-row items-center justify-between'>
                     <div className='mb-4 sm:mb-0'>
                       <h1 className='text-xl md:text-2xl font-semibold text-gray-900'>
-                        Job Management
+                        {t("manageJobs.title")}
                       </h1>
                       <p className='text-sm text-gray-600 mt-1'>
-                        Manage your job posting and track applications.
+                        {t("manageJobs.subtitle")}
                       </p>
                     </div>
                     <button
@@ -198,7 +199,7 @@ const ManageJobs = () => {
                       onClick={() => navigate('/post-job')}
                     >
                       <Plus className='h-5 w-5 mr-2' />
-                      Add New Job 
+                      {t("manageJobs.addNewJob")}
                     </button>
                   </div>
                 </div>
@@ -213,7 +214,7 @@ const ManageJobs = () => {
 
                       <input
                           type="text"
-                          placeholder='Search jobs...'
+                          placeholder={t("manageJobs.searchPlaceholder")}
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
                           className='block w-full pl-10 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-0 transition-all duration-200 bg-gray-50/50 placeholder-gray-400'
@@ -226,16 +227,16 @@ const ManageJobs = () => {
                         onChange={(e) => setStatusFilter(e.target.value)}
                         className='block w-full px-4 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200'
                       >
-                        <option value="All">All Statuses</option>
-                        <option value="Active">Active</option>
-                        <option value="Closed">Closed</option>
+                        <option value="All">{t("manageJobs.allStatuses")}</option>
+                        <option value="Active">{t("manageJobs.active")}</option>
+                        <option value="Closed">{t("manageJobs.closed")}</option>
                       </select>
                     </div>
                   </div> 
                   {/* Results summary */}
                     <div className='my-4'>
                       <p className='text-sm text-gray-600'>
-                        Showing {paginatedJobs.length} of {filteredAndSortedJobs.length}{" "} jobs
+                        {t("manageJobs.showingJobs", {count: paginatedJobs.length, total: filteredAndSortedJobs.length})}
                       </p>
                     </div>
                     {/* table */}
@@ -246,10 +247,10 @@ const ManageJobs = () => {
                           <Search className='w-10 h-10 text-gray-400' />
                         </div>
                         <h3 className='text-lg font-medium text-gray-900 mb-2'>
-                          No jobs found
+                          {t("manageJobs.noJobsFound")}
                         </h3>
                         <p className='text-gray-500'>
-                          Try adjusting your search or filter criteria
+                          {t("manageJobs.tryAdjusting")}
                         </p>
                       </div>
                     ):(
@@ -390,23 +391,21 @@ const ManageJobs = () => {
                           disabled={currentPage === 1}
                           className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Previous
+                          {t("manageJobs.previous")}
                         </button>
                         <button
                           onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                           disabled={currentPage === totalPages}
                           className="ml-2 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Next
+                          {t("manageJobs.next")}
                         </button>
                       </div>
                       {/* Desktop pagination */}
                       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                         <div>
                           <p className="text-sm text-gray-700">
-                            Showing <span className="font-medium">{startIndex + 1}</span> to {" "}
-                            <span className="font-medium">{Math.min(startIndex + itemsPerPage, filteredAndSortedJobs.length)}</span> of {" "}
-                            <span className="font-medium">{filteredAndSortedJobs.length}</span> results
+                            {t("manageJobs.showingResults", {start: startIndex + 1, end: Math.min(startIndex + itemsPerPage, filteredAndSortedJobs.length), total: filteredAndSortedJobs.length})}
                           </p>
                         </div>
                         <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
@@ -415,7 +414,7 @@ const ManageJobs = () => {
                             disabled={currentPage === 1}
                             className="relative inline-flex items-center px-2 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                           >
-                            Previous
+                            {t("manageJobs.previous")}
                           </button>
                           {Array.from({length: totalPages}, (_, i)=> i+ 1).map(
                             (page) => (
@@ -437,7 +436,7 @@ const ManageJobs = () => {
                             disabled={currentPage === totalPages}
                             className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Next
+                            {t("manageJobs.next")}
                           </button>
                         </nav>
                       </div>

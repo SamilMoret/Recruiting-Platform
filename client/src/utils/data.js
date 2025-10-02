@@ -63,33 +63,41 @@ export const employerFeatures = [
 
 // Navigation items configuration
 export const NAVIGATION_MENU = [
-  { id: "employer-dashboard", name: "Dashboard", icon: LayoutDashboard },
-  { id: "post-job", name: "Post a Job", icon: Plus },
-  { id: "manage-jobs", name: "Manage Jobs", icon: Briefcase },
-  { id: "company-profile", name: "Company Profile", icon: Building2 },
+  {
+    id: "employer-dashboard",
+    nameKey: "navigationMenu.dashboard",
+    icon: LayoutDashboard,
+  },
+  { id: "post-job", nameKey: "navigationMenu.postJob", icon: Plus },
+  { id: "manage-jobs", nameKey: "navigationMenu.manageJobs", icon: Briefcase },
+  {
+    id: "company-profile",
+    nameKey: "navigationMenu.companyProfile",
+    icon: Building2,
+  },
 ];
 
 // categories and job types
 export const CATEGORIES = [
-  { value: "Engineering", label: "Engineering" },
-  { value: "Marketing", label: "Marketing" },
-  { value: "Sales", label: "Sales" },
-  { value: "Design", label: "Design" },
-  { value: "Finance", label: "Finance" },
-  { value: "IT & Software", label: "IT & Software" },
-  { value: "Customer-service", label: "Customer Service" },
-  { value: "Product", label: "Product" },
-  { value: "Operations", label: "Operations" },
-  { value: "HR", label: "Human Resources" },
-  { value: "Other", label: "Other" },
+  { value: "Engineering", labelKey: "categories.Engineering" },
+  { value: "Marketing", labelKey: "categories.Marketing" },
+  { value: "Sales", labelKey: "categories.Sales" },
+  { value: "Design", labelKey: "categories.Design" },
+  { value: "Finance", labelKey: "categories.Finance" },
+  { value: "IT", labelKey: "categories.ITSoftware" },
+  { value: "Customer-service", labelKey: "categories.CustomerService" },
+  { value: "Product", labelKey: "categories.Product" },
+  { value: "Operations", labelKey: "categories.Operations" },
+  { value: "HR", labelKey: "categories.HR" },
+  { value: "Other", labelKey: "categories.Other" },
 ];
 
 export const JOB_TYPES = [
-  { value: "Full-Time", label: "Full-time" },
-  { value: "Part-Time", label: "Part-time" },
-  { value: "Contract", label: "Contract" },
-  { value: "Remote", label: "Remote" },
-  { value: "Internship", label: "Internship" },
+  { value: "Full-Time", labelKey: "jobTypes.FullTime" },
+  { value: "Part-Time", labelKey: "jobTypes.PartTime" },
+  { value: "Contract", labelKey: "jobTypes.Contract" },
+  { value: "Remote", labelKey: "jobTypes.Remote" },
+  { value: "Internship", labelKey: "jobTypes.Internship" },
 ];
 
 export const SALARY_RANGES = [

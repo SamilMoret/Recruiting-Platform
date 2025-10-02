@@ -1,8 +1,10 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const JobSeeker = () => {
+  const { t } = useTranslation();
   return (
-    <div>JobSeeker</div>
+    <div>{t('jobSeeker.title')}</div>
   )
 }
 

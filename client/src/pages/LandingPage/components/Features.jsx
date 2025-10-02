@@ -1,20 +1,22 @@
-import React from 'react'
-import { employerFeatures, jobSeekerFeatures } from '../../../utils/data'
+import React from 'react';
+import { employerFeatures, jobSeekerFeatures } from '../../../utils/data';
+import { useTranslation } from 'react-i18next';
+
 
 const Features = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-20 bg-white relative overflow-hidden">
-      < div className="container mx-auto px-4 relative z-10">
-        <div className=" text-center mb-16">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Everything You Need to
-              <span className='block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
-                Succeed
-              </span>
+            {t('features.heading1', 'Everything You Need to')}
+            <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {t('features.heading2', 'Succeed')}
+            </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Whether you're a job seeker or an employer, our platform offers a
-              comprehensive suite of features designed to streamline your job search and hiring process.
+            {t('features.description', "Whether you're a job seeker or an employer, our platform offers a comprehensive suite of features designed to streamline your job search and hiring process.")}
           </p>
         </div>
 
@@ -22,7 +24,7 @@ const Features = () => {
           {/* Job Seekers Section */}
           <div>
             <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">For Job Seekers</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">{t('features.jobSeekers', 'For Job Seekers')}</h3>
               <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full" />
             </div>
             <div className="space-y-8">
@@ -35,8 +37,8 @@ const Features = () => {
                     <feature.icon className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">{t(`features.jobSeekerFeatures.${index}.title`, feature.title)}</h4>
+                    <p className="text-gray-600 leading-relaxed">{t(`features.jobSeekerFeatures.${index}.description`, feature.description)}</p>
                   </div>
                 </div>
               ))}
@@ -46,7 +48,7 @@ const Features = () => {
           {/* Employer Section */}
           <div>
             <div className="text-center mb-12">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">For Employers</h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">{t('features.employers', 'For Employers')}</h3>
               <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full " />
             </div>
             <div className="space-y-8">
@@ -59,8 +61,8 @@ const Features = () => {
                     <feature.icon className="w-6 h-6 text-purple-600" />
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">{t(`features.employerFeatures.${index}.title`, feature.title)}</h4>
+                    <p className="text-gray-600 leading-relaxed">{t(`features.employerFeatures.${index}.description`, feature.description)}</p>
                   </div>
                 </div>
               ))}
@@ -69,7 +71,7 @@ const Features = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Features

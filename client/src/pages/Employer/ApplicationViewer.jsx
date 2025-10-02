@@ -18,8 +18,10 @@ import StatusBadge from '../../components/layout/StatusBadge'
 import ApplicationProfilePreview from '../../components/Cards/ApplicationProfilePreview'
 
 import DashBoardLayout from '../../components/layout/DashBoardLayout'
+import { useTranslation } from 'react-i18next'
 
 const ApplicationViewer = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const jobId = location.state?.jobId || null;
   
@@ -75,7 +77,7 @@ const ApplicationViewer = () => {
         <div className='min-h-screen bg-gray-50 flex items-center justify-center'>
           <div className='text-center'>
             <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600 mx-auto'></div>
-            <p className='mt-4 text-gray-600'>Loading Applications</p>
+            <p className='mt-4 text-gray-600'>{t("applicationViewer.loading")}</p>
           </div>
         </div>
       )}
@@ -93,7 +95,7 @@ const ApplicationViewer = () => {
               </button>
 
               <h1 className='text-xl md:text-2xl font-semibold text-gray-900'>
-                Applications Overview
+                {t("applicationViewer.title")}
               </h1>
             </div>
           </div>
@@ -106,10 +108,10 @@ const ApplicationViewer = () => {
             <div className='text-center py-16'>
               <Users className='mx-auto h-2/4 w-2/4 text-gray-300' />
               <h3 className='mt-4 text-lg font-medium text-gray-900'>
-                No applications available 
+                {t("applicationViewer.noApplications")}
               </h3>
               <p className='mt-2 text-gray-500'>
-                No application found at the moment.
+                {t("applicationViewer.noApplicationFound")}
               </p>
             </div>
           : (
@@ -144,8 +146,8 @@ const ApplicationViewer = () => {
                       </div>
                       <div className='bg-white/20 backdrop-blur-sm rounded-lg px-3 py-2'>
                         <span className='text:sm text-white font-medium'>
-                          {applications.length} Application 
-                          {applications.length !== 1 ? 's' : ''}
+                          {applications.length} {t("applicationViewer.application")}
+                          {applications.length !== 1 ? t("applicationViewer.applicationsPlural") : ''}
                         </span>
                       </div>
                     </div>
@@ -187,8 +189,7 @@ const ApplicationViewer = () => {
                               <div className='flex items-center gap-1 mt-1 text text-gray-500 text-xs'>
                                 <Calendar className='h-3 w-3'/>
                                 <span className=''>
-                                  Applied{" "}
-                                  {moment(application.appliedAt)?.format(
+                                  {t("applicationViewer.applied")} {moment(application.appliedAt)?.format(
                                     "DD MM YYYY"
                                   )}
                                 </span>
@@ -207,7 +208,7 @@ const ApplicationViewer = () => {
                               className='inline-flex items-center gap-2 px-2 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors'
                             >
                               <Download className='h-4 w-4' />
-                              Resume 
+                              {t("applicationViewer.resume")}
                             </button>
                             <button
                               onClick={()=>{
@@ -216,7 +217,7 @@ const ApplicationViewer = () => {
                               className="inline-flex items-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
                             >
                               <Eye className='h-4 w-4' />
-                              view Profile
+                              {t("applicationViewer.viewProfile")}
                             </button>
                           </div>
                         </div>

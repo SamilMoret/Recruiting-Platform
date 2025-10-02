@@ -8,18 +8,20 @@ import{
 } from 'lucide-react'
 import { CATEGORIES, JOB_TYPES } from '../../utils/data'
 import {useAuth} from '../../context/AuthContext'
+import { useTranslation } from 'react-i18next';
 
 const JobPostingPreview = ({formData, setIsPreview}) => {
-    const {user} = useAuth();
-    const currencies = [{value:"usd", label:"$"}];
-  return <div className='min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 py-8 px-4 sm:px-6 lg:px-8'>
+        const { t } = useTranslation();
+        const {user} = useAuth();
+        const currencies = [{value:"usd", label:"$"}];
+    return <div className='min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 py-8 px-4 sm:px-6 lg:px-8'>
      <div className='max-w-4xl mx-auto'>
         {/* Header with glasmorphism effect */}
     <div className='mb-8 backdrop-blur-sm bg-white/80 border-white/20 shadow-xl rounded-2xl px-6 pt-6'>
             <div className='flex items-center justify-between'>
                 <div className='flex items-center space-x-4'>
                     <h2 className='text-lg md:text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent'>
-                        Job Preview
+                        {t('jobPostingPreview.title')}
                     </h2>
                 </div>
                 <button
@@ -27,7 +29,7 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                     className='group flex items-center space-x-2 px-6 py-3 text-xs md:text-sm font-medium text-gray-600 hover:text-white bg-white/50 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 border border-gray-200 hover:border-transparent rounded-xl transition-all duration-300 shadow-lg shadow-gray-100 hover:shadow-xl transform hover:translate-y-0.5'
                     >
                         <ArrowLeft className='h-4 w-4 transition-transform group-hover:translate-x-1' />
-                        <span>Back to Edit</span>
+                        <span>{t('jobPostingPreview.backToEdit')}</span>
                 </button>
             </div>
             {/* Main content card */}
@@ -46,7 +48,7 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                                     <div className='flex items-center space-x-2'>
                                         <MapPin className='h-4 w-4' />
                                         <span className='text-sm font-medium'>
-                                            {formData.isRemote ? "Remote" : formData.location}
+                                            {formData.isRemote ? t('jobPostingPreview.remote') : formData.location}
                                         </span>
                                         {formData.isRemote && formData.location && (
                                             <span className='text-sm text-gray-500'>
@@ -80,7 +82,7 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                                 </span>
                                 <div className='flex items-center space-x-1 px-4 py-2 bg-gray-50 text-sm text-gray-700 font-semibold rounded-full border border-gray-200'>
                                     <Clock className='h-4 w-4' />
-                                    <span>Posted today</span>
+                                    <span>{t('jobPostingPreview.postedToday')}</span>
                                 </div>
                             </div>
                     </div>
@@ -98,9 +100,9 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                                         <DollarSign className='h-4 md:h-6 w-4 md:w-6 text-white' />
                                     </div>
                                     <div>
-                                        <h3 className='text-sm font-semibold text-gray-900 mb-1'>
-                                              Compensation
-                                         </h3>
+                            <h3 className='text-sm font-semibold text-gray-900 mb-1'>
+                                {t('jobPostingPreview.compensation')}
+                             </h3>
                                          <div className='text-sm  md:text-lg font-bold text-gray-900'>
                                             {currencies.find((c) => c.value === formData.currency)?.label}
                                             {formData.salaryMin.toLocaleString()} -{" "}
@@ -109,14 +111,14 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                                             }
                                             {formData.salaryMax.toLocaleString()}
                                             <span className='text-sm md:text-lg text-gray-600 font-normal ml-1'>
-                                                per year
+                                                {t('jobPostingPreview.perYear')}
                                             </span>
                                           </div>
                                          </div>
                                         </div>
                                         <div className='hidden md:flex items-center space-x-2 text-sm text-emerald-500 bg-emerald-100 px-3 py-1 rounded-full'>
                                             <Users className='h-4 w-4' />
-                                            <span>Competitive</span> 
+                                            <span>{t('jobPostingPreview.competitive')}</span> 
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +128,7 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                     <div className='space-y-4'>
                         <h3 className='text-2xl font-bold text-gray-900 flex items-center space-x-3'>
                           <div className='w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-600'></div>
-                          <span className='text-base md:text-lg'>About this role</span>
+                          <span className='text-base md:text-lg'>{t('jobPostingPreview.aboutThisRole')}</span>
                         </h3>
                         <div className='bg-gray-50 border border-gray-100 rounded-xl p-6'>
                             <div className='text-sm text-gray-700 leading-relaxed whitespace-pre-wrap'>
@@ -139,7 +141,7 @@ const JobPostingPreview = ({formData, setIsPreview}) => {
                 <div className='space-y-4'>
                     <h3 className='text-2xl font-bold text-gray-900 flex items-center space-x-3'>
                         <div className='w-1 h-8 bg-gradient-to-b from-purple-500 to-pink-600 rounded-full'></div>
-                        <span className='text-base md:text-lg'>What We're Looking For</span>
+                        <span className='text-base md:text-lg'>{t('jobPostingPreview.requirementsTitle')}</span>
                     </h3>
                     <div className='bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-6'>
                         <div className='text-sm text-gray-700 leading-relaxed whitespace-pre-wrap'>

@@ -2,6 +2,7 @@ import { Bookmark, Building2, Building, Calendar, MapPin} from 'lucide-react'
 import moment from 'moment'
 import { useAuth } from '../../context/AuthContext'
 import StatusBadge from '../layout/StatusBadge'
+import { useTranslation } from 'react-i18next';
 
 const JobCard = ({
   job,
@@ -13,6 +14,7 @@ const JobCard = ({
 }) => {
   const { user } = useAuth();
 
+  const { t } = useTranslation();
   const formatSalary = (min, max) =>{
     const formatNum = (num) => {
       if(num >= 1000) return `$${(num/1000).toFixed(0)}k`;
@@ -106,7 +108,7 @@ const JobCard = ({
         <div className='text-blue-600 font-semibold text-lg'>
           {(typeof job.salaryMin === 'number' && typeof job.salaryMax === 'number')
             ? formatSalary(job.salaryMin, job.salaryMax)
-            : "Salary not specified"}
+              : t('jobCard.salaryNotSpecified')}
         </div>
         {job?.applicationStatus ? (
           <StatusBadge status={job?.applicationStatus} />
@@ -119,7 +121,7 @@ const JobCard = ({
                 onApply();
               }}
             >
-              Apply Now
+              {t('jobCard.applyNow')}
             </button>
           )
         )}

@@ -1,15 +1,17 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Briefcase, Building2, Users, LogOut, Menu, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const ADMIN_MENU = [
-  { id: 'admin-dashboard', name: 'Dashboard', icon: Briefcase },
-  { id: 'admin-company', name: 'Company', icon: Building2 },
-  { id: 'admin-user', name: 'User', icon: Users },
+  { id: 'admin-dashboard', nameKey: 'adminLayout.menu.dashboard', icon: Briefcase },
+  { id: 'admin-company', nameKey: 'adminLayout.menu.company', icon: Building2 },
+  { id: 'admin-user', nameKey: 'adminLayout.menu.user', icon: Users },
 ];
 
 const AdminLayout = ({ activeMenu, children }) => {
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [sideBarOpen, setSideBarOpen] = React.useState(false);
@@ -50,7 +52,7 @@ const AdminLayout = ({ activeMenu, children }) => {
               <div className="h-8 w-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
                 <Briefcase className="h-5 w-5 text-white" />
               </div>
-              <span className="text-gray-900 font-bold text-xl">Admin Panel</span>
+              <span className="text-gray-900 font-bold text-xl">{t('adminLayout.panelTitle')}</span>
             </Link>
           ) : (
             <div className="h-8 w-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
@@ -70,7 +72,7 @@ const AdminLayout = ({ activeMenu, children }) => {
               }`}
             >
               <item.icon className={`w-5 h-5 flex-shrink-0 ${activeNavItem === item.id ? 'text-blue-600' : 'text-gray-500'}`} />
-              {!sidebarCollapsed && <span className="ml-3 truncate">{item.name}</span>}
+              {!sidebarCollapsed && <span className="ml-3 truncate">{t(item.nameKey)}</span>}
             </button>
           ))}
         </nav>
@@ -80,7 +82,7 @@ const AdminLayout = ({ activeMenu, children }) => {
             onClick={logout}
           >
             <LogOut className="w-5 h-5 flex-shrink-0 text-gray-500" />
-            {!sidebarCollapsed && <span className="">Logout</span>}
+            {!sidebarCollapsed && <span className="">{t('adminLayout.logout')}</span>}
           </button>
         </div>
       </div>
@@ -102,8 +104,8 @@ const AdminLayout = ({ activeMenu, children }) => {
               </button>
             )}
             <div>
-              <h1 className="text-base font-semibold text-shadow-gray-900">Welcome Admin</h1>
-              <p className="text-sm text-gray-500 hidden sm:block">Manage the platform from here</p>
+              <h1 className="text-base font-semibold text-shadow-gray-900">{t('adminLayout.welcome')}</h1>
+              <p className="text-sm text-gray-500 hidden sm:block">{t('adminLayout.managePlatform')}</p>
             </div>
           </div>
         </header>

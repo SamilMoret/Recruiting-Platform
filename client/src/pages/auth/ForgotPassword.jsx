@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { API_PATHS, BASE_URL } from "../../utils/apiPaths";
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -27,15 +29,15 @@ const ForgotPassword = () => {
 
   return (
     <div className="max-w-md mx-auto mt-16 p-8 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-6 text-center">Forgot Password</h2>
+  <h2 className="text-2xl font-bold mb-6 text-center">{t('forgotPassword.title')}</h2>
       {submitted ? (
         <div className="text-green-600 text-center">
-          If that email is registered, a password reset link has been sent.
+          {t('forgotPassword.successMessage')}
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
           <label className="block mb-2 text-sm font-medium text-gray-700">
-            Enter your email address
+            {t('forgotPassword.emailLabel')}
           </label>
           <input
             type="email"
@@ -43,7 +45,7 @@ const ForgotPassword = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            placeholder="you@email.com"
+            placeholder={t('forgotPassword.emailPlaceholder')}
             disabled={loading}
           />
           {error && (
@@ -54,7 +56,7 @@ const ForgotPassword = () => {
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
             disabled={loading}
           >
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading ? t('forgotPassword.sending') : t('forgotPassword.sendButton')}
           </button>
         </form>
       )}

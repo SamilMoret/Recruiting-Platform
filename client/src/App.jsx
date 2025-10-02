@@ -1,4 +1,4 @@
-import{
+import {
   BrowserRouter as Router,
   Routes,
   Route,
@@ -17,58 +17,145 @@ import JobPostingForm from "./pages/Employer/JobPostingForm";
 import ManageJobs from "./pages/Employer/ManageJobs";
 import ApplicationViewer from "./pages/Employer/ApplicationViewer";
 import EmployerProfilePage from "./pages/Employer/EmployerProfilePage";
-import ProtectedRoute from "./routes/ProtectedRoute"; // Adjust the path as needed
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 import { AuthProvider } from "./context/AuthContext";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import AdmDashboard from "./pages/admin/AdmDashboard";
 import AdminUser from "./pages/admin/AdminUser";
 import CompanyDashboard from "./pages/admin/CompanyDashboard";
 import AdminEmployer from "./pages/admin/AdminEmployer";
+import { useTranslation } from 'react-i18next';
+// import ReactCountryFlag from 'react-country-flag';
 
+import gbFlag from './assets/flags/gb.svg';
+import esFlag from './assets/flags/es.svg';
+import ptFlag from './assets/flags/pt.svg';
+import './App.css';
 
+import { useState, useRef, useEffect } from 'react';
 
 
 function App() {
+  const { i18n } = useTranslation();
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
+  const languages = [
+    { code: 'en', country: 'gb', name: 'English', flag: gbFlag },
+    { code: 'es', country: 'es', name: 'Español', flag: esFlag },
+    { code: 'pt', country: 'pt', name: 'Português', flag: ptFlag },
+  ];
+  const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
+
+  // Close menu on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <AuthProvider>
-
       <Router>
+        {/* Floating Language Button */}
+        <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 2000 }} ref={menuRef}>
+          <button
+            onClick={() => setShowMenu(v => !v)}
+            style={{
+              background: 'none',
+              border: 'none',
+              borderRadius: '0',
+              width: '2.2em',
+              height: '2.2em',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: 'none',
+              cursor: 'pointer',
+              padding: 0,
+            }}
+            title={currentLang.name}
+          >
+            <img src={currentLang.flag} alt={currentLang.name + ' flag'} className="flag-icon" />
+          </button>
+          {showMenu && (
+            <div style={{
+              position: 'absolute',
+              top: '3em',
+              right: 0,
+              background: 'white',
+              border: '1px solid #ddd',
+              borderRadius: '0.5em',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+              padding: '0.5em 0.75em',
+              minWidth: '8em',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5em',
+            }}>
+              {languages.filter(l => l.code !== currentLang.code).map(lang => (
+                <button
+                  key={lang.code}
+                  onClick={() => { i18n.changeLanguage(lang.code); setShowMenu(false); }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5em',
+                    fontSize: '1em',
+                    cursor: 'pointer',
+                    padding: '0.25em 0',
+                  }}
+                >
+                  <img src={lang.flag} alt={lang.name + ' flag'} className="flag-icon flag-icon-sm" />
+                  {lang.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        {/* ...existing code... */}
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login  />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/find-jobs" element={<JobSeekerDashboard />} />
-          <Route path="/job/:jobId" element={<JobDetails />} />
-          <Route path="/saved-jobs" element={<SavedJobs />} />
-          <Route path="/profile" element={<UserProfile />} />
-
-          <Route path="/admin-dashboard" element={<AdmDashboard />} />
-          <Route path="/admin-user" element={<AdminUser />} />
-          <Route path="/admin-company" element={<AdminEmployer />} />
           {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
-          
-         
 
-          {/* Protected Routes */}
+          {/* Admin Protected Routes */}
+          <Route element={<ProtectedRoute requiredRole="admin" />}>
+            <Route path="/admin-dashboard" element={<AdmDashboard />} />
+            <Route path="/admin-user" element={<AdminUser />} />
+            <Route path="/admin-company" element={<AdminEmployer />} />
+          </Route>
+
+          {/* Employer Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="employer" />}>
-            <Route path="/employer-dashboard" element={<EmployerDashboard />} /> 
+            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
             <Route path="/post-job" element={<JobPostingForm />} />
             <Route path="/manage-jobs" element={<ManageJobs />} />
             <Route path="/applicants" element={<ApplicationViewer />} />
             <Route path="/company-profile" element={<EmployerProfilePage />} />
-            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
           </Route>
 
+          {/* JobSeeker Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="jobseeker" />}>
-             <Route path="/find-jobs" element={<JobSeekerDashboard />} />
-             <Route path="/saved-jobs" element={<SavedJobs />} />
-             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/find-jobs" element={<JobSeekerDashboard />} />
+            <Route path="/job/:jobId" element={<JobDetails />} />
+            <Route path="/saved-jobs" element={<SavedJobs />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
 
-
-          {/* Catch all route */}
+          {/* Catch all route - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
 
@@ -80,10 +167,8 @@ function App() {
           },
         }}
       />
-
     </AuthProvider>
-  )
+  );
 }
 
-export default App
-
+export default App;

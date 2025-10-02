@@ -1,0 +1,446 @@
+{
+  "welcome": "Welcome",
+  "login": {
+    "welcomeBack": "Welcome Back",
+    "enterCredentials": "Please enter your credentials to continue",
+    "emailAddress": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create one here",
+    "successMessage": "You have successfully logged in.",
+    "redirecting": "Redirecting to your dashboard",
+    "passwordRequired": "Password is required",
+    "genericError": "An error occurred. Please try again.",
+    "incorrectCredentials": "Incorrect email or password.",
+    "accountDisabled": "Your account is disabled. Please contact support."
+  },
+  "signup": {
+    "title": "Create Account",
+    "subtitle": "Join thousands of professionals finding their dream jobs",
+    "fullNameLabel": "Full Name *",
+    "fullNamePlaceholder": "Enter your full name",
+    "fullNameError": "Enter full name",
+    "emailLabel": "Email *",
+    "emailPlaceholder": "Enter your email address",
+    "passwordLabel": "Password *",
+    "passwordPlaceholder": "Create a strong password",
+    "passwordError": "Password must be at least 8 characters",
+    "avatarLabel": "Profile Picture (optional)",
+    "uploadPhoto": "Upload Photo",
+    "avatarHint": "JPG, PNG up to 5MB",
+    "roleLabel": "I am a *",
+    "roleError": "Select a role",
+    "jobSeeker": "Job Seeker",
+    "jobSeekerDesc": "Looking for opportunities",
+    "employer": "Employer",
+    "employerDesc": "Hiring",
+    "submitError": "Failed to create an account",
+    "successTitle": "Account Created Successfully!",
+    "successMessage": "Welcome to the platform! Your account has been successfully created.",
+    "redirecting": "Redirecting to your dashboard",
+    "createAccount": "Create Account",
+    "creatingAccount": "Creating Account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInHere": "Sign in here"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "emailLabel": "Enter your email address",
+    "emailPlaceholder": "you@email.com",
+    "sendButton": "Send Reset Link",
+    "sending": "Sending...",
+    "successMessage": "If that email is registered, a password reset link has been sent."
+  },
+  "dashboard": "Dashboard",
+  "hero": {
+    "title": "Your Career, Our Mission.",
+    "perfectMatch": "Perfect Match",
+    "subtitle1": "Connecting candidates to career opportunities.",
+    "subtitle2": "Your next career step or the right talent for your company is here.",
+    "findJobs": "Find Jobs",
+    "activeUsers": "Active Users",
+    "companies": "Companies",
+    "jobsPosted": "Jobs Posted"
+  },
+  "header": {
+    "title": "Recruiting Platform",
+    "findJobs": "Find Jobs",
+    "forEmployers": "For Employers",
+    "discoverTalent": "Discover Talent",
+    "hello": "Hello"
+  },
+  "features": {
+    "heading1": "Everything You Need to",
+    "heading2": "Succeed",
+    "description": "Whether you're a job seeker or an employer, our platform offers a comprehensive suite of features designed to streamline your job search and hiring process.",
+    "jobSeekers": "For Job Seekers",
+    "employers": "For Employers",
+    "jobSeekerFeatures": [
+      { "title": "Smart Job Matching", "description": "Get matched with the right job opportunities based on your skills and preferences." },
+      { "title": "Resume Builder", "description": "Create a professional resume with our easy-to-use builder." },
+      { "title": "Interview Preparation", "description": "Get ready for your interviews with our expert tips and resources." },
+      { "title": "Skill Development", "description": "Access courses and resources to improve your skills." }
+    ],
+    "employerFeatures": [
+      { "title": "Profile Optimization", "description": "Enhance your profile to attract more recruiters and job offers." },
+      { "title": "Salary Insights", "description": "Know your worth with our salary comparison tool." },
+      { "title": "Privacy Protection", "description": "Keep your data safe with our advanced privacy features." },
+      { "title": "Application Tracking", "description": "Stay organized with our application tracking system." }
+    ]
+  },
+  "analytics": {
+    "heading1": "Platform",
+    "heading2": "Analytics",
+    "description": "Get insights into your platform's performance with our advanced analytics tools.",
+    "activeUsers": "Active Users",
+    "jobPostings": "Job Postings",
+    "successfulHires": "Successful Hires",
+    "matchedRate": "Matched Rate"
+  },
+  "userProfile": {
+    "title": "Profile",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "resume": "Resume",
+    "download": "Download",
+    "chooseFile": "Choose File",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes"
+  },
+  "savedJobs": {
+    "title": "Saved Jobs",
+    "emptyTitle": "You haven't saved any jobs yet.",
+    "emptyDescription": "Start saving jobs that interest you to view them later.",
+    "browseJobs": "Browse Jobs"
+  },
+  "jobSeekerDashboard": {
+    "pageTitle": "Find Jobs - Recruiting Platform",
+    "filters": "Filters",
+    "filterJobs": "Filter Jobs",
+    "jobs": "jobs",
+    "noJobsFound": "No jobs found",
+    "tryAdjusting": "Try adjusting your search criteria or filters.",
+    "clearAllFilters": "Clear all filters"
+  },
+  "jobDetails": {
+    "fetchError": "Failed to fetch job details.",
+    "applySuccess": "Successfully applied to the job.",
+    "applyError": "Failed to apply to the job.",
+    "companyLogoAlt": "Company Logo",
+    "applyNow": "Apply Now",
+    "notAvailable": "N/A",
+    "compensation": "Compensation",
+    "perYear": "per year",
+    "competitive": "Competitive",
+    "aboutThisRole": "About This Role",
+    "requirementsTitle": "What We're Looking For"
+  },
+  "jobSeeker": {
+    "title": "Job Seeker"
+  },
+  "manageJobs": {
+    "title": "Job Management",
+    "subtitle": "Manage your job posting and track applications.",
+    "addNewJob": "Add New Job",
+    "searchPlaceholder": "Search jobs...",
+    "allStatuses": "All Statuses",
+    "active": "Active",
+    "closed": "Closed",
+    "showingJobs": "Showing {{count}} of {{total}} jobs",
+    "noJobsFound": "No jobs found",
+    "tryAdjusting": "Try adjusting your search or filter criteria.",
+    "jobDeleted": "Job deleted successfully",
+    "deleteError": "Failed to delete job",
+    "previous": "Previous",
+    "next": "Next",
+    "showingResults": "Showing {{start}} to {{end}} of {{total}} results"
+  },
+  "jobPostingForm": {
+    "fillDetails": "Fill in the details below to post a new job opening.",
+    "preview": "Preview",
+    "jobTitle": "Job Title",
+    "jobTitlePlaceholder": "e.g., Senior Frontend Developer",
+    "location": "Location",
+    "locationPlaceholder": "e.g., New York, NY",
+    "category": "Category",
+    "categoryPlaceholder": "Select a category",
+    "jobType": "Job Type",
+    "jobTypePlaceholder": "Select job type",
+    "description": "Job Description",
+    "descriptionPlaceholder": "Describe the role and responsibilities...",
+    "descriptionHelper": "Include key responsibilities, day-to-day tasks, and team structure.",
+    "requirements": "Requirements",
+    "requirementsPlaceholder": "List the required skills and qualifications...",
+    "requirementsHelper": "Include necessary skills, experience, and educational background.",
+    "salaryRange": "Salary Range",
+    "salaryMin": "Min",
+    "salaryMax": "Max",
+    "publishJob": "Publish Job",
+    "publishing": "Publishing Job...",
+    "jobPosted": "Job posted successfully",
+    "jobUpdated": "Job updated successfully",
+    "postError": "Failed to post/update job. Please try again.",
+    "jobTitleRequired": "Job title is required",
+    "locationRequired": "Location is required",
+    "categoryRequired": "Category is required",
+    "jobTypeRequired": "Job type is required",
+    "descriptionRequired": "Job description is required",
+    "requirementsRequired": "Job requirements are required",
+    "salaryRangeRequired": "Both minimum and maximum salary are required",
+    "salaryMaxGreater": "Maximum salary must be greater than minimum salary"
+  },
+  "employerProfile": {
+    "title": "Employer Profile",
+    "editProfile": "Edit Profile",
+    "personalInfo": "Personal Information",
+    "avatarAlt": "Avatar",
+    "companyInfo": "Company Information",
+    "companyLogoAlt": "Company Logo",
+    "companyLabel": "Company",
+    "aboutCompany": "About Company",
+    "profileUpdated": "Profile updated successfully",
+    "updateError": "Error updating profile"
+  },
+  "employerDashboard": {
+    "pageTitle": "Employer Dashboard - Recruiting Platform",
+    "activeJobs": "Active Jobs",
+    "totalApplicants": "Total Applicants",
+    "hired": "Hired",
+    "recentJobPosts": "Recent Job Posts",
+    "latestJobPosting": "Your latest job posting",
+    "viewAll": "View all",
+    "recentApplications": "Recent Applications",
+    "latestCandidateApplications": "Latest candidate applications",
+    "quickActions": "Quick Actions",
+    "commonTasks": "Common tasks to get you started",
+    "postNewJob": "Post a New Job",
+    "reviewApplications": "Review Applications",
+    "companySettings": "Company Settings"
+  },
+  "editProfileDetails": {
+    "editProfile": "Edit Profile",
+    "personalInfo": "Personal Information",
+    "avatarAlt": "Avatar",
+    "chooseAvatar": "Choose Avatar",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "emailAddress": "Email Address",
+    "companyInfo": "Company Information",
+    "companyLogoAlt": "Company Logo",
+    "chooseCompanyLogo": "Choose Company Logo",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "Enter your company name",
+    "companyDescription": "Company Description",
+    "companyDescriptionPlaceholder": "Enter your company description",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "saving": "Saving..."
+  },
+  "applicationViewer": {
+    "loading": "Loading Applications",
+    "title": "Applications Overview",
+    "noApplications": "No applications available",
+    "noApplicationFound": "No application found at the moment.",
+    "application": "Application",
+    "applicationsPlural": "s",
+    "applied": "Applied",
+    "resume": "Resume",
+    "viewProfile": "View Profile"
+  },
+  "salaryRangeSlider": {
+    "minSalaryLabel": "Min Salary",
+    "maxSalaryLabel": "Max Salary",
+    "minSalaryPlaceholder": "0",
+    "maxSalaryPlaceholder": "0",
+    "rangeLabel": "Range",
+    "minNotSet": "Min not set",
+    "noLimit": "No Limit"
+  },
+  "jobPostingPreview": {
+    "title": "Job Preview",
+    "backToEdit": "Back to Edit",
+    "remote": "Remote",
+    "postedToday": "Posted today",
+    "compensation": "Compensation",
+    "perYear": "per year",
+    "competitive": "Competitive",
+    "aboutThisRole": "About this role",
+    "requirementsTitle": "What We're Looking For"
+  },
+  "jobDashBoardCard": {
+    "active": "Active",
+    "closed": "Closed"
+  },
+  "jobCard": {
+    "salaryK": "$${value}k",
+    "salary": "$${value}",
+    "salaryRange": "{min} - {max}/m",
+    "salaryNotSpecified": "Salary not specified",
+    "applyNow": "Apply Now"
+  },
+  "applicationProfilePreview": {
+    "title": "Applicant Profile",
+    "appliedPosition": "Applied Position",
+    "applicantDetails": "Applicant Details",
+    "status": "Status",
+    "appliedDate": "Applied Date:",
+    "downloadResume": "Download Resume",
+    "changeStatus": "Change Application Status",
+    "updatingStatus": "Updating status...",
+    "statusUpdated": "Status updated successfully",
+    "statusUpdateError": "Error updating status",
+    "statusApplied": "Applied",
+    "statusInReview": "In Review",
+    "statusRejected": "Rejected",
+    "statusAccepted": "Accepted"
+  },
+  "applicantDashboardCard": {
+    "position": "Position: {{position}}",
+    "time": "{{time}}"
+  },
+  "admDashboard": {
+    "title": "Admin Dashboard",
+    "activeUsers": "Active Users",
+    "activeCompanies": "Active Companies",
+    "loading": "..."
+  },
+  "adminEmployer": {
+    "title": "Employer Management",
+    "total": "Total: {{count}} employers",
+    "active": "Active: {{count}}",
+    "searchPlaceholder": "Search by name, company, or email...",
+    "status": {
+      "all": "All Status",
+      "active": "Active Only",
+      "disabled": "Disabled Only"
+    },
+    "refresh": "Refresh",
+    "loading": "Loading employers...",
+    "noMatch": "No employers match your search criteria.",
+    "noEmployers": "No employers found.",
+    "clearFilters": "Clear filters",
+    "table": {
+      "id": "ID",
+      "name": "Name",
+      "company": "Company",
+      "email": "Email",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "enable": "Enable",
+    "disable": "Disable",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this employer?",
+    "showing": "Showing {{filtered}} of {{total}} employers"
+  },
+  "adminUser": {
+    "loading": "Loading users...",
+    "loadError": "Failed to load users data",
+    "table": {
+      "id": "ID",
+      "avatarName": "Avatar & Name",
+      "email": "Email",
+      "status": "Status",
+      "resume": "Resume",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "disabled": "Disabled"
+    },
+    "resume": "Resume",
+    "created": "Created",
+    "yes": "Yes",
+    "no": "No",
+    "na": "N/A",
+    "enable": "Enable",
+    "disable": "Disable",
+    "enableError": "Failed to enable user. Please try again.",
+    "disableError": "Failed to disable user. Please try again."
+  },
+  "companyDashboard": {
+    "title": "Admin Company Management",
+    "description": "This is the admin company management page. Add company management features here."
+  },
+  "searchHeader": {
+    "title": "Find Your Dream Job",
+    "subtitle": "Discover opportunities that match your passion",
+    "keywordPlaceholder": "Job title, company, or keywords",
+    "locationPlaceholder": "Location",
+    "searchButton": "Search Jobs"
+  },
+  "adminLayout": {
+    "panelTitle": "Admin Panel",
+    "menu": {
+      "dashboard": "Dashboard",
+      "company": "Company",
+      "user": "User"
+    },
+    "logout": "Logout",
+    "welcome": "Welcome Admin",
+    "managePlatform": "Manage the platform from here"
+  },
+  "dashboardLayout": {
+    "panelTitle": "Recruiting Platform",
+    "menu": {
+      "dashboard": "Dashboard",
+      "companies": "Companies",
+      "users": "Users"
+    },
+    "logout": "Logout",
+    "welcome": "Welcome Back",
+    "subtitle": "Here's what's happening with your jobs today"
+  },
+  "navbar": {
+    "panelTitle": "Recruiting Platform",
+    "login": "Login",
+    "signup": "Sign Up"
+  },
+  "profileDropdown": {
+    "viewProfile": "View Profile",
+    "signOut": "Sign out"
+  },
+  "statusBadge": {
+    "Applied": "Applied",
+    "Inreview": "In Review",
+    "Hired": "Hired",
+    "Rejected": "Rejected"
+  },
+  "navigationMenu": {
+    "dashboard": "Dashboard",
+    "postJob": "Post a Job",
+    "manageJobs": "Manage Jobs",
+    "companyProfile": "Company Profile"
+  },
+  "filterContent": {
+    "categories": {
+    "Engineering": "Engineering",
+    "Marketing": "Marketing",
+    "Sales": "Sales",
+    "Design": "Design",
+    "Finance": "Finance",
+    "IT": "IT Software",
+    "Customer-service": "Customer Service",
+    "Product": "Product",
+    "Operations": "Operations",
+    "HR": "Human Resources",
+    "Other": "Other"
+    },
+    "category": "Job Category"
+  },
+  "jobTypes": {
+    "Full-Time": "Full-time",
+    "Part-Time": "Part-time",
+    "Contract": "Contract",
+    "Remote": "Remote",
+    "Internship": "Internship"
+  }
+}
