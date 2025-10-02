@@ -5,16 +5,20 @@ import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.repository.JobRepository;
 import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.service.JobService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import jakarta.persistence.EntityNotFoundException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
+/**
+ * Implementação do serviço de gerenciamento de vagas.
+ * Fornece operações CRUD e de negócio para a entidade Job.
+ */
 @Service
 @Transactional
 public class JobServiceImpl implements JobService {
@@ -28,232 +32,95 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Job createJob(Job job, String recruiterEmail) {
-        // Validações iniciais
-        if (job == null) {
-            throw new IllegalArgumentException("O objeto Job não pode ser nulo");
-        }
-        
-        if (recruiterEmail == null || recruiterEmail.trim().isEmpty()) {
-            throw new IllegalArgumentException("O email do recrutador não pode ser vazio");
-        }
-
-        // Busca o recrutador
-        User recruiter = userRepository.findByEmail(recruiterEmail)
-                .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado com o email: " + recruiterEmail));
-
-        try {
-            // Associa o recrutador à vaga
-            job.setRecruiter(recruiter);
-            
-            // Salva a vaga
-            Job savedJob = jobRepository.save(job);
-            
-            // Atualiza a lista de vagas do recrutador
-            recruiter.getPostedJobs().add(savedJob);
-            
-            return savedJob;
-            
-        } catch (Exception e) {
-            // Log do erro
-            System.err.println("Erro ao criar vaga: " + e.getMessage());
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao criar vaga: " + e.getMessage(), e);
-        }
+    public Job saveJob(Job job) {
+        Objects.requireNonNull(job, "O objeto Job não pode ser nulo");
+        return jobRepository.save(job);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Job> getJobsByRecruiterEmail(String recruiterEmail) {
-        if (recruiterEmail == null || recruiterEmail.trim().isEmpty()) {
-            throw new IllegalArgumentException("O email do recrutador não pode ser vazio");
-        }
-
-        try {
-            User recruiter = userRepository.findByEmail(recruiterEmail)
-                    .orElseThrow(() -> new EntityNotFoundException("Recrutador não encontrado com o email: " + recruiterEmail));
-            
-            return jobRepository.findByRecruiter(recruiter);
-            
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar vagas do recrutador: " + e.getMessage());
-            throw new RuntimeException("Erro ao buscar vagas: " + e.getMessage(), e);
-        }
+    public Job getJobById(Long id) throws EntityNotFoundException {
+        return jobRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com o ID: " + id));
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Job updateJob(Long id, Job jobDetails, User recruiter) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID da vaga não pode ser nulo");
-        }
-        
-        if (jobDetails == null) {
-            throw new IllegalArgumentException("Os detalhes da vaga não podem ser nulos");
-        }
-        
-        if (recruiter == null) {
-            throw new IllegalArgumentException("O recrutador não pode ser nulo");
+    @Transactional
+    public void deleteJob(Long id, User recruiter) throws EntityNotFoundException, AccessDeniedException {
+        Objects.requireNonNull(id, "O ID da vaga não pode ser nulo");
+        Objects.requireNonNull(recruiter, "O usuário recrutador não pode ser nulo");
+
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com o ID: " + id));
+
+        if (!isJobOwner(id, recruiter)) {
+            throw new AccessDeniedException("Acesso negado: você não tem permissão para excluir esta vaga");
         }
 
-        try {
-            Job job = jobRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com ID: " + id));
-            
-            // Verifica se o recrutador é o dono da vaga
-            if (!job.getRecruiter().getId().equals(recruiter.getId())) {
-                throw new SecurityException("Acesso negado: você não tem permissão para atualizar esta vaga");
-            }
-
-            // Atualiza apenas os campos permitidos
-            job.setTitle(jobDetails.getTitle());
-            job.setDescription(jobDetails.getDescription());
-            job.setCompany(jobDetails.getCompany());
-            job.setLocation(jobDetails.getLocation());
-            job.setEmploymentType(jobDetails.getEmploymentType());
-            job.setExperienceLevel(jobDetails.getExperienceLevel());
-            job.setSalaryMin(jobDetails.getSalaryMin());
-            job.setSalaryMax(jobDetails.getSalaryMax());
-            job.setActive(jobDetails.isActive());
-            
-            // Salva as alterações
-            return jobRepository.save(job);
-            
-        } catch (EntityNotFoundException | SecurityException e) {
-            // Relança exceções específicas
-            throw e;
-        } catch (Exception e) {
-            System.err.println("Erro ao atualizar vaga com ID " + id + ": " + e.getMessage());
-            throw new RuntimeException("Erro ao atualizar a vaga: " + e.getMessage(), e);
-        }
+        jobRepository.delete(job);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteJob(Long id, User recruiter) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID da vaga não pode ser nulo");
-        }
-        
-        if (recruiter == null) {
-            throw new IllegalArgumentException("O recrutador não pode ser nulo");
+    @Transactional
+    public Job updateJob(Long id, Job jobUpdates, User recruiter)
+            throws EntityNotFoundException, AccessDeniedException {
+        Objects.requireNonNull(id, "O ID da vaga não pode ser nulo");
+        Objects.requireNonNull(jobUpdates, "Os dados de atualização da vaga não podem ser nulos");
+        Objects.requireNonNull(recruiter, "O usuário recrutador não pode ser nulo");
+
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com o ID: " + id));
+
+        if (!isJobOwner(id, recruiter)) {
+            throw new AccessDeniedException("Acesso negado: você não tem permissão para atualizar esta vaga");
         }
 
-        try {
-            Job job = jobRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com ID: " + id));
-            
-            // Verifica se o recrutador é o dono da vaga
-            if (!job.getRecruiter().getId().equals(recruiter.getId())) {
-                throw new SecurityException("Acesso negado: você não tem permissão para excluir esta vaga");
-            }
-            
-            // Remove a vaga do banco de dados
-            jobRepository.delete(job);
-            
-        } catch (EntityNotFoundException | SecurityException e) {
-            // Relança exceções específicas
-            throw e;
-        } catch (Exception e) {
-            System.err.println("Erro ao excluir vaga com ID " + id + ": " + e.getMessage());
-            throw new RuntimeException("Erro ao excluir a vaga: " + e.getMessage(), e);
+        // Atualiza apenas os campos não nulos
+        if (jobUpdates.getTitle() != null) {
+            job.setTitle(jobUpdates.getTitle());
         }
-    }
+        if (jobUpdates.getDescription() != null) {
+            job.setDescription(jobUpdates.getDescription());
+        }
+        if (jobUpdates.getRequirements() != null) {
+            job.setRequirements(jobUpdates.getRequirements());
+        }
+        if (jobUpdates.getLocation() != null) {
+            job.setLocation(jobUpdates.getLocation());
+        }
+        if (jobUpdates.getCategory() != null) {
+            job.setCategory(jobUpdates.getCategory());
+        }
+        if (jobUpdates.getType() != null) {
+            job.setType(jobUpdates.getType());
+        }
+        if (jobUpdates.getSalaryMin() != null) {
+            job.setSalaryMin(jobUpdates.getSalaryMin());
+        }
+        if (jobUpdates.getSalaryMax() != null) {
+            job.setSalaryMax(jobUpdates.getSalaryMax());
+        }
 
-    @Override
-    @Transactional(readOnly = true)
-    public Job getJobById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID da vaga não pode ser nulo");
-        }
-        
-        try {
-            return jobRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com ID: " + id));
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar vaga com ID " + id + ": " + e.getMessage());
-            throw new RuntimeException("Erro ao buscar a vaga: " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Job> getJobsByRecruiter(User recruiter) {
-        if (recruiter == null) {
-            throw new IllegalArgumentException("O recrutador não pode ser nulo");
-        }
-        
-        try {
-            return jobRepository.findByRecruiter(recruiter);
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar vagas do recrutador com ID " + recruiter.getId() + ": " + e.getMessage());
-            throw new RuntimeException("Erro ao buscar vagas do recrutador: " + e.getMessage(), e);
-        }
+        return jobRepository.save(job);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Job> searchJobs(Specification<Job> spec, Pageable pageable) {
-        if (pageable == null) {
-            throw new IllegalArgumentException("O objeto Pageable não pode ser nulo");
-        }
-        
-        try {
-            return jobRepository.findAll(spec != null ? spec : Specification.anyOf(), pageable);
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar vagas com os critérios fornecidos: " + e.getMessage());
-            throw new RuntimeException("Erro ao buscar vagas: " + e.getMessage(), e);
-        }
+        Objects.requireNonNull(spec, "A especificação de pesquisa não pode ser nula");
+        Objects.requireNonNull(pageable, "A configuração de paginação não pode ser nula");
+
+        return jobRepository.findAll(spec, pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Long getJobCountByRecruiter(User recruiter) {
-        if (recruiter == null) {
-            throw new IllegalArgumentException("O recrutador não pode ser nulo");
+    public boolean isJobOwner(Long jobId, User user) {
+        if (jobId == null || user == null) {
+            return false;
         }
-        
-        try {
-            return jobRepository.countByRecruiter(recruiter);
-        } catch (Exception e) {
-            System.err.println("Erro ao contar vagas do recrutador com ID " + recruiter.getId() + ": " + e.getMessage());
-            throw new RuntimeException("Erro ao contar vagas do recrutador: " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Job toggleJobStatus(Long id, User recruiter, boolean active) {
-        if (id == null) {
-            throw new IllegalArgumentException("ID da vaga não pode ser nulo");
-        }
-        
-        if (recruiter == null) {
-            throw new IllegalArgumentException("O recrutador não pode ser nulo");
-        }
-
-        try {
-            Job job = jobRepository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada com ID: " + id));
-            
-            // Verifica se o recrutador é o dono da vaga
-            if (!job.getRecruiter().getId().equals(recruiter.getId())) {
-                throw new SecurityException("Acesso negado: você não tem permissão para alterar o status desta vaga");
-            }
-            
-            // Atualiza o status da vaga
-            job.setActive(active);
-            
-            // Salva as alterações
-            return jobRepository.save(job);
-            
-        } catch (EntityNotFoundException | SecurityException e) {
-            // Relança exceções específicas
-            throw e;
-        } catch (Exception e) {
-            System.err.println("Erro ao alterar status da vaga com ID " + id + ": " + e.getMessage());
-            throw new RuntimeException("Erro ao alterar o status da vaga: " + e.getMessage(), e);
-        }
+        return jobRepository.findById(jobId)
+                .map(job -> job.getRecruiter() != null && job.getRecruiter().getId().equals(user.getId()))
+                .orElse(false);
     }
 }

@@ -121,6 +121,7 @@ const Login = () => {
         ...prev,
         loading: false,
         errors: { submit: message }
+        errors: { submit: message }
       }));
     }
   };
@@ -197,6 +198,12 @@ const Login = () => {
                 onChange={handleInputChanges}
                 className={`w-full pl-10 pr-4 py-3 rounded-lg border
                 ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
+                type={formState.showPassword ? "text":"password"}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChanges}
+                className={`w-full pl-10 pr-4 py-3 rounded-lg border
+                ${formState.errors.password ? 'border-red-500' : 'border-gray-300'}
                 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
                 placeholder={t("login.passwordPlaceholder")}
               />
@@ -210,6 +217,7 @@ const Login = () => {
                 ) : (
                   <Eye className="w-5 h-5" />
                 )}
+              </button>
               </button>
             </div>
             {formState.errors.password && (

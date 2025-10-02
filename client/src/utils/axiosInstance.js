@@ -24,8 +24,32 @@ const handleSessionLogout = (
   window.location.href = "/login";
 };
 
+// Function to check if user has an active session
+const hasActiveSession = () => {
+  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
+  return !!(token && user);
+};
+
+// Function to handle session logout with specific messages
+const handleSessionLogout = (
+  message = "Session expired. Please log in again."
+) => {
+  // Clear all auth data
+  localStorage.removeItem("token");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("user");
+
+  // Show alert
+  alert(message);
+
+  // Redirect to login
+  window.location.href = "/login";
+};
+
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
+  timeout: 80000, // 80 seconds timeout
   timeout: 80000, // 80 seconds timeout
   headers: {
     "Content-Type": "application/json",
@@ -34,8 +58,26 @@ const axiosInstance = axios.create({
 });
 
 // Request interceptor - adds auth token to requests
+// Request interceptor - adds auth token to requests
 axiosInstance.interceptors.request.use(
   (config) => {
+    // Normalize URL to avoid false positives with query params or absolute URLs
+    const url = config.url.replace(BASE_URL, "");
+    const isAuthRoute =
+      url.startsWith("/api/auth/login") ||
+      url.startsWith("/api/auth/register") ||
+      url.startsWith("/api/auth/refresh");
+
+    // Don't send Authorization header for auth routes
+    if (isAuthRoute) {
+      delete config.headers.Authorization;
+      return config;
+    }
+
+    // Add token for all other routes
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     // Normalize URL to avoid false positives with query params or absolute URLs
     const url = config.url.replace(BASE_URL, "");
     const isAuthRoute =
@@ -57,8 +99,10 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error)
+  (error) => Promise.reject(error)
 );
 
+// Response interceptor - handles token refresh, session expiration, and account status
 // Response interceptor - handles token refresh, session expiration, and account status
 axiosInstance.interceptors.response.use(
   (response) => response,

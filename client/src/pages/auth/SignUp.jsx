@@ -20,6 +20,10 @@ import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import uploadImage from '../../utils/uploadImage';
 import { useAuth } from '../../context/AuthContext';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPaths';
+import uploadImage from '../../utils/uploadImage';
+import { useAuth } from '../../context/AuthContext';
 
 
 const SignUp = () => {
@@ -176,6 +180,44 @@ const SignUp = () => {
         }
 
 
+        let avatarUrl = "";
+
+        //Upload image if present
+        if(formData.avatar){
+          const imgUploadRes = await uploadImage(formData.avatar);
+          avatarUrl = imgUploadRes.imageUrl || "";
+        }
+
+        const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+          avatar: avatarUrl || "",
+        });
+
+        // handle successful registration
+        setFormState(prev => ({
+          ...prev,
+          loading: false,
+          success: true,
+          errors: {},
+        }));
+
+        const {token} = response.data;
+        if(token){
+          login(response.data, token);
+
+          // Redirect based on role
+          setTimeout(() => {
+            window.location.href =
+              formData.role === "employer"
+                ? "/employer-dashboard"
+                : "/find-jobs";
+          }, 2000);
+        }
+
+
       }catch(error){
   let message = t('signup.submitError');
         if (error.response?.data?.message) {
@@ -186,6 +228,7 @@ const SignUp = () => {
         setFormState(prev => ({
           ...prev,
           loading: false,
+          errors: { submit: message }
           errors: { submit: message }
         }));
       }}

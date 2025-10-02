@@ -75,6 +75,7 @@ const Hero = () => {
                             }
                         >
                             Post a Job
+                            Post a Job
                         </motion.button>
                     </motion.div>
 

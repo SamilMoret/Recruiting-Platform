@@ -1,346 +1,181 @@
 package br.com.one.jobportal.controller;
 
+import br.com.one.jobportal.dto.JobRequest;
+import br.com.one.jobportal.dto.response.JobResponse;
+import br.com.one.jobportal.entity.EmploymentType;
 import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.service.JobService;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/jobs")
 @RequiredArgsConstructor
 @CrossOrigin
-@Transactional(readOnly = true) // Transação somente leitura por padrão
+@Transactional(readOnly = true)
 public class JobController {
 
     private final JobService jobService;
 
-    @GetMapping
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getAllJobs(
-            Specification<Job> spec,
-            @PageableDefault(size = 10) Pageable pageable) {
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> createJob(@Valid @RequestBody JobRequest jobRequest,
+            @AuthenticationPrincipal User user) {
+        if (user == null) {
+            return ResponseEntity.status(401).body(Map.of("message", "Usuário não autenticado"));
+        }
+
+        if (jobRequest == null) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Dados da vaga não fornecidos"));
+        }
+
         try {
-            Page<Job> jobs = jobService.searchJobs(spec, pageable);
-            return ResponseEntity.ok(jobs);
+            Job job = convertToEntity(jobRequest);
+            job.setRecruiter(user);
+            Job createdJob = jobService.saveJob(job);
+            JobResponse response = JobResponse.fromEntity(createdJob);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
-            System.err.println("Erro ao buscar vagas: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erro ao processar a solicitação");
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("message", "Erro ao processar a solicitação: " + e.getMessage()));
         }
     }
-    
+
     @GetMapping("/{id}")
-    @Transactional(readOnly = true)
     public ResponseEntity<?> getJobById(@PathVariable Long id) {
         try {
             Job job = jobService.getJobById(id);
-            return ResponseEntity.ok(job);
+            return ResponseEntity.ok(JobResponse.fromEntity(job));
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar vaga com ID " + id + ": " + e.getMessage());
-            return ResponseEntity.internalServerError().body("Erro ao buscar a vaga");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
         }
     }
-    
-    @GetMapping("/active")
-    @Transactional(readOnly = true)
+
+    @GetMapping
     public ResponseEntity<?> getActiveJobs(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String employmentType,
             @PageableDefault(size = 10) Pageable pageable) {
         try {
-            // Cria uma especificação para filtrar apenas vagas ativas
-            Specification<Job> spec = (root, query, criteriaBuilder) -> 
-                criteriaBuilder.equal(root.get("active"), true);
-            
-            // Adiciona filtros adicionais se fornecidos
-            if (title != null && !title.trim().isEmpty()) {
-                spec = spec.and((root, query, criteriaBuilder) -> 
-                    criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("title")), 
-                        "%" + title.toLowerCase() + "%"
-                    )
-                );
-            }
-            
-            if (location != null && !location.trim().isEmpty()) {
-                spec = spec.and((root, query, criteriaBuilder) -> 
-                    criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("location")), 
-                        "%" + location.toLowerCase() + "%"
-                    )
-                );
-            }
-            
-            if (employmentType != null && !employmentType.trim().isEmpty()) {
-                spec = spec.and((root, query, criteriaBuilder) -> 
-                    criteriaBuilder.equal(
-                        criteriaBuilder.lower(root.get("employmentType")), 
-                        employmentType.toLowerCase()
-                    )
-                );
-            }
-            
+            // Filtro para buscar vagas ativas
+            Specification<Job> spec = (root, query, cb) -> {
+                List<Predicate> predicates = new ArrayList<>();
+                predicates.add(cb.isFalse(root.get("isClosed")));
+
+                if (title != null && !title.isEmpty()) {
+                    predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
+                }
+                if (location != null && !location.isEmpty()) {
+                    predicates.add(cb.like(cb.lower(root.get("location")), "%" + location.toLowerCase() + "%"));
+                }
+                if (employmentType != null && !employmentType.isEmpty()) {
+                    try {
+                        EmploymentType type = EmploymentType.fromString(employmentType);
+                        predicates.add(cb.equal(root.get("type"), type));
+                    } catch (IllegalArgumentException e) {
+                        // Tipo de emprego inválido, não filtra por tipo
+                    }
+                }
+                return cb.and(predicates.toArray(new Predicate[0]));
+            };
+
             Page<Job> jobs = jobService.searchJobs(spec, pageable);
-            return ResponseEntity.ok(jobs);
-            
+            return ResponseEntity.ok(jobs.map(JobResponse::fromEntity));
         } catch (Exception e) {
-            System.err.println("Erro ao buscar vagas ativas: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erro ao buscar vagas ativas");
-        }
-    }
-    
-    @GetMapping("/employment-types")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getEmploymentTypes() {
-        try {
-            // Retorna a lista de tipos de emprego disponíveis
-            List<String> employmentTypes = List.of(
-                "Tempo Integral",
-                "Meio Período",
-                "Contrato",
-                "Temporário",
-                "Estágio",
-                "Freelance",
-                "Terceirizado",
-                "Home Office",
-                "Trabalho Híbrido"
-            );
-            
-            return ResponseEntity.ok(employmentTypes);
-            
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar tipos de emprego: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erro ao buscar tipos de emprego");
-        }
-    }
-    
-    @GetMapping("/locations")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobLocations() {
-        try {
-            // Retorna uma lista de localizações comuns
-            List<String> locations = List.of(
-                "São Paulo, SP",
-                "Rio de Janeiro, RJ",
-                "Belo Horizonte, MG",
-                "Brasília, DF",
-                "Salvador, BA",
-                "Fortaleza, CE",
-                "Curitiba, PR",
-                "Recife, PE",
-                "Porto Alegre, RS",
-                "Manaus, AM",
-                "Belém, PA",
-                "Goiânia, GO",
-                "Vitória, ES",
-                "Florianópolis, SC",
-                "Natal, RN",
-                "Aracaju, SE",
-                "João Pessoa, PB",
-                "Maceió, AL",
-                "Teresina, PI",
-                "Campo Grande, MS",
-                "Cuiabá, MT",
-                "Porto Velho, RO",
-                "Rio Branco, AC",
-                "Macapá, AP",
-                "Boa Vista, RR",
-                "Palmas, TO",
-                "Remoto",
-                "Híbrido"
-            );
-            
-            return ResponseEntity.ok(locations);
-            
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar localizações: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erro ao buscar localizações");
-        }
-    }
-
-    @GetMapping("/recruiter")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getRecruiterJobs(Authentication authentication) {
-        try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                return ResponseEntity.status(401).body("Usuário não autenticado");
-            }
-
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            if (userDetails == null) {
-                return ResponseEntity.status(401).body("Detalhes do usuário não encontrados");
-            }
-
-            String recruiterEmail = userDetails.getUsername();
-            if (recruiterEmail == null || recruiterEmail.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body("Email do recrutador não pode ser vazio");
-            }
-
-            try {
-                List<Job> jobs = jobService.getJobsByRecruiterEmail(recruiterEmail);
-                return ResponseEntity.ok(jobs);
-            } catch (EntityNotFoundException e) {
-                return ResponseEntity.status(404).body(e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Erro ao buscar vagas do recrutador: " + e.getMessage());
-                e.printStackTrace();
-                return ResponseEntity.internalServerError().body("Erro ao processar a solicitação");
-            }
-        } catch (Exception e) {
-            System.err.println("Erro inesperado ao processar requisição: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro interno do servidor");
-        }
-    }
-
-    @PostMapping
-    @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> createJob(@Valid @RequestBody Job job, Authentication authentication) {
-        try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                return ResponseEntity.status(401).body("Não autenticado");
-            }
-
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            if (userDetails == null) {
-                return ResponseEntity.status(401).body("Detalhes do usuário não encontrados");
-            }
-
-            String recruiterEmail = userDetails.getUsername();
-            if (recruiterEmail == null || recruiterEmail.trim().isEmpty()) {
-                return ResponseEntity.badRequest().body("Email do recrutador não pode ser vazio");
-            }
-
-            // Validação básica do objeto Job
-            if (job == null) {
-                return ResponseEntity.badRequest().body("Dados da vaga não fornecidos");
-            }
-
-            try {
-                Job createdJob = jobService.createJob(job, recruiterEmail);
-                return ResponseEntity.status(201).body(createdJob);
-            } catch (RuntimeException e) {
-                // Log do erro para depuração
-                System.err.println("Erro ao criar vaga: " + e.getMessage());
-                e.printStackTrace();
-                return ResponseEntity.status(500).body("Erro ao processar a solicitação: " + e.getMessage());
-            }
-        } catch (Exception e) {
-            // Log de erros inesperados
-            System.err.println("Erro inesperado ao processar requisição: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro interno do servidor");
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("message", "Erro ao buscar vagas: " + e.getMessage()));
         }
     }
 
     @PutMapping("/{id}")
-    @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> updateJob(@PathVariable Long id, @Valid @RequestBody Job job,
-                                     @AuthenticationPrincipal User recruiter) {
+    @Transactional
+    public ResponseEntity<?> updateJob(@PathVariable Long id,
+            @Valid @RequestBody JobRequest jobRequest,
+            @AuthenticationPrincipal User user) {
         try {
-            if (recruiter == null) {
-                return ResponseEntity.status(401).body("Usuário não autenticado");
+            if (user == null) {
+                return ResponseEntity.status(401).body(Map.of("message", "Usuário não autenticado"));
             }
 
-            if (job == null) {
-                return ResponseEntity.badRequest().body("Dados da vaga não fornecidos");
-            }
+            // Cria um novo objeto Job com os dados atualizados
+            Job jobUpdates = convertToEntity(jobRequest);
 
-            try {
-                Job updatedJob = jobService.updateJob(id, job, recruiter);
-                return ResponseEntity.ok(updatedJob);
-            } catch (EntityNotFoundException e) {
-                return ResponseEntity.status(404).body(e.getMessage());
-            } catch (IllegalArgumentException e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
-            } catch (SecurityException e) {
-                return ResponseEntity.status(403).body(e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Erro ao atualizar vaga: " + e.getMessage());
-                e.printStackTrace();
-                return ResponseEntity.internalServerError().body("Erro ao processar a solicitação");
-            }
+            // Chama o serviço para atualizar a vaga
+            Job updatedJob = jobService.updateJob(id, jobUpdates, user);
+            return ResponseEntity.ok(JobResponse.fromEntity(updatedJob));
+
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
-            System.err.println("Erro inesperado ao processar requisição: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro interno do servidor");
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("message", "Erro ao atualizar vaga: " + e.getMessage()));
         }
     }
 
     @DeleteMapping("/{id}")
-    @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> deleteJob(@PathVariable Long id, @AuthenticationPrincipal User recruiter) {
+    @Transactional
+    public ResponseEntity<?> deleteJob(@PathVariable Long id,
+            @AuthenticationPrincipal User user) {
         try {
-            if (recruiter == null) {
-                return ResponseEntity.status(401).body("Usuário não autenticado");
+            if (user == null) {
+                return ResponseEntity.status(401).body(Map.of("message", "Usuário não autenticado"));
             }
 
-            try {
-                jobService.deleteJob(id, recruiter);
-                return ResponseEntity.noContent().build();
-            } catch (EntityNotFoundException e) {
-                return ResponseEntity.status(404).body(e.getMessage());
-            } catch (SecurityException e) {
-                return ResponseEntity.status(403).body(e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Erro ao deletar vaga: " + e.getMessage());
-                e.printStackTrace();
-                return ResponseEntity.internalServerError().body("Erro ao processar a solicitação");
-            }
+            jobService.deleteJob(id, user);
+            return ResponseEntity.noContent().build();
+
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
-            System.err.println("Erro inesperado ao processar requisição: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro interno do servidor");
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("message", "Erro ao excluir vaga: " + e.getMessage()));
         }
     }
 
-    @PatchMapping("/{id}/status")
-    @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> toggleJobStatus(
-            @PathVariable Long id,
-            @RequestParam boolean active,
-            @AuthenticationPrincipal User recruiter) {
-        try {
-            if (recruiter == null) {
-                return ResponseEntity.status(401).body("Usuário não autenticado");
-            }
-
-            try {
-                Job job = jobService.toggleJobStatus(id, recruiter, active);
-                return ResponseEntity.ok(job);
-            } catch (EntityNotFoundException e) {
-                return ResponseEntity.status(404).body(e.getMessage());
-            } catch (SecurityException e) {
-                return ResponseEntity.status(403).body(e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Erro ao alterar status da vaga: " + e.getMessage());
-                e.printStackTrace();
-                return ResponseEntity.internalServerError().body("Erro ao processar a solicitação");
-            }
-        } catch (Exception e) {
-            System.err.println("Erro inesperado ao processar requisição: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro interno do servidor");
-        }
+    private Job convertToEntity(JobRequest jobRequest) {
+        return Job.builder()
+                .title(jobRequest.getTitle())
+                .description(jobRequest.getDescription())
+                .requirements(jobRequest.getRequirements())
+                .location(jobRequest.getLocation())
+                .category(jobRequest.getCategory())
+                .type(EmploymentType.fromString(jobRequest.getType()))
+                .salaryMin(jobRequest.getSalaryMin())
+                .salaryMax(jobRequest.getSalaryMax())
+                .isClosed(false)
+                .isSaved(false)
+                .applicationCount(0)
+                .build();
     }
 }

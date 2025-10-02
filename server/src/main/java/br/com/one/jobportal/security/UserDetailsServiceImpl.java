@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -21,24 +19,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Carrega o usuário com as coleções necessárias para autenticação
+        // Carrega apenas os dados necessários para autenticação
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
-        
-        // Inicializa as coleções que serão necessárias durante a autenticação
-        // Isso evita LazyInitializationException quando as coleções forem acessadas posteriormente
-        if (user.getApplications() != null) {
-            user.getApplications().size(); // Força o carregamento da coleção
-        }
-        
-        if (user.getPostedJobs() != null) {
-            user.getPostedJobs().size(); // Força o carregamento da coleção
-        }
-        
-        if (user.getSavedJobs() != null) {
-            user.getSavedJobs().size(); // Força o carregamento da coleção
-        }
-        
-        return user; // User implementa UserDetails, então podemos retorná-lo diretamente
+
+        // Não é necessário carregar as coleções durante a autenticação
+        // Isso será feito sob demanda quando necessário
+
+        return user;
     }
 }

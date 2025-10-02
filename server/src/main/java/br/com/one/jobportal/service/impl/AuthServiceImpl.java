@@ -37,8 +37,7 @@ public class AuthServiceImpl implements AuthService {
             return ResponseEntity.ok(Map.of(
                     "token", token,
                     "type", "Bearer",
-                    "email", userDetails.getUsername()
-            ));
+                    "email", userDetails.getUsername()));
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("message", "Credenciais inválidas"));
@@ -56,6 +55,17 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhone(registerRequest.getPhone());
+
+        // Define o avatar se estiver presente na requisição
+        if (registerRequest.getAvatar() != null && !registerRequest.getAvatar().trim().isEmpty()) {
+            user.setAvatar(registerRequest.getAvatar().trim());
+        }
+
+        // Define o resume se estiver presente na requisição e for JOB_SEEKER
+        if (role.equalsIgnoreCase("JOB_SEEKER") && registerRequest.getResume() != null
+                && !registerRequest.getResume().trim().isEmpty()) {
+            user.setResume(registerRequest.getResume().trim());
+        }
 
         // Use the fromString method for case-insensitive role conversion
         user.setRole(User.Role.fromString(role));
@@ -76,9 +86,23 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhone(registerRequest.getPhone());
         user.setRole(User.Role.EMPLOYER);
-        
+
+        // Define o avatar se estiver presente na requisição
+        if (registerRequest.getAvatar() != null && !registerRequest.getAvatar().trim().isEmpty()) {
+            user.setAvatar(registerRequest.getAvatar().trim());
+        }
+
+        // Define os dados da empresa
         if (company != null && !company.trim().isEmpty()) {
             user.setCompanyName(company);
+        }
+
+        if (registerRequest.getCompanyDescription() != null) {
+            user.setCompanyDescription(registerRequest.getCompanyDescription());
+        }
+
+        if (registerRequest.getCompanyLogo() != null) {
+            user.setCompanyLogo(registerRequest.getCompanyLogo());
         }
 
         userRepository.save(user);

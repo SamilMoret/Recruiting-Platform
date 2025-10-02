@@ -1,53 +1,75 @@
-# Recruiting Platform - Database
+# Plataforma de Recrutamento - Banco de Dados
 
-This directory contains all database-related files for the Recruiting Platform.
+Este diretório contém todos os arquivos relacionados ao banco de dados da Plataforma de Recrutamento.
 
-## Estrutura
+## Estrutura do Banco de Dados
 
-```
-database/
-├── SCHEMA.md           # Documentação do esquema do banco de dados
-├── init-db.sh          # Script para inicializar o banco de dados
-├── commit-db-changes.sh # Script auxiliar para commits no git
-├── test_migration.sql  # Script para testar a estrutura do banco
-└── migrations/         # Arquivos de migração do banco de dados
-    ├── V1__create_user_table.sql
-    ├── V2__create_job_table.sql
-    ├── V3__create_application_table.sql
-    ├── V4__create_saved_jobs_table.sql
-    └── V5__create_analytics_table.sql
-```
+O banco de dados da aplicação é gerenciado pelo Flyway e consiste nas seguintes tabelas:
 
-## Instruções de Configuração
+### Tabelas Principais
+
+1. **users**
+   - Armazena informações de todos os usuários do sistema (candidatos, empregadores e administradores)
+   - Campos principais: id, name, email, password, role, avatar, resume, phone, company_name, company_description, company_logo
+
+2. **jobs**
+   - Armazena as vagas de emprego publicadas pelos empregadores
+   - Campos principais: id, title, description, requirements, location, type, salary_min, salary_max, recruiter_id
+
+3. **applications**
+   - Registra as candidaturas dos usuários às vagas
+   - Campos principais: id, resume, cover_letter, status, job_id, candidate_id
+
+4. **saved_jobs**
+   - Armazena as vagas salvas pelos candidatos
+   - Campos principais: id, jobseeker_id, job_id
+
+## Migrações
+
+As migrações estão localizadas no diretório `migrations/` e são executadas na seguinte ordem:
+
+1. **V1__Create_users_table.sql**
+   - Cria a tabela de usuários com os perfis: JOB_SEEKER, EMPLOYER, ADMIN
+
+2. **V2__Create_jobs_table.sql**
+   - Cria a tabela de vagas com tipos: Full-Time, Part-Time, Contract, Remote, Internship
+   - Inclui índices para otimização de consultas
+
+3. **V3__Create_applications_table.sql**
+   - Cria a tabela de candidaturas
+   - Status possíveis: PENDING (Pendente), APPROVED (Aprovado), REJECTED (Rejeitado)
+
+4. **V4__Create_saved_jobs_table.sql**
+   - Cria a tabela de vagas salvas
+   - Mantém o relacionamento entre candidatos e vagas salvas
+
+## Configuração
 
 ### Pré-requisitos
-- Servidor MySQL instalado
-- Ferramentas de cliente MySQL (como MySQL Workbench ou linha de comando)
+- MySQL 5.7 ou superior
+- Java 11 ou superior (para execução do Flyway)
+- Maven (para gerenciamento de dependências)
 
-### Configuração Inicial
+### Inicialização do Banco de Dados
 
-1. Edite o arquivo `init-db.sh` e atualize as credenciais do banco de dados se necessário:
+1. Configure as credenciais do banco de dados no arquivo `application.properties`
+2. Execute as migrações usando o comando:
    ```bash
-   DB_USER="root"
-   DB_PASSWORD="sua_senha"  # Altere para a senha do seu MySQL
+   mvn flyway:migrate
    ```
 
-2. No Windows, você pode usar Git Bash ou WSL para executar o script de inicialização:
-   ```bash
-   # Tornar o script executável (no Git Bash ou WSL)
-   chmod +x init-db.sh
-   
-   # Executar o script de inicialização
-   ./init-db.sh
-   ```
+## Gerenciamento de Migrações
 
-   Ou execute manualmente os arquivos SQL em ordem usando um cliente MySQL como o MySQL Workbench.
+- Todas as alterações no esquema do banco devem ser feitas através de migrações
+- As migrações são versionadas e executadas em ordem numérica
+- Nunca modifique migrações já aplicadas ao banco
+- Para criar uma nova migração, adicione um novo arquivo seguindo o padrão: `V[versão]__Descricao_da_migracao.sql`
 
-## Gerenciando Mudanças no Banco de Dados
+## Status Atual
 
-1. **Para novas alterações**:
-   - Crie um novo arquivo de migração com o próximo número de versão (ex: `V6__descricao_da_mudanca.sql`)
-   - Teste a migração localmente
+- O banco de dados está configurado para executar apenas a migração V1 (tabela de usuários)
+- As migrações V2, V3 e V4 estão disponíveis, mas não serão executadas automaticamente
+- Para aplicar as migrações adicionais, é necessário executá-las manualmente
    - Use o script fornecido para fazer o commit das alterações:
      ```bash
      ./commit-db-changes.sh "Add new feature X to the database"

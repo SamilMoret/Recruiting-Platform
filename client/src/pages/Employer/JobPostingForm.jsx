@@ -354,3 +354,4 @@ function JobPostingForm() {
 }
 
 export default JobPostingForm;
+export default JobPostingForm;

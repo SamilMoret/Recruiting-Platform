@@ -20,27 +20,27 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-    
+
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
-    
+
     @PostConstruct
     public void init() {
-        log.info("JwtService inicializado com expiração de {} ms ({} dias)", 
-                jwtConfig.getExpirationMs(), 
+        log.info("JwtService inicializado com expiração de {} ms ({} dias)",
+                jwtConfig.getExpirationMs(),
                 TimeUnit.MILLISECONDS.toDays(jwtConfig.getExpirationMs()));
     }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         String token = createToken(claims, userDetails.getUsername());
-        
+
         // Log para depuração
         Date expiration = extractExpiration(token);
         log.info("Novo token gerado para usuário: {}", userDetails.getUsername());
         log.info("Token expira em: {}", expiration);
         log.info("Tempo de expiração definido para: {} milissegundos", jwtConfig.getExpirationMs());
-                
+
         return token;
     }
 
@@ -48,10 +48,10 @@ public class JwtService {
         long now = System.currentTimeMillis();
         Date issuedAt = new Date(now);
         Date expiration = new Date(now + jwtConfig.getExpirationMs());
-        
-        log.debug("Criando token para '{}' emitido em {} e expirando em {}", 
+
+        log.debug("Criando token para '{}' emitido em {} e expirando em {}",
                 subject, issuedAt, expiration);
-                
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
@@ -65,7 +65,7 @@ public class JwtService {
         try {
             final String username = extractUsername(token);
             boolean isExpired = isTokenExpired(token);
-            
+
             // Log para depuração
             if (isExpired) {
                 Date expiration = extractExpiration(token);
@@ -73,15 +73,15 @@ public class JwtService {
                 log.warn("Data de expiração do token: {}", expiration);
                 log.warn("Data atual: {}", new Date());
             }
-            
+
             boolean isValid = (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-            
+
             if (isValid) {
                 log.debug("Token válido para o usuário: {}", username);
             } else {
                 log.warn("Token inválido para o usuário: {}", username);
             }
-            
+
             return isValid;
         } catch (Exception e) {
             log.error("Erro ao validar token: {}", e.getMessage(), e);
@@ -104,11 +104,11 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         try {
-            JwtParser parser = Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
+            JwtParser parser = Jwts.parser()
+                    .verifyWith(secretKey)
                     .build();
-                    
-            return parser.parseClaimsJws(token).getBody();
+
+            return parser.parseSignedClaims(token).getPayload();
         } catch (ExpiredJwtException ex) {
             log.warn("Token expirado: {}", ex.getMessage());
             throw ex;

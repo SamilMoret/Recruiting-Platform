@@ -1,7 +1,7 @@
 package br.com.one.jobportal.dto;
 
 import br.com.one.jobportal.entity.EmploymentType;
-import br.com.one.jobportal.entity.ExperienceLevel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -20,29 +20,31 @@ public class JobRequest {
     @NotBlank(message = "Descrição é obrigatória")
     private String description;
 
-    @NotBlank(message = "Empresa é obrigatória")
-    private String company;
+    @NotBlank(message = "Requisitos são obrigatórios")
+    private String requirements;
 
     @NotBlank(message = "Localização é obrigatória")
     private String location;
 
-    @NotNull(message = "Tipo de emprego é obrigatório")
-    private EmploymentType employmentType;
+    @NotBlank(message = "Categoria é obrigatória")
+    private String category;
 
-    @NotNull(message = "Nível de experiência é obrigatório")
-    private ExperienceLevel experienceLevel;
+    @NotBlank(message = "Tipo de emprego é obrigatório")
+    private String type;
 
     @NotNull(message = "Salário mínimo é obrigatório")
     @Positive(message = "Salário mínimo deve ser positivo")
-    private Double salaryMin;
+    private Integer salaryMin;
 
     @NotNull(message = "Salário máximo é obrigatório")
     @Positive(message = "Salário máximo deve ser positivo")
-    private Double salaryMax;
+    private Integer salaryMax;
 
-    @NotBlank(message = "Moeda é obrigatória")
-    private String salaryCurrency;
+    // Default value for active status
+    private Boolean active = true;
 
-    @NotNull(message = "Status é obrigatório")
-    private Boolean active;
+    // Helper method to get EmploymentType
+    public EmploymentType getEmploymentType() {
+        return type != null ? EmploymentType.fromString(type) : null;
+    }
 }

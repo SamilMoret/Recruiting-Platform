@@ -1,4 +1,5 @@
 import {
+import {
   BrowserRouter as Router,
   Routes,
   Route,
@@ -61,6 +62,7 @@ function App() {
   }, []);
 
   return (
+    <AuthProvider>
     <AuthProvider>
       <Router>
         {/* Floating Language Button */}
@@ -136,7 +138,18 @@ function App() {
             <Route path="/admin-user" element={<AdminUser />} />
             <Route path="/admin-company" element={<AdminEmployer />} />
           </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
 
+          {/* Admin Protected Routes */}
+          <Route element={<ProtectedRoute requiredRole="admin" />}>
+            <Route path="/admin-dashboard" element={<AdmDashboard />} />
+            <Route path="/admin-user" element={<AdminUser />} />
+            <Route path="/admin-company" element={<AdminEmployer />} />
+          </Route>
+
+          {/* Employer Protected Routes */}
           {/* Employer Protected Routes */}
           <Route element={<ProtectedRoute requiredRole="employer" />}>
             <Route path="/employer-dashboard" element={<EmployerDashboard />} />
@@ -156,9 +169,21 @@ function App() {
 
           {/* Catch all route - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
+          {/* JobSeeker Protected Routes */}
+          <Route element={<ProtectedRoute requiredRole="jobseeker" />}>
+            <Route path="/find-jobs" element={<JobSeekerDashboard />} />
+            <Route path="/job/:jobId" element={<JobDetails />} />
+            <Route path="/saved-jobs" element={<SavedJobs />} />
+            <Route path="/profile" element={<UserProfile />} />
+          </Route>
+
+          {/* Catch all route - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
 
+      <Toaster
+        toastOptions={{
       <Toaster
         toastOptions={{
           className: "",
@@ -169,6 +194,10 @@ function App() {
       />
     </AuthProvider>
   );
+      />
+    </AuthProvider>
+  );
 }
 
+export default App;
 export default App;
