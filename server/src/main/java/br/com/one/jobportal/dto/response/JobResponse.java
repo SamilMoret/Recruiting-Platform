@@ -56,6 +56,10 @@ public class JobResponse {
     }
 
     public static JobResponse fromEntity(Job job) {
+        return fromEntity(job, job.getIsSaved() != null ? job.getIsSaved() : false);
+    }
+    
+    public static JobResponse fromEntity(Job job, boolean isSaved) {
         if (job == null) {
             return null;
         }
@@ -90,7 +94,7 @@ public class JobResponse {
         response.setCreatedAt(job.getCreatedAt());
         response.setUpdatedAt(job.getUpdatedAt());
         response.set__v(null); // Definido como null conforme o exemplo
-        response.setIsSaved(job.getIsSaved() != null ? job.getIsSaved() : false);
+        response.setIsSaved(isSaved);
         response.setApplicationStatus(job.getApplicationStatus());
         response.setApplicationCount(job.getApplicationCount() != null ? job.getApplicationCount() : 0);
         response.setCategory(job.getCategory());

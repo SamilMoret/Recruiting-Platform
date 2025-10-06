@@ -70,8 +70,8 @@ public class SavedJobServiceImpl implements SavedJobService {
     @Override
     @Transactional(readOnly = true)
     public Page<SavedJobResponse> getSavedJobsByJobSeeker(Long jobSeekerId, Pageable pageable) {
-        // Busca as vagas salvas com paginação e ordenação
-        return savedJobRepository.findByJobSeekerId(jobSeekerId, pageable)
+        // Busca as vagas salvas com paginação e ordenação (otimizado com fetch join)
+        return savedJobRepository.findByJobSeekerIdWithJobAndRecruiter(jobSeekerId, pageable)
                 .map(this::convertToResponse);
     }
 

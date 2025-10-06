@@ -6,6 +6,7 @@ import br.com.one.jobportal.entity.EmploymentType;
 import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.service.JobService;
+import br.com.one.jobportal.service.SavedJobService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.validation.Valid;
@@ -33,6 +34,7 @@ import java.util.Map;
 public class JobController {
 
     private final JobService jobService;
+    private final SavedJobService savedJobService;
 
     @PostMapping
     @Transactional
@@ -63,10 +65,11 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getJobById(@PathVariable Long id) {
+    public ResponseEntity<?> getJobById(@PathVariable Long id, @AuthenticationPrincipal User user) {
         try {
             Job job = jobService.getJobById(id);
-            return ResponseEntity.ok(JobResponse.fromEntity(job));
+            boolean isSaved = user != null && savedJobService.isJobSavedByUser(user.getId(), id);
+            return ResponseEntity.ok(JobResponse.fromEntity(job, isSaved));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("message", e.getMessage()));
@@ -78,7 +81,8 @@ public class JobController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String employmentType,
-            @PageableDefault(size = 10) Pageable pageable) {
+            @PageableDefault(size = 10) Pageable pageable,
+            @AuthenticationPrincipal User user) {
         try {
             // Filtro para buscar vagas ativas
             Specification<Job> spec = (root, query, cb) -> {
@@ -103,7 +107,14 @@ public class JobController {
             };
             
             Page<Job> jobs = jobService.searchJobs(spec, pageable);
-            return ResponseEntity.ok(jobs.map(JobResponse::fromEntity));
+            
+            // Mapeia as vagas para incluir a informação de se estão salvas para o usuário atual
+            Page<JobResponse> response = jobs.map(job -> {
+                boolean isSaved = user != null && savedJobService.isJobSavedByUser(user.getId(), job.getId());
+                return JobResponse.fromEntity(job, isSaved);
+            });
+            
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
                     .body(Map.of("message", "Erro ao buscar vagas: " + e.getMessage()));

@@ -53,7 +53,7 @@ public class Job {
     @Column(nullable = false)
     private String category;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = EmploymentTypeConverter.class)
     @Column(nullable = false)
     private EmploymentType type;
 

@@ -27,6 +27,13 @@ public interface SavedJobRepository extends JpaRepository<SavedJob, Long> {
     // Lista todas as vagas salvas por um candidato com paginação
     Page<SavedJob> findByJobSeekerId(Long jobSeekerId, Pageable pageable);
     
+    // Lista todas as vagas salvas por um candidato com paginação (otimizado com fetch join)
+    @Query("SELECT sj FROM SavedJob sj " +
+           "LEFT JOIN FETCH sj.job j " +
+           "LEFT JOIN FETCH j.recruiter " +
+           "WHERE sj.jobSeeker.id = :jobSeekerId")
+    Page<SavedJob> findByJobSeekerIdWithJobAndRecruiter(@Param("jobSeekerId") Long jobSeekerId, Pageable pageable);
+    
     // Conta quantas vezes uma vaga foi salva
     long countByJobId(Long jobId);
     
