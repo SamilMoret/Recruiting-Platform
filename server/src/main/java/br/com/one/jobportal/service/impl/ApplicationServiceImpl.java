@@ -46,7 +46,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         application.setApplicant(applicant);
         application.setCoverLetter(request.getCoverLetter());
         application.setResume(request.getResumeUrl());
-        application.setStatus(Application.Status.APPLIED);
+        application.setStatus(Application.Status.PENDING);
         application.setCreatedAt(LocalDateTime.now());
         
         Application savedApplication = applicationRepository.save(application);
@@ -114,17 +114,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     @Transactional(readOnly = true)
     public Page<ApplicationResponse> getApplicationsByJobSeeker(User jobSeeker, Pageable pageable) {
-        // Implementação alternativa já que não temos o método com paginação no repositório
-        List<Application> allApplications = applicationRepository.findByApplicant(jobSeeker);
-        return new org.springframework.data.domain.PageImpl<>(
-            allApplications.stream()
-                .skip(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .map(ApplicationResponse::fromEntity)
-                .collect(Collectors.toList()),
-            pageable,
-            allApplications.size()
-        );
+        // Usa query otimizada com fetch joins
+        return applicationRepository.findByApplicantWithDetails(jobSeeker, pageable)
+                .map(ApplicationResponse::fromEntity);
     }
 
     @Override
@@ -138,17 +130,9 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     @Transactional(readOnly = true)
     public Page<ApplicationResponse> getApplicationsForEmployer(User employer, Pageable pageable) {
-        // Implementação alternativa já que não temos o método com paginação no repositório
-        List<Application> allApplications = applicationRepository.findByJobRecruiter(employer);
-        return new org.springframework.data.domain.PageImpl<>(
-            allApplications.stream()
-                .skip(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .map(ApplicationResponse::fromEntity)
-                .collect(Collectors.toList()),
-            pageable,
-            allApplications.size()
-        );
+        // Usa query otimizada com fetch joins
+        return applicationRepository.findByJobRecruiterWithDetails(employer, pageable)
+                .map(ApplicationResponse::fromEntity);
     }
 
     @Override
@@ -162,7 +146,8 @@ public class ApplicationServiceImpl implements ApplicationService {
             throw new UnauthorizedAccessException("You are not authorized to view applications for this job");
         }
         
-        return applicationRepository.findByJob(job).stream()
+        // Usa query otimizada com fetch joins
+        return applicationRepository.findByJobIdWithDetails(jobId).stream()
                 .map(ApplicationResponse::fromEntity)
                 .collect(Collectors.toList());
     }
@@ -176,16 +161,14 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     @Transactional(readOnly = true)
     public long countApplicationsForEmployer(User employer) {
-        // Conta as aplicações para as vagas do empregador
-        return applicationRepository.findByJobRecruiter(employer).size();
+        // Usa contagem otimizada
+        return applicationRepository.countByJobRecruiter(employer);
     }
 
     @Override
     @Transactional(readOnly = true)
     public boolean hasApplied(Long jobId, User jobSeeker) {
-        // Verifica se existe alguma aplicação para a vaga e candidato
-        return jobRepository.findById(jobId)
-                .map(job -> applicationRepository.findByApplicantAndJob(jobSeeker, job).isPresent())
-                .orElse(false);
+        // Usa verificação otimizada
+        return applicationRepository.existsByApplicantIdAndJobId(jobSeeker.getId(), jobId);
     }
 }
