@@ -54,4 +54,51 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     // Contagem otimizada
     @Query("SELECT COUNT(a) FROM Application a WHERE a.job.recruiter = :recruiter")
     long countByJobRecruiter(@Param("recruiter") User recruiter);
+    
+    // Filtros por status
+    @Query("SELECT a FROM Application a " +
+           "LEFT JOIN FETCH a.job j " +
+           "LEFT JOIN FETCH j.recruiter " +
+           "LEFT JOIN FETCH a.applicant " +
+           "WHERE a.applicant = :applicant " +
+           "AND (:status IS NULL OR a.status = :status) " +
+           "ORDER BY a.createdAt DESC")
+    Page<Application> findByApplicantAndStatus(
+            @Param("applicant") User applicant, 
+            @Param("status") Application.Status status, 
+            Pageable pageable);
+    
+    @Query("SELECT a FROM Application a " +
+           "LEFT JOIN FETCH a.job j " +
+           "LEFT JOIN FETCH a.applicant " +
+           "WHERE j.recruiter = :recruiter " +
+           "AND (:status IS NULL OR a.status = :status) " +
+           "AND (:jobId IS NULL OR j.id = :jobId) " +
+           "ORDER BY a.createdAt DESC")
+    Page<Application> findByRecruiterAndStatusAndJob(
+            @Param("recruiter") User recruiter,
+            @Param("status") Application.Status status,
+            @Param("jobId") Long jobId,
+            Pageable pageable);
+    
+    // Estatísticas
+    @Query("SELECT a.status, COUNT(a) FROM Application a " +
+           "WHERE a.applicant = :applicant " +
+           "GROUP BY a.status")
+    List<Object[]> countByApplicantGroupByStatus(@Param("applicant") User applicant);
+    
+    @Query("SELECT a.status, COUNT(a) FROM Application a " +
+           "WHERE a.job.recruiter = :recruiter " +
+           "GROUP BY a.status")
+    List<Object[]> countByRecruiterGroupByStatus(@Param("recruiter") User recruiter);
+    
+    @Query("SELECT a.status, COUNT(a) FROM Application a " +
+           "WHERE a.job.id = :jobId " +
+           "GROUP BY a.status")
+    List<Object[]> countByJobIdGroupByStatus(@Param("jobId") Long jobId);
+    
+    // Contagem por status específico
+    long countByApplicantAndStatus(User applicant, Application.Status status);
+    long countByJobRecruiterAndStatus(User recruiter, Application.Status status);
+    long countByJobIdAndStatus(Long jobId, Application.Status status);
 }

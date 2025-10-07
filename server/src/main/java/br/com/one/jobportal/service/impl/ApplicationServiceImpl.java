@@ -2,6 +2,7 @@ package br.com.one.jobportal.service.impl;
 
 import br.com.one.jobportal.dto.ApplyJobRequest;
 import br.com.one.jobportal.dto.response.ApplicationResponse;
+import br.com.one.jobportal.dto.response.ApplicationStatsResponse;
 import br.com.one.jobportal.entity.Application;
 import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
@@ -12,15 +13,19 @@ import br.com.one.jobportal.repository.ApplicationRepository;
 import br.com.one.jobportal.repository.JobRepository;
 import br.com.one.jobportal.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
@@ -170,5 +175,115 @@ public class ApplicationServiceImpl implements ApplicationService {
     public boolean hasApplied(Long jobId, User jobSeeker) {
         // Usa verificação otimizada
         return applicationRepository.existsByApplicantIdAndJobId(jobSeeker.getId(), jobId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ApplicationResponse> getApplicationsByJobSeeker(User jobSeeker, String status, Pageable pageable) {
+        log.info("Buscando candidaturas para usuário: {}, status: {}", jobSeeker.getEmail(), status);
+        try {
+            Application.Status statusEnum = status != null ? Application.Status.valueOf(status.toUpperCase()) : null;
+            Page<ApplicationResponse> result = applicationRepository.findByApplicantAndStatus(jobSeeker, statusEnum, pageable)
+                    .map(ApplicationResponse::fromEntity);
+            log.info("Encontradas {} candidaturas", result.getTotalElements());
+            return result;
+        } catch (Exception e) {
+            log.error("Erro ao buscar candidaturas: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<ApplicationResponse> getApplicationsForEmployer(User employer, String status, Long jobId, Pageable pageable) {
+        Application.Status statusEnum = status != null ? Application.Status.valueOf(status.toUpperCase()) : null;
+        return applicationRepository.findByRecruiterAndStatusAndJob(employer, statusEnum, jobId, pageable)
+                .map(ApplicationResponse::fromEntity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ApplicationStatsResponse getJobSeekerStats(User jobSeeker) {
+        List<Object[]> statusCounts = applicationRepository.countByApplicantGroupByStatus(jobSeeker);
+        
+        long total = applicationRepository.countByApplicant(jobSeeker);
+        long pending = applicationRepository.countByApplicantAndStatus(jobSeeker, Application.Status.PENDING);
+        long approved = applicationRepository.countByApplicantAndStatus(jobSeeker, Application.Status.APPROVED);
+        long rejected = applicationRepository.countByApplicantAndStatus(jobSeeker, Application.Status.REJECTED);
+        
+        Map<String, Long> byStatus = new HashMap<>();
+        for (Object[] row : statusCounts) {
+            Application.Status status = (Application.Status) row[0];
+            Long count = (Long) row[1];
+            byStatus.put(status.name(), count);
+        }
+        
+        return ApplicationStatsResponse.builder()
+                .totalApplications(total)
+                .pendingApplications(pending)
+                .approvedApplications(approved)
+                .rejectedApplications(rejected)
+                .applicationsByStatus(byStatus)
+                .build();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ApplicationStatsResponse getEmployerStats(User employer) {
+        List<Object[]> statusCounts = applicationRepository.countByRecruiterGroupByStatus(employer);
+        
+        long total = applicationRepository.countByJobRecruiter(employer);
+        long pending = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.PENDING);
+        long approved = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.APPROVED);
+        long rejected = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.REJECTED);
+        
+        Map<String, Long> byStatus = new HashMap<>();
+        for (Object[]row : statusCounts) {
+            Application.Status status = (Application.Status) row[0];
+            Long count = (Long) row[1];
+            byStatus.put(status.name(), count);
+        }
+        
+        return ApplicationStatsResponse.builder()
+                .totalApplications(total)
+                .pendingApplications(pending)
+                .approvedApplications(approved)
+                .rejectedApplications(rejected)
+                .applicationsByStatus(byStatus)
+                .build();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ApplicationStatsResponse getJobStats(Long jobId, User employer) {
+        // Verifica se a vaga pertence ao recrutador
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new ResourceNotFoundException("Job not found with id: " + jobId));
+        
+        if (!job.getRecruiter().getId().equals(employer.getId())) {
+            throw new UnauthorizedAccessException("You are not authorized to view stats for this job");
+        }
+        
+        List<Object[]> statusCounts = applicationRepository.countByJobIdGroupByStatus(jobId);
+        
+        long total = applicationRepository.countByJob(job);
+        long pending = applicationRepository.countByJobIdAndStatus(jobId, Application.Status.PENDING);
+        long approved = applicationRepository.countByJobIdAndStatus(jobId, Application.Status.APPROVED);
+        long rejected = applicationRepository.countByJobIdAndStatus(jobId, Application.Status.REJECTED);
+        
+        Map<String, Long> byStatus = new HashMap<>();
+        for (Object[] row : statusCounts) {
+            Application.Status status = (Application.Status) row[0];
+            Long count = (Long) row[1];
+            byStatus.put(status.name(), count);
+        }
+        
+        return ApplicationStatsResponse.builder()
+                .totalApplications(total)
+                .pendingApplications(pending)
+                .approvedApplications(approved)
+                .rejectedApplications(rejected)
+                .applicationsByStatus(byStatus)
+                .build();
     }
 }

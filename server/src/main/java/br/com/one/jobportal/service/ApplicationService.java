@@ -2,6 +2,7 @@ package br.com.one.jobportal.service;
 
 import br.com.one.jobportal.dto.ApplyJobRequest;
 import br.com.one.jobportal.dto.response.ApplicationResponse;
+import br.com.one.jobportal.dto.response.ApplicationStatsResponse;
 import br.com.one.jobportal.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +22,13 @@ public interface ApplicationService {
     
     Page<ApplicationResponse> getApplicationsByJobSeeker(User jobSeeker, Pageable pageable);
     
+    Page<ApplicationResponse> getApplicationsByJobSeeker(User jobSeeker, String status, Pageable pageable);
+    
     List<ApplicationResponse> getApplicationsForEmployer(User employer);
     
     Page<ApplicationResponse> getApplicationsForEmployer(User employer, Pageable pageable);
+    
+    Page<ApplicationResponse> getApplicationsForEmployer(User employer, String status, Long jobId, Pageable pageable);
     
     List<ApplicationResponse> getApplicationsByJobId(Long jobId, User user);
     
@@ -32,4 +37,10 @@ public interface ApplicationService {
     long countApplicationsForEmployer(User employer);
     
     boolean hasApplied(Long jobId, User jobSeeker);
+    
+    ApplicationStatsResponse getJobSeekerStats(User jobSeeker);
+    
+    ApplicationStatsResponse getEmployerStats(User employer);
+    
+    ApplicationStatsResponse getJobStats(Long jobId, User employer);
 }

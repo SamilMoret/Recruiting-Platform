@@ -62,24 +62,33 @@ public class ApplicationController {
 
     @GetMapping("/my-applications")
     @PreAuthorize("hasRole('JOB_SEEKER')")
-    public List<ApplicationResponse> getMyApplications(
+    public ResponseEntity<Page<ApplicationResponse>> getMyApplications(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createdAt,desc") String[] sort,
+            @RequestParam(required = false) String status,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDirection,
             @AuthenticationPrincipal User user) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-        return applicationService.getApplicationsByJobSeeker(user, pageable).getContent();
+        Sort.Direction direction = Sort.Direction.fromString(sortDirection);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        Page<ApplicationResponse> applications = applicationService.getApplicationsByJobSeeker(user, status, pageable);
+        return ResponseEntity.ok(applications);
     }
 
     @GetMapping("/employer")
     @PreAuthorize("hasRole('EMPLOYER')")
-    public List<ApplicationResponse> getApplicationsForEmployer(
+    public ResponseEntity<Page<ApplicationResponse>> getApplicationsForEmployer(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createdAt,desc") String[] sort,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) Long jobId,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDirection,
             @AuthenticationPrincipal User user) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-        return applicationService.getApplicationsForEmployer(user, pageable).getContent();
+        Sort.Direction direction = Sort.Direction.fromString(sortDirection);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        Page<ApplicationResponse> applications = applicationService.getApplicationsForEmployer(user, status, jobId, pageable);
+        return ResponseEntity.ok(applications);
     }
 
     @GetMapping("/job/{jobId}")
@@ -108,5 +117,25 @@ public class ApplicationController {
             @PathVariable Long jobId,
             @AuthenticationPrincipal User user) {
         return applicationService.hasApplied(jobId, user);
+    }
+
+    @GetMapping("/stats/job-seeker")
+    @PreAuthorize("hasRole('JOB_SEEKER')")
+    public ResponseEntity<?> getJobSeekerStats(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(applicationService.getJobSeekerStats(user));
+    }
+
+    @GetMapping("/stats/employer")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<?> getEmployerStats(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(applicationService.getEmployerStats(user));
+    }
+
+    @GetMapping("/stats/job/{jobId}")
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<?> getJobStats(
+            @PathVariable Long jobId,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(applicationService.getJobStats(jobId, user));
     }
 }
