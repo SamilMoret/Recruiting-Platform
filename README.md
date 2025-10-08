@@ -4,17 +4,6 @@ Plataforma de Recrutamento e Seleção que conecta candidatos a vagas de emprego
 
 ## 🚀 Tecnologias
 
-### Backend
-- **Java 17** - Linguagem principal
-- **Spring Boot 3.x** - Framework para aplicações Java
-- **Spring Security** - Autenticação e autorização
-- **JWT** - Autenticação stateless
-- **JPA/Hibernate** - Mapeamento objeto-relacional
-- **MySQL** - Banco de dados
-- **Maven** - Gerenciamento de dependências
-- **Lombok** - Redução de boilerplate
-- **Flyway** - Migrações de banco de dados
-
 ### Frontend
 - **React** - Biblioteca JavaScript para interfaces
 - **TypeScript** - Tipagem estática para JavaScript
@@ -25,6 +14,18 @@ Plataforma de Recrutamento e Seleção que conecta candidatos a vagas de emprego
 - **React Hook Form** - Gerenciamento de formulários
 - **React Query** - Gerenciamento de estado e cache
 - **Zod** - Validação de esquemas
+
+
+### Backend
+- **Java 17** - Linguagem principal
+- **Spring Boot 3.x** - Framework para aplicações Java
+- **Spring Security** - Autenticação e autorização
+- **JWT** - Autenticação stateless
+- **JPA/Hibernate** - Mapeamento objeto-relacional
+- **MySQL** - Banco de dados
+- **Maven** - Gerenciamento de dependências
+- **Lombok** - Redução de boilerplate
+- **Flyway** - Migrações de banco de dados
 
 ## 📦 Estrutura do Projeto
 
@@ -57,8 +58,7 @@ recruiting-platform/
 
 ### Pré-requisitos
 
-- Java 17 ou superior
-- Node.js 16+
+- Java 22 ou superior
 - MySQL 8.0+
 - Maven 3.8+
 
@@ -107,8 +107,6 @@ recruiting-platform/
 
 ## 📚 Documentação da API
 
-A documentação da API está disponível em `http://localhost:8080/swagger-ui.html` quando o servidor estiver em execução.
-
 ### Principais Endpoints
 
 #### Autenticação
@@ -156,9 +154,6 @@ A documentação da API está disponível em `http://localhost:8080/swagger-ui.h
 - Estatísticas da plataforma
 - Moderação de conteúdo
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 👥 Contribuição
 
@@ -168,6 +163,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 4. Faça o push da branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
-## 🤝 Suporte
+## 🤝 Feito por:
+Welinton Nascimeto
+Samil Moret
 
-Para suporte, envie um e-mail para suporte@jobportal.com ou abra uma issue no repositório.
