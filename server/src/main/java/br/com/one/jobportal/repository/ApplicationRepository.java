@@ -5,6 +5,8 @@ import br.com.one.jobportal.entity.Job;
 import br.com.one.jobportal.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,6 +25,12 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     Optional<Application> findByApplicantAndJob(User applicant, Job job);
     Long countByJob(Job job);
     Long countByApplicant(User applicant);
+    
+    // Contagem de candidaturas por status
+    Long countByStatus(Application.Status status);
+    
+    // Contagem de candidaturas por vaga e status
+    Long countByJobAndStatus(Job job, Application.Status status);
     
     // Métodos otimizados com paginação e fetch joins
     @Query("SELECT a FROM Application a " +
@@ -101,4 +109,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     long countByApplicantAndStatus(User applicant, Application.Status status);
     long countByJobRecruiterAndStatus(User recruiter, Application.Status status);
     long countByJobIdAndStatus(Long jobId, Application.Status status);
+    
 }

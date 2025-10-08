@@ -37,6 +37,10 @@ public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificatio
     List<Job> findByIsClosed(boolean isClosed);
     List<Job> findByIsClosedFalse(); // Método de conveniência
     
+    // Contagem de vagas por status de fechamento
+    Long countByIsClosed(boolean isClosed);
+    Long countByIsClosedFalse(); // Método de conveniência
+    
     // 5. Vaga salva
     @Modifying
     @Query("UPDATE Job j SET j.isSaved = :isSaved WHERE j.id = :jobId")
