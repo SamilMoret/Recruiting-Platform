@@ -3,6 +3,7 @@ package br.com.one.jobportal.controller;
 import br.com.one.jobportal.dto.LoginRequest;
 import br.com.one.jobportal.dto.RegisterRequest;
 import br.com.one.jobportal.dto.response.LoginResponse;
+import br.com.one.jobportal.dto.response.UserProfileResponse;
 import br.com.one.jobportal.entity.User;
 import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.security.JwtService;
@@ -12,21 +13,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
-    // ✅ Injete todas as dependências necessárias
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final AuthService authService;
-
     private final UserRepository userRepository;
 
     @PostMapping("/login")
@@ -41,7 +41,7 @@ public class AuthController {
             System.out.println("Autenticação bem-sucedida para: " + request.getEmail());
 
             // Carrega os detalhes do usuário
-            UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+            var userDetails = userDetailsService.loadUserByUsername(request.getEmail());
             System.out.println("Detalhes do usuário carregados: " + userDetails.getUsername());
 
             // Busca o usuário completo para obter os dados adicionais
@@ -52,7 +52,7 @@ public class AuthController {
             String jwt = jwtService.generateToken(userDetails);
             System.out.println("Token JWT gerado com sucesso");
 
-            // Cria a resposta personalizada
+            // Cria a resposta personalizada usando o método estático da classe LoginResponse
             LoginResponse response = LoginResponse.fromUserAndToken(user, jwt);
             return ResponseEntity.ok(response);
 
@@ -92,5 +92,14 @@ public class AuthController {
         } else {
             return ResponseEntity.badRequest().body("Valor inválido para o campo 'role'. Use 'JOB_SEEKER' (ou 'JOBSEEKER') ou 'EMPLOYER'");
         }
+    }
+    
+    /**
+     * Obtém o perfil do usuário autenticado
+     * @return Perfil do usuário autenticado
+     */
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileResponse> getProfile() {
+        return authService.getUserProfile();
     }
 }
