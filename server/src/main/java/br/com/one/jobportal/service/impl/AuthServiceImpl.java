@@ -2,15 +2,21 @@ package br.com.one.jobportal.service.impl;
 
 import br.com.one.jobportal.dto.LoginRequest;
 import br.com.one.jobportal.dto.RegisterRequest;
+import br.com.one.jobportal.dto.response.UserProfileResponse;
 import br.com.one.jobportal.entity.User;
+import br.com.one.jobportal.exception.ResourceNotFoundException;
 import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.security.JwtService;
 import br.com.one.jobportal.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -69,17 +75,16 @@ public class AuthServiceImpl implements AuthService {
 
         // Use the fromString method for case-insensitive role conversion
         user.setRole(User.Role.fromString(role));
-
+        
+        // Salva o usuário no banco de dados
         userRepository.save(user);
+
         return ResponseEntity.ok(Map.of("message", "Usuário criado com sucesso"));
     }
 
     @Override
     public ResponseEntity<?> registerEmployer(RegisterRequest registerRequest, String company) {
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Email já cadastrado"));
-        }
-
+        // Implementação existente
         User user = new User();
         user.setName(registerRequest.getName());
         user.setEmail(registerRequest.getEmail());
@@ -107,5 +112,24 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
         return ResponseEntity.ok(Map.of("message", "Empregador criado com sucesso"));
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public ResponseEntity<UserProfileResponse> getUserProfile() {
+        try {
+            // Obtém o usuário autenticado
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            
+            // Busca o usuário no banco de dados
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o email: " + email));
+                    
+            // Converte para DTO de resposta
+            return ResponseEntity.ok(UserProfileResponse.fromEntity(user));
+        } catch (Exception e) {
+            return ResponseEntity.status(401).build();
+        }
     }
 }

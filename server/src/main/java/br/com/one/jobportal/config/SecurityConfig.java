@@ -38,8 +38,9 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/error").permitAll()
+                .requestMatchers("/api/auth/register/**", "/api/auth/login", "/error").permitAll()
                 .requestMatchers("/api/jobs/**").permitAll()
+                .requestMatchers("/api/auth/profile").authenticated()
                 .requestMatchers("/api/saved-jobs/**").authenticated()
                 .requestMatchers("/api/profile/**").authenticated()
                 .anyRequest().authenticated()
