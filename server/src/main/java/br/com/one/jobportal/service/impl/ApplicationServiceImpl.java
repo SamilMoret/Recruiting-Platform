@@ -204,18 +204,39 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     @Transactional(readOnly = true)
     public ApplicationStatsResponse getJobSeekerStats(User jobSeeker) {
-        List<Object[]> statusCounts = applicationRepository.countByApplicantGroupByStatus(jobSeeker);
+        log.info("Buscando estatísticas para o candidato: {}", jobSeeker.getEmail());
         
+        // Contagem total de candidaturas
         long total = applicationRepository.countByApplicant(jobSeeker);
+        
+        // Contagem por status
         long pending = applicationRepository.countByApplicantAndStatus(jobSeeker, Application.Status.PENDING);
         long approved = applicationRepository.countByApplicantAndStatus(jobSeeker, Application.Status.APPROVED);
         long rejected = applicationRepository.countByApplicantAndStatus(jobSeeker, Application.Status.REJECTED);
         
+        // Agrupar por status
         Map<String, Long> byStatus = new HashMap<>();
-        for (Object[] row : statusCounts) {
-            Application.Status status = (Application.Status) row[0];
-            Long count = (Long) row[1];
-            byStatus.put(status.name(), count);
+        List<Object[]> statusCounts = applicationRepository.countByApplicantGroupByStatus(jobSeeker);
+        if (statusCounts != null) {
+            for (Object[] row : statusCounts) {
+                if (row != null && row.length >= 2) {
+                    Application.Status status = (Application.Status) row[0];
+                    Long count = (row[1] != null) ? ((Number) row[1]).longValue() : 0L;
+                    byStatus.put(status.name(), count);
+                }
+            }
+        }
+        
+        // Agrupar por mês (exemplo simplificado)
+        Map<String, Long> byMonth = new HashMap<>();
+        List<Application> applications = applicationRepository.findByApplicant(jobSeeker);
+        if (applications != null) {
+            byMonth = applications.stream()
+                .filter(app -> app.getCreatedAt() != null)
+                .collect(Collectors.groupingBy(
+                    app -> String.valueOf(app.getCreatedAt().getMonthValue()),
+                    Collectors.counting()
+                ));
         }
         
         return ApplicationStatsResponse.builder()
@@ -224,66 +245,111 @@ public class ApplicationServiceImpl implements ApplicationService {
                 .approvedApplications(approved)
                 .rejectedApplications(rejected)
                 .applicationsByStatus(byStatus)
+                .applicationsByMonth(byMonth)
                 .build();
     }
 
     @Override
     @Transactional(readOnly = true)
     public ApplicationStatsResponse getEmployerStats(User employer) {
-        List<Object[]> statusCounts = applicationRepository.countByRecruiterGroupByStatus(employer);
+        log.info("Buscando estatísticas para o empregador: {}", employer.getEmail());
         
-        long total = applicationRepository.countByJobRecruiter(employer);
-        long pending = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.PENDING);
-        long approved = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.APPROVED);
-        long rejected = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.REJECTED);
+        // Contagem total de candidaturas
+        Long total = applicationRepository.countByJobRecruiter(employer);
         
+        // Contagem por status
+        Long pending = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.PENDING);
+        Long approved = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.APPROVED);
+        Long rejected = applicationRepository.countByJobRecruiterAndStatus(employer, Application.Status.REJECTED);
+        
+        // Agrupar por status
         Map<String, Long> byStatus = new HashMap<>();
-        for (Object[]row : statusCounts) {
-            Application.Status status = (Application.Status) row[0];
-            Long count = (Long) row[1];
-            byStatus.put(status.name(), count);
+        List<Object[]> statusCounts = applicationRepository.countByRecruiterGroupByStatus(employer);
+        if (statusCounts != null) {
+            for (Object[] row : statusCounts) {
+                if (row != null && row.length >= 2) {
+                    Application.Status status = (Application.Status) row[0];
+                    Long count = (row[1] != null) ? ((Number) row[1]).longValue() : 0L;
+                    byStatus.put(status.name(), count);
+                }
+            }
+        }
+        
+        // Agrupar por mês (exemplo simplificado)
+        Map<String, Long> byMonth = new HashMap<>();
+        List<Application> applications = applicationRepository.findByJobRecruiter(employer);
+        if (applications != null) {
+            byMonth = applications.stream()
+                .filter(app -> app.getCreatedAt() != null)
+                .collect(Collectors.groupingBy(
+                    app -> String.valueOf(app.getCreatedAt().getMonthValue()),
+                    Collectors.counting()
+                ));
         }
         
         return ApplicationStatsResponse.builder()
-                .totalApplications(total)
-                .pendingApplications(pending)
-                .approvedApplications(approved)
-                .rejectedApplications(rejected)
+                .totalApplications(total != null ? total : 0L)
+                .pendingApplications(pending != null ? pending : 0L)
+                .approvedApplications(approved != null ? approved : 0L)
+                .rejectedApplications(rejected != null ? rejected : 0L)
                 .applicationsByStatus(byStatus)
+                .applicationsByMonth(byMonth)
                 .build();
     }
 
     @Override
     @Transactional(readOnly = true)
     public ApplicationStatsResponse getJobStats(Long jobId, User employer) {
-        // Verifica se a vaga pertence ao recrutador
-        Job job = jobRepository.findById(jobId)
-                .orElseThrow(() -> new ResourceNotFoundException("Job not found with id: " + jobId));
+        log.info("Buscando estatísticas para a vaga: {}", jobId);
         
-        if (!job.getRecruiter().getId().equals(employer.getId())) {
-            throw new UnauthorizedAccessException("You are not authorized to view stats for this job");
+        // Verificar se a vaga existe e se o empregador é o dono
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new ResourceNotFoundException("Vaga não encontrada com o ID: " + jobId));
+        
+        if (!job.getRecruiter().equals(employer)) {
+            throw new UnauthorizedAccessException("Você não tem permissão para acessar esta vaga");
         }
         
-        List<Object[]> statusCounts = applicationRepository.countByJobIdGroupByStatus(jobId);
+        // Contagem total de candidaturas
+        Long total = applicationRepository.countByJob(job);
         
-        long total = applicationRepository.countByJob(job);
-        long pending = applicationRepository.countByJobIdAndStatus(jobId, Application.Status.PENDING);
-        long approved = applicationRepository.countByJobIdAndStatus(jobId, Application.Status.APPROVED);
-        long rejected = applicationRepository.countByJobIdAndStatus(jobId, Application.Status.REJECTED);
+        // Contagem por status
+        Long pending = applicationRepository.countByJobAndStatus(job, Application.Status.PENDING);
+        Long approved = applicationRepository.countByJobAndStatus(job, Application.Status.APPROVED);
+        Long rejected = applicationRepository.countByJobAndStatus(job, Application.Status.REJECTED);
         
+        // Agrupar por status
         Map<String, Long> byStatus = new HashMap<>();
-        for (Object[] row : statusCounts) {
-            Application.Status status = (Application.Status) row[0];
-            Long count = (Long) row[1];
-            byStatus.put(status.name(), count);
+        List<Object[]> statusCounts = applicationRepository.countByJobIdGroupByStatus(jobId);
+        if (statusCounts != null) {
+            for (Object[] row : statusCounts) {
+                if (row != null && row.length >= 2) {
+                    Application.Status status = (Application.Status) row[0];
+                    Long count = (row[1] != null) ? ((Number) row[1]).longValue() : 0L;
+                    byStatus.put(status.name(), count);
+                }
+            }
+        }
+        
+        // Agrupar por mês (exemplo simplificado)
+        Map<String, Long> byMonth = new HashMap<>();
+        List<Application> applications = applicationRepository.findByJob(job);
+        if (applications != null) {
+            byMonth = applications.stream()
+                .filter(app -> app.getCreatedAt() != null)
+                .collect(Collectors.groupingBy(
+                    app -> String.valueOf(app.getCreatedAt().getMonthValue()),
+                    Collectors.counting()
+                ));
         }
         
         return ApplicationStatsResponse.builder()
-                .totalApplications(total)
-                .pendingApplications(pending)
-                .approvedApplications(approved)
-                .rejectedApplications(rejected)
+                .totalApplications(total != null ? total : 0L)
+                .pendingApplications(pending != null ? pending : 0L)
+                .approvedApplications(approved != null ? approved : 0L)
+                .rejectedApplications(rejected != null ? rejected : 0L)
                 .applicationsByStatus(byStatus)
+                .applicationsByMonth(byMonth)
                 .build();
     }
 }
