@@ -436,6 +436,19 @@
     },
     "category": "tipo de trabajo"
   },
+  "categories":{
+      "Engineering": "Ingeniería",
+      "Marketing": "Marketing",
+      "Sales": "Ventas",
+      "Design": "Diseño",
+      "Finance": "Finanzas",
+      "ITSoftware": "TI y Software",
+      "Customer-service": "Atención al cliente",
+      "Product": "Producto",
+      "Operations": "Operaciones",
+      "HR": "Recursos Humanos",
+      "Other": "Otro"
+    },
   "jobTypes": {
     "Full-Time": "Tiempo completo",
     "Part-Time": "Medio tiempo",

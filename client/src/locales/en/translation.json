@@ -436,6 +436,19 @@
     },
     "category": "Job Category"
   },
+  "categories": {
+    "Engineering": "Engineering",
+    "Marketing": "Marketing",
+    "Sales": "Sales",
+    "Design": "Design",
+    "Finance": "Finance",
+    "IT": "IT Software",
+    "Customer-service": "Customer Service",
+    "Product": "Product",
+    "Operations": "Operations",
+    "HR": "Human Resources",
+    "Other": "Other"
+    },
   "jobTypes": {
     "Full-Time": "Full-time",
     "Part-Time": "Part-time",

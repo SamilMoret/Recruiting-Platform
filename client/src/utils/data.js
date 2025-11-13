@@ -93,8 +93,8 @@ export const CATEGORIES = [
 ];
 
 export const JOB_TYPES = [
-  { value: "Full-Time", labelKey: "jobTypes.FullTime" },
-  { value: "Part-Time", labelKey: "jobTypes.PartTime" },
+  { value: "Full-Time", labelKey: "jobTypes.Full-Time" },
+  { value: "Part-Time", labelKey: "jobTypes.Part-Time" },
   { value: "Contract", labelKey: "jobTypes.Contract" },
   { value: "Remote", labelKey: "jobTypes.Remote" },
   { value: "Internship", labelKey: "jobTypes.Internship" },

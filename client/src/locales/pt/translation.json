@@ -437,6 +437,20 @@
     },
     "category": "Categoria"
   },
+  "categories":{
+      "title": "Categorias",
+      "Engineering": "Engenharia",
+      "Marketing": "Marketing",
+      "Sales": "Vendas",
+      "Design": "Design",
+      "Finance": "Finanças",
+      "IT": "TI",
+      "Customer-service": "Atendimento ao cliente",
+      "Product": "Produto",
+      "Operations": "Operações",
+      "HR": "Recursos Humanos",
+      "Other": "Outro"
+    },
   "jobTypes": {
     "Full-Time": "Tempo integral",
     "Part-Time": "Meio período",

@@ -1,4 +1,5 @@
-import { AlertCircle } from "lucide-react"
+import { useTranslation } from "react-i18next";
+import { AlertCircle } from "lucide-react";
 
 const SelectField = ({
     label,
@@ -12,16 +13,19 @@ const SelectField = ({
     disabled = false,
     icon: Icon,    
 }) => {
-  return <div className="space-y-2">
-    <label htmlFor={id} className="blcok text-sm font-medium text-gray-700"> 
+  const { t } = useTranslation();
+
+  return (
+    <div className="space-y-2">
+      <label htmlFor={id} className="blcok text-sm font-medium text-gray-700"> 
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
-    </label>
-    <div className="relative">
+      </label>
+      <div className="relative">
         {Icon && (
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
-                <Icon className="h-5 w-5 text-gray-400" />
-            </div>
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+            <Icon className="h-5 w-5 text-gray-400" />
+          </div>
         )}
         <select
           id={id}
@@ -37,35 +41,35 @@ const SelectField = ({
         } focus:outline-none focus:ring-2 focus:ring-opacity-20 appearance-none bg-white
         `}
         >
-            <option value="" disabled>{placeholder}</option>
-            {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
+          <option value="" disabled>{placeholder}</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.labelKey)}
+            </option>
+          ))}
         </select>
         <div className="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none">
-            <svg
-                className="h-5 w-5 text-gray-400" 
-                viewBox="0 0 20 20"
-                fill="currentColor"
-            >
-                <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                />
-            </svg>
+          <svg
+            className="h-5 w-5 text-gray-400" 
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
         </div>
-    </div>
-    {error && (
+      </div>
+      {error && (
         <div className="flex items-center space-x-1 text-sm text-red-600">
-            <AlertCircle className="w-4 h-4" />
-            <span>{error}</span>
+          <AlertCircle className="w-4 h-4" />
+          <span>{error}</span>
         </div>
-    )}
-  </div>
-  
+      )}
+    </div>
+  );
 }
 
 export default SelectField
