@@ -57,10 +57,10 @@ public class JobServiceImpl implements JobService {
         }
         
         if (jobRequest.getSalaryMin() != null) {
-            job.setSalaryMin(jobRequest.getSalaryMin().intValue());
+            job.setSalaryMin(jobRequest.getSalaryMin());
         }
         if (jobRequest.getSalaryMax() != null) {
-            job.setSalaryMax(jobRequest.getSalaryMax().intValue());
+            job.setSalaryMax(jobRequest.getSalaryMax());
         }
         if (jobRequest.getActive() != null) {
             job.setClosed(!jobRequest.getActive());

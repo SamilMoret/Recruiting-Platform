@@ -1,0 +1,11 @@
+-- Criação da tabela saved_jobs
+CREATE TABLE IF NOT EXISTS saved_jobs (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  jobseeker_id BIGINT NOT NULL,
+  job_id BIGINT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (jobseeker_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE,
+  UNIQUE KEY unique_saved_job (jobseeker_id, job_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

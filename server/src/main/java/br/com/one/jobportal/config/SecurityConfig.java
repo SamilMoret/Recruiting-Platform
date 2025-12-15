@@ -33,7 +33,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/**",
-                    "/error"
+                    "/error",
+                    // Swagger UI v3 (OpenAPI)
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html"
                 ).permitAll()
                 .requestMatchers("/api/jobs/**").authenticated()
                 .anyRequest().authenticated()

@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,16 +26,41 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.Arrays;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/api/jobs")
 @RequiredArgsConstructor
 @CrossOrigin
-@Transactional(readOnly = true) // Transação somente leitura por padrão
+@Transactional(readOnly = true)
+@Tag(name = "Vagas", description = "Gerenciamento de vagas de emprego")
 public class JobController {
 
     private final JobService jobService;
 
+    @Operation(summary = "Listar vagas com filtros",
+               description = "Retorna uma lista paginada de vagas com possibilidade de filtros",
+               parameters = {
+                   @Parameter(name = "title", description = "Título da vaga (contendo o texto)", example = "desenvolvedor"),
+                   @Parameter(name = "location", description = "Localização da vaga", example = "São Paulo"),
+                   @Parameter(name = "employmentType", description = "Tipo de contrato (FULL_TIME, PART_TIME, CONTRACT, TEMPORARY, INTERNSHIP, VOLUNTEER)", example = "FULL_TIME"),
+                   @Parameter(name = "minSalary", description = "Salário mínimo", example = "3000"),
+                   @Parameter(name = "maxSalary", description = "Salário máximo", example = "10000"),
+                   @Parameter(name = "page", description = "Número da página (0-based)", example = "0"),
+                   @Parameter(name = "size", description = "Tamanho da página", example = "10"),
+                   @Parameter(name = "sort", description = "Ordenação (ex: title,asc)", example = "title,asc")
+               },
+               responses = {
+                   @ApiResponse(responseCode = "200", description = "Lista de vagas retornada com sucesso"),
+                   @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+               })
     @GetMapping
     @Transactional(readOnly = true)
     public ResponseEntity<?> getAllJobs(
@@ -50,6 +76,13 @@ public class JobController {
         }
     }
     
+    @Operation(summary = "Obter vaga por ID",
+               description = "Retorna os detalhes de uma vaga específica pelo seu ID",
+               responses = {
+                   @ApiResponse(responseCode = "200", description = "Vaga encontrada com sucesso"),
+                   @ApiResponse(responseCode = "404", description = "Vaga não encontrada"),
+                   @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+               })
     @GetMapping("/{id}")
     @Transactional(readOnly = true)
     public ResponseEntity<?> getJobById(@PathVariable Long id) {
@@ -118,218 +151,18 @@ public class JobController {
         }
     }
     
-    @GetMapping("/employment-types")
+    @Operation(summary = "Listar vagas do empregador",
+               description = "Retorna as vagas criadas pelo empregador autenticado",
+               security = @SecurityRequirement(name = "bearerAuth"),
+               responses = {
+                   @ApiResponse(responseCode = "200", description = "Lista de vagas retornada com sucesso"),
+                   @ApiResponse(responseCode = "401", description = "Não autorizado"),
+                   @ApiResponse(responseCode = "403", description = "Acesso negado")
+               })
+    @GetMapping("/employer/my-jobs")
     @Transactional(readOnly = true)
-    public ResponseEntity<?> getEmploymentTypes() {
-        try {
-            // Retorna a lista de tipos de emprego disponíveis do enum
-            List<EmploymentType> employmentTypes = List.of(EmploymentType.values());
-            
-            // Mapeia para uma lista de objetos com nome e displayName
-            List<Map<String, String>> result = employmentTypes.stream()
-                .map(type -> Map.of(
-                    "name", type.name(),
-                    "displayName", type.getDisplayName()
-                ))
-                .collect(Collectors.toList());
-                
-            return ResponseEntity.ok(result);
-            
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar tipos de emprego: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erro ao buscar tipos de emprego");
-        }
-    }
-    
-    @GetMapping("/locations")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobLocations() {
-        try {
-            // Retorna uma lista de localizações comuns
-            List<String> locations = List.of(
-                "São Paulo, SP",
-                "Rio de Janeiro, RJ",
-                "Belo Horizonte, MG",
-                "Brasília, DF",
-                "Salvador, BA",
-                "Fortaleza, CE",
-                "Curitiba, PR",
-                "Recife, PE",
-                "Porto Alegre, RS",
-                "Manaus, AM",
-                "Belém, PA",
-                "Goiânia, GO",
-                "Vitória, ES",
-                "Florianópolis, SC",
-                "Natal, RN",
-                "Aracaju, SE",
-                "João Pessoa, PB",
-                "Maceió, AL",
-                "Teresina, PI",
-                "Campo Grande, MS",
-                "Cuiabá, MT",
-                "Porto Velho, RO",
-                "Rio Branco, AC",
-                "Macapá, AP",
-                "Boa Vista, RR",
-                "Palmas, TO",
-                "Remoto",
-                "Híbrido"
-            );
-            
-            return ResponseEntity.ok(locations);
-            
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar localizações: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body("Erro ao buscar localizações");
-        }
-    }
-
-    // ===== ENDPOINTS PARA CAMPOS BÁSICOS =====
-    
-    @GetMapping("/title/{title}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByTitle(@PathVariable String title) {
-        try {
-            List<Job> jobs = jobService.getJobsByTitle(title);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por título: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/search")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> searchInDescriptionOrRequirements(@RequestParam String keyword) {
-        try {
-            List<Job> jobs = jobService.searchInDescriptionOrRequirements(keyword);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar nas descrições: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/location/{location}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByLocation(@PathVariable String location) {
-        try {
-            List<Job> jobs = jobService.getJobsByLocation(location);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por localização: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/category/{category}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByCategory(@PathVariable String category) {
-        try {
-            List<Job> jobs = jobService.getJobsByCategory(category);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por categoria: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA TIPO DE EMPREGO =====
-    
-    @GetMapping("/type/{type}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByType(@PathVariable EmploymentType type) {
-        try {
-            List<Job> jobs = jobService.getJobsByType(type);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por tipo: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA FAIXA SALARIAL =====
-    
-    @GetMapping("/salary-range")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsBySalaryRange(
-            @RequestParam(required = false) Integer min,
-            @RequestParam(required = false) Integer max) {
-        try {
-            List<Job> jobs = jobService.getJobsBySalaryRange(min, max);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por faixa salarial: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA STATUS DA VAGA =====
-    
-    @GetMapping("/status/{isClosed}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByStatus(@PathVariable boolean isClosed) {
-        try {
-            List<Job> jobs = jobService.getJobsByStatus(isClosed);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por status: " + e.getMessage());
-        }
-    }
-    
-    // O método getActiveJobs com parâmetros já cobre o caso sem parâmetros
-    
-    // ===== ENDPOINTS PARA VAGA SALVA =====
-    
-    @PostMapping("/{id}/toggle-save")
-    @Transactional
-    public ResponseEntity<?> toggleSaveJob(@PathVariable Long id, @AuthenticationPrincipal User user) {
-        try {
-            Job job = jobService.toggleSaveStatus(id, user);
-            return ResponseEntity.ok(job);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar status de salvamento: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/saved")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getSavedJobs(@AuthenticationPrincipal User user) {
-        try {
-            List<Job> jobs = jobService.getSavedJobs(user);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas salvas: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/{id}/is-saved")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> isJobSaved(@PathVariable Long id, @AuthenticationPrincipal User user) {
-        try {
-            boolean isSaved = jobService.isJobSaved(id, user);
-            return ResponseEntity.ok(Map.of("isSaved", isSaved));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao verificar se a vaga está salva: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA RELACIONAMENTO COM RECRUTADOR =====
-    
-    @GetMapping("/recruiter")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getRecruiterJobs(@AuthenticationPrincipal User recruiter) {
+    @PreAuthorize("hasRole('EMPLOYER')")
+    public ResponseEntity<?> getEmployerJobs(@AuthenticationPrincipal User recruiter) {
         try {
             if (recruiter == null) {
                 return ResponseEntity.status(401).body("Usuário não autenticado");
@@ -337,142 +170,44 @@ public class JobController {
 
             List<Job> jobs = jobService.getJobsByRecruiter(recruiter);
             return ResponseEntity.ok(jobs);
-            } catch (EntityNotFoundException e) {
-                return ResponseEntity.status(404).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas do recrutador: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA STATUS DA CANDIDATURA =====
-    
-    @PutMapping("/{id}/application-status")
-    @Transactional
-    public ResponseEntity<?> updateApplicationStatus(
-            @PathVariable Long id,
-            @RequestParam String status,
-            @AuthenticationPrincipal User user) {
-        try {
-            Job job = jobService.updateApplicationStatus(id, status, user);
-            return ResponseEntity.ok(job);
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (AccessDeniedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            return ResponseEntity.status(404).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar status da candidatura: " + e.getMessage());
+                    .body("Erro ao buscar vagas do empregador: " + e.getMessage());
         }
     }
     
-    @GetMapping("/application-status/{status}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByApplicationStatus(@PathVariable String status) {
-        try {
-            List<Job> jobs = jobService.getJobsByApplicationStatus(status);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por status de candidatura: " + e.getMessage());
+    @Operation(summary = "Criar nova vaga",
+               description = "Cria uma nova vaga de emprego (apenas para empregadores)",
+               security = @SecurityRequirement(name = "bearerAuth"),
+               responses = {
+                   @ApiResponse(responseCode = "201", description = "Vaga criada com sucesso"),
+                   @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+                   @ApiResponse(responseCode = "401", description = "Não autorizado"),
+                   @ApiResponse(responseCode = "403", description = "Acesso negado")
+               })
+    private Job convertToEntity(JobRequest jobRequest) {
+        if (jobRequest == null) {
+            return null;
         }
+        
+        Job job = new Job();
+        job.setTitle(jobRequest.getTitle());
+        job.setDescription(jobRequest.getDescription());
+        job.setRequirements(jobRequest.getRequirements());
+        job.setLocation(jobRequest.getLocation());
+        job.setType(jobRequest.getEmploymentType());
+        job.setSalaryMin(jobRequest.getSalaryMin());
+        job.setSalaryMax(jobRequest.getSalaryMax());
+        job.setClosed(jobRequest.getActive() != null ? !jobRequest.getActive() : false);
+        
+        return job;
     }
     
-    @GetMapping("/recruiter/{recruiterId}/application-status/{status}")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsByApplicationStatusAndRecruiter(
-            @PathVariable Long recruiterId,
-            @PathVariable String status) {
-        try {
-            User recruiter = new User();
-            recruiter.setId(recruiterId);
-            List<Job> jobs = jobService.getJobsByApplicationStatusAndRecruiter(status, recruiter);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas por status e recrutador: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA CONTAGEM DE CANDIDATURAS =====
-    
-    @PostMapping("/{id}/increment-application")
-    @Transactional
-    public ResponseEntity<?> incrementApplicationCount(@PathVariable Long id) {
-        try {
-            jobService.incrementApplicationCount(id);
-            return ResponseEntity.ok().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao incrementar contador de candidaturas: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/most-applied")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getMostAppliedJobs() {
-        try {
-            List<Job> jobs = jobService.getMostAppliedJobs();
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas mais candidatadas: " + e.getMessage());
-        }
-    }
-    
-    // ===== ENDPOINTS PARA AUDITORIA =====
-    
-    @GetMapping("/created-after")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsCreatedAfter(@RequestParam String date) {
-        try {
-            LocalDateTime dateTime = LocalDateTime.parse(date);
-            List<Job> jobs = jobService.getJobsCreatedAfter(dateTime);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas criadas após a data: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("/updated-after")
-    @Transactional(readOnly = true)
-    public ResponseEntity<?> getJobsUpdatedAfter(@RequestParam String date) {
-        try {
-            LocalDateTime dateTime = LocalDateTime.parse(date);
-            List<Job> jobs = jobService.getJobsUpdatedAfter(dateTime);
-            return ResponseEntity.ok(jobs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao buscar vagas atualizadas após a data: " + e.getMessage());
-        }
-    }
-    
-    // ===== MÉTODOS DE ATUALIZAÇÃO =====
-    
-    @PutMapping("/{id}/status")
-    @Transactional
-    public ResponseEntity<?> updateJobStatus(
-            @PathVariable Long id,
-            @RequestParam boolean active,
-            @AuthenticationPrincipal User user) {
-        try {
-            Job job = jobService.updateJobStatus(id, user, active);
-            return ResponseEntity.ok(job);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (AccessDeniedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao atualizar status da vaga: " + e.getMessage());
-        }
-    }
-
     @PostMapping
     @Transactional(rollbackFor = Exception.class)
+    @PreAuthorize("hasRole('EMPLOYER')")
     public ResponseEntity<?> createJob(@Valid @RequestBody JobRequest jobRequest, @AuthenticationPrincipal User recruiter) {
         if (recruiter == null) {
             return ResponseEntity.status(401).body("Usuário não autenticado");
@@ -497,34 +232,19 @@ public class JobController {
         }
     }
     
-    private Job convertToEntity(JobRequest jobRequest) {
-        Job job = new Job();
-        job.setTitle(jobRequest.getTitle());
-        job.setDescription(jobRequest.getDescription());
-        job.setRequirements(jobRequest.getRequirements());
-        job.setLocation(jobRequest.getLocation());
-        
-        // Handle employmentType conversion safely
-        if (jobRequest.getEmploymentType() != null) {
-            try {
-                job.setType(jobRequest.getEmploymentType());
-            } catch (IllegalArgumentException e) {
-                // If the value is not a valid enum constant, log a warning and set a default value
-                job.setType(EmploymentType.FULL_TIME);
-            }
-        } else {
-            // Set a default value if employmentType is null
-            job.setType(EmploymentType.FULL_TIME);
-        }
-        
-        job.setSalaryMin(jobRequest.getSalaryMin() != null ? jobRequest.getSalaryMin().intValue() : null);
-        job.setSalaryMax(jobRequest.getSalaryMax() != null ? jobRequest.getSalaryMax().intValue() : null);
-        job.setClosed(!Boolean.TRUE.equals(jobRequest.getActive()));
-        return job;
-    }
-
+    @Operation(summary = "Atualizar vaga",
+               description = "Atualiza os dados de uma vaga existente (apenas o criador da vaga pode atualizar)",
+               security = @SecurityRequirement(name = "bearerAuth"),
+               responses = {
+                   @ApiResponse(responseCode = "200", description = "Vaga atualizada com sucesso"),
+                   @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+                   @ApiResponse(responseCode = "401", description = "Não autorizado"),
+                   @ApiResponse(responseCode = "403", description = "Acesso negado"),
+                   @ApiResponse(responseCode = "404", description = "Vaga não encontrada")
+               })
     @PutMapping("/{id}")
     @Transactional(rollbackFor = Exception.class)
+    @PreAuthorize("hasRole('EMPLOYER')")
     public ResponseEntity<?> updateJob(@PathVariable Long id, @Valid @RequestBody JobRequest jobRequest,
                                      @AuthenticationPrincipal User recruiter) {
         try {
@@ -557,8 +277,18 @@ public class JobController {
         }
     }
 
+    @Operation(summary = "Excluir vaga",
+               description = "Remove uma vaga do sistema (apenas o criador da vaga pode excluir)",
+               security = @SecurityRequirement(name = "bearerAuth"),
+               responses = {
+                   @ApiResponse(responseCode = "204", description = "Vaga excluída com sucesso"),
+                   @ApiResponse(responseCode = "401", description = "Não autorizado"),
+                   @ApiResponse(responseCode = "403", description = "Acesso negado"),
+                   @ApiResponse(responseCode = "404", description = "Vaga não encontrada")
+               })
     @DeleteMapping("/{id}")
     @Transactional(rollbackFor = Exception.class)
+    @PreAuthorize("hasRole('EMPLOYER')")
     public ResponseEntity<?> deleteJob(@PathVariable Long id, @AuthenticationPrincipal User recruiter) {
         try {
             if (recruiter == null) {

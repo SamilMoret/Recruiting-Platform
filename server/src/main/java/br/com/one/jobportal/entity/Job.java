@@ -55,10 +55,10 @@ public class Job {
     private EmploymentType type = EmploymentType.FULL_TIME;
 
     @Column(name = "salary_min")
-    private Integer salaryMin;
+    private Double salaryMin;
 
     @Column(name = "salary_max")
-    private Integer salaryMax;
+    private Double salaryMax;
 
     @Column(name = "is_closed", nullable = false)
     private boolean isClosed = false;

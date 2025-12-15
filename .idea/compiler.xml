@@ -21,7 +21,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Recruiting-Platform" options="-parameters" />
+      <module name="Recruiting-Platform" options="-parameters --enable-preview -Xlint:preview" />
     </option>
   </component>
 </project>
