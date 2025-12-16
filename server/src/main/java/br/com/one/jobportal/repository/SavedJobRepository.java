@@ -45,4 +45,11 @@ public interface SavedJobRepository extends JpaRepository<SavedJob, Long> {
     // Verifica se um usuário tem permissão para acessar/modificar uma vaga salva
     @Query("SELECT CASE WHEN COUNT(sj) > 0 THEN true ELSE false END FROM SavedJob sj WHERE sj.id = :savedJobId AND sj.jobSeeker.id = :userId")
     boolean existsByIdAndJobSeekerId(@Param("savedJobId") Long savedJobId, @Param("userId") Long userId);
+    
+    // Obtiene los trabajos guardados por ID de candidato con la información del trabajo y del reclutador
+    @Query("SELECT sj FROM SavedJob sj " +
+           "JOIN FETCH sj.job j " +
+           "JOIN FETCH j.recruiter r " +
+           "WHERE sj.jobSeeker.id = :jobSeekerId")
+    Page<SavedJob> findByJobSeekerIdWithJobAndRecruiter(@Param("jobSeekerId") Long jobSeekerId, Pageable pageable);
 }

@@ -36,6 +36,7 @@ public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificatio
     // 4. Status da vaga
     List<Job> findByIsClosed(boolean isClosed);
     List<Job> findByIsClosedFalse(); // Método de conveniência
+    long countByIsClosed(boolean isClosed);
     
     // 5. Vaga salva
     @Modifying

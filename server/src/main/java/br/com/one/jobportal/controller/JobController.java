@@ -200,7 +200,7 @@ public class JobController {
         job.setType(jobRequest.getEmploymentType());
         job.setSalaryMin(jobRequest.getSalaryMin());
         job.setSalaryMax(jobRequest.getSalaryMax());
-        job.setClosed(jobRequest.getActive() != null ? !jobRequest.getActive() : false);
+        job.setIsClosed(jobRequest.getActive() != null ? !jobRequest.getActive() : false);
         
         return job;
     }
@@ -219,7 +219,8 @@ public class JobController {
 
         try {
             Job job = convertToEntity(jobRequest);
-            Job createdJob = jobService.createJob(job, recruiter.getEmail());
+            job.setRecruiter(recruiter);
+            Job createdJob = jobService.saveJob(job);
             return ResponseEntity.status(201).body(createdJob);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -257,7 +258,18 @@ public class JobController {
             }
 
             try {
-                Job updatedJob = jobService.updateJob(id, jobRequest, recruiter);
+                // Convertir JobRequest a Job
+                Job job = new Job();
+                job.setTitle(jobRequest.getTitle());
+                job.setDescription(jobRequest.getDescription());
+                job.setRequirements(jobRequest.getRequirements());
+                job.setLocation(jobRequest.getLocation());
+                job.setType(jobRequest.getEmploymentType());
+                job.setSalaryMin(jobRequest.getSalaryMin());
+                job.setSalaryMax(jobRequest.getSalaryMax());
+                job.setIsClosed(!jobRequest.getActive());
+                
+                Job updatedJob = jobService.updateJob(id, job, recruiter);
                 return ResponseEntity.ok(updatedJob);
             } catch (EntityNotFoundException e) {
                 return ResponseEntity.status(404).body(e.getMessage());
@@ -326,9 +338,13 @@ public class JobController {
             }
 
             try {
-                // Usando o método updateJobStatus que aceita os parâmetros corretos
-                Job job = jobService.updateJobStatus(id, recruiter, active);
-                return ResponseEntity.ok(job);
+                // Get the existing job
+                Job job = jobService.getJobById(id);
+                // Update the isClosed status (inverse of active)
+                job.setIsClosed(!active);
+                // Save the updated job
+                Job updatedJob = jobService.saveJob(job);
+                return ResponseEntity.ok(updatedJob);
             } catch (EntityNotFoundException e) {
                 return ResponseEntity.status(404).body(e.getMessage());
             } catch (SecurityException e) {

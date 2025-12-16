@@ -2,6 +2,7 @@ package br.com.one.jobportal.controller;
 
 import br.com.one.jobportal.dto.LoginRequest;
 import br.com.one.jobportal.dto.RegisterRequest;
+import br.com.one.jobportal.repository.UserRepository;
 import br.com.one.jobportal.security.JwtService;
 import br.com.one.jobportal.service.AuthService;
 import jakarta.validation.Valid;
@@ -32,6 +33,7 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final AuthService authService;
+    private final UserRepository userRepository;
 
     @Operation(summary = "Autenticar usuário", 
                description = "Realiza o login de um usuário e retorna um token JWT para autenticação",

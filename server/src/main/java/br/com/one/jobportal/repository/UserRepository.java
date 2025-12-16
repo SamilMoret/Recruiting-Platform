@@ -1,6 +1,8 @@
 package br.com.one.jobportal.repository;
 
 import br.com.one.jobportal.entity.User;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +21,9 @@ public interface UserRepository extends JpaRepository<User, Long>, CustomUserRep
     // Busca usuários por papel (role)
     List<User> findByRole(User.Role role);
     
+    // Busca usuários por papel com paginação
+    Page<User> findByRole(User.Role role, Pageable pageable);
+    
     // Busca apenas usuários ativos
     List<User> findByActiveTrue();
     
@@ -26,8 +31,15 @@ public interface UserRepository extends JpaRepository<User, Long>, CustomUserRep
     @Query("SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<User> findByNameContainingIgnoreCase(@Param("name") String name);
     
+    // Busca usuários por nome (case-insensitive e parcial) com paginação
+    @Query("SELECT u FROM User u WHERE LOWER(u.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    Page<User> findByNameContainingIgnoreCase(@Param("name") String name, Pageable pageable);
+    
     // Busca usuários por papel e status de ativação
     List<User> findByRoleAndActive(User.Role role, boolean active);
+    
+    // Busca usuários por papel e status de ativação com paginação
+    Page<User> findByRoleAndActive(User.Role role, boolean active, Pageable pageable);
     
     // Conta usuários por papel
     Long countByRole(User.Role role);
@@ -43,4 +55,13 @@ public interface UserRepository extends JpaRepository<User, Long>, CustomUserRep
     // Busca usuário com suas vagas salvas (para carregamento antecipado)
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.savedJobs WHERE u.id = :id")
     Optional<User> findByIdWithSavedJobs(@Param("id") Long id);
+
+    // Métodos para Admin com paginação
+    Page<User> findByActive(Boolean active, Pageable pageable);
+    Long countByActive(Boolean active);
+    Long countByRoleAndActive(User.Role role, boolean active);
+
+    // Método antigo mantido para compatibilidade
+    @Deprecated
+    List<User> findByActive(Boolean active);
 }

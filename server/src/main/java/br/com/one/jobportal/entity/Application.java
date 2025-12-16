@@ -23,15 +23,15 @@ public class Application {
     private String coverLetter;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('Applied', 'In Review', 'Rejected', 'Accepted') DEFAULT 'Applied'")
-    private Status status = Status.APPLIED;
+    @Column(columnDefinition = "ENUM('PENDING', 'APPROVED', 'REJECTED') DEFAULT 'PENDING'")
+    private Status status = Status.PENDING;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "applicant_id", nullable = false)
+    @JoinColumn(name = "candidate_id", nullable = false)
     private User applicant;
 
     @CreationTimestamp
@@ -43,10 +43,9 @@ public class Application {
     private LocalDateTime updatedAt;
 
     public enum Status {
-        APPLIED("Applied"),
-        IN_REVIEW("In Review"),
-        REJECTED("Rejected"),
-        ACCEPTED("Accepted");
+        PENDING("Pending"),
+        APPROVED("Approved"),
+        REJECTED("Rejected");
 
         private final String displayName;
 
